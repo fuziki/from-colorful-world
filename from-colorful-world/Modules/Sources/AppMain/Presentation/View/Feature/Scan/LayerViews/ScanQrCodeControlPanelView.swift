@@ -11,6 +11,8 @@ import SwiftUI
 
 struct ScanQrCodeControlPanelView: View {
     let flip: PassthroughSubject<Void, Never>
+    let onComplete: PassthroughSubject<Void, Never>
+    let showCurrentResult: PassthroughSubject<Void, Never>
     var body: some View {
         ZStack {
             scaned
@@ -53,17 +55,22 @@ struct ScanQrCodeControlPanelView: View {
     }
     
     private var close: some View {
-        Image(systemName: "xmark")
-            .font(.system(size: 32, weight: .medium, design: .default))
-            .foregroundColor(.blue)
-            .padding(.horizontal, 4)
-            .shadow(radius: 3)
-            .shadow(color: .white, radius: 3, x: 0.0, y: 0.0)
+        Button(action: {
+            onComplete.send(())
+        }, label: {
+            Image(systemName: "xmark")
+                .font(.system(size: 32, weight: .medium, design: .default))
+                .foregroundColor(.blue)
+                .padding(.horizontal, 4)
+                .shadow(radius: 3)
+                .shadow(color: .white, radius: 3, x: 0.0, y: 0.0)
+        })
     }
     
     private var currentResult: some View {
         Button(action: {
-            print("flip")
+            print("result")
+            showCurrentResult.send(())
         }, label: {
             Text("現在の結果")
                 .font(.system(size: 16))
@@ -83,7 +90,9 @@ struct ScanQrCodeControlPanelView_Previews: PreviewProvider {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.red)
                 .ignoresSafeArea()
-            ScanQrCodeControlPanelView(flip: PassthroughSubject<Void, Never>())
+            ScanQrCodeControlPanelView(flip: PassthroughSubject<Void, Never>(),
+                                       onComplete: PassthroughSubject<Void, Never>(),
+                                       showCurrentResult: PassthroughSubject<Void, Never>())
         }
     }
 }
