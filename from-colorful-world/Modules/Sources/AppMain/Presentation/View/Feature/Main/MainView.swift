@@ -9,26 +9,34 @@ import Foundation
 import SwiftUI
 
 public struct MainView: View {
+    @State var scanning: Bool = false
+    
     public init() {
         
     }
     
     public var body: some View {
-        NavigationView {
-            Form {
-                scanSection
-                qrcodeSection
-                miscSection
+        ZStack {
+            NavigationView {
+                Form {
+                    scanSection
+                    qrcodeSection
+                    miscSection
+                }
+                .navigationBarTitle(Text("ホーム"), displayMode: .large)
             }
-            .navigationBarTitle(Text("ホーム"), displayMode: .large)
+            .navigationViewStyle(StackNavigationViewStyle())
+            if scanning {
+                ScanQrCodeView()
+            }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private var scanSection: some View {
         Section(header: Text("スキャン")) {
             Button(action: {
                 print("act!")
+                scanning = true
             }, label: {
                 NavigationLink(destination: EmptyView(), isActive: .constant(false)) {
                     HStack {

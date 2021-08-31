@@ -76,7 +76,9 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         }
         let docPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let dir = docPath
+            // FIXME: ハードコーディング
             .appendingPathComponent("2次元コード", isDirectory: true)
+        // TODO: Mock
         try! FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
         let file = dir
             .appendingPathComponent("\(title)", conformingTo: .pdf)
