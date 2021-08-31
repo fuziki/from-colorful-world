@@ -5,11 +5,12 @@
 //  Created by fuziki on 2021/08/28.
 //
 
+import Combine
 import Foundation
 import SwiftUI
 
 public struct MainView: View {
-    @State var scanning: Bool = false
+    @ObservedObject private var viewModel = MainViewModel()
     
     public init() {
         
@@ -26,8 +27,8 @@ public struct MainView: View {
                 .navigationBarTitle(Text("ホーム"), displayMode: .large)
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            if scanning {
-                ScanQrCodeView()
+            if viewModel.scanning {
+                ScanQrCodeView(onComplete: viewModel.onComplete)
             }
         }
     }
@@ -36,7 +37,7 @@ public struct MainView: View {
         Section(header: Text("スキャン")) {
             Button(action: {
                 print("act!")
-                scanning = true
+                viewModel.startScan()
             }, label: {
                 NavigationLink(destination: EmptyView(), isActive: .constant(false)) {
                     HStack {
