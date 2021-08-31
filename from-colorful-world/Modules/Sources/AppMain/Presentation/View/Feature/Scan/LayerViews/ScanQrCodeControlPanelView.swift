@@ -51,7 +51,7 @@ struct ScanQrCodeControlPanelView: View {
         })
         .overlay(Capsule().stroke(lineWidth: 1))
         .background(Capsule().fill(Color.white))
-        .foregroundColor(.blue)
+        .foregroundColor(.black)
     }
     
     private var close: some View {
@@ -60,7 +60,7 @@ struct ScanQrCodeControlPanelView: View {
         }, label: {
             Image(systemName: "xmark")
                 .font(.system(size: 32, weight: .medium, design: .default))
-                .foregroundColor(.blue)
+                .foregroundColor(.black)
                 .padding(.horizontal, 4)
                 .shadow(radius: 3)
                 .shadow(color: .white, radius: 3, x: 0.0, y: 0.0)
@@ -79,7 +79,7 @@ struct ScanQrCodeControlPanelView: View {
         })
         .overlay(Capsule().stroke(lineWidth: 1))
         .background(Capsule().fill(Color.white))
-        .foregroundColor(.blue)
+        .foregroundColor(.black)
     }
 }
 
