@@ -15,6 +15,7 @@ protocol ScanQrCodeViewModelInputs {
 }
 protocol ScanQrCodeViewModelOutputs {
     var flipCamera: AnyPublisher<Void, Never> { get }
+    var scanedConsoleText: AnyPublisher<String, Never> { get }
     var currentResults: AnyPublisher<CurrentResultsEntity, Never> { get }
     var showCurrentResults: AnyPublisher<Void, Never> { get }
 }
@@ -40,7 +41,14 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         return onTapFlipCamera.eraseToAnyPublisher()
     }
     
-    private let currentResultsSubject = CurrentValueSubject<CurrentResultsEntity, Never>(.init(title: "init"))
+    private let latestDetected = CurrentValueSubject<[String], Never>([])
+    public var scanedConsoleText: AnyPublisher<String, Never> {
+        return latestDetected
+            .map { $0.joined(separator: "\n") }
+            .eraseToAnyPublisher()
+    }
+    
+    private let currentResultsSubject = CurrentValueSubject<CurrentResultsEntity, Never>(.default)
     public var currentResults: AnyPublisher<CurrentResultsEntity, Never> {
         return currentResultsSubject.eraseToAnyPublisher()
     }
@@ -49,7 +57,50 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         return onTapShowCurrentResult.eraseToAnyPublisher()
     }
     
+    private var detectedDics: [String: [Int: Bool]] = [:]
+    
     private var cancellables: Set<AnyCancellable> = []
     init() {
+        onDetected.sink { [weak self] (detected: String) in
+            self?.detected(text: detected)
+        }.store(in: &cancellables)
+    }
+    private func detected(text: String) {
+        let indexStr = text.suffix(2)
+        guard let index = Int(indexStr) else { return }
+        
+        let title = String(text.prefix(text.count - 2))
+        
+        var isNew: Bool = false
+        
+        var current: [Int: Bool]? = detectedDics[title]
+        if current == nil {
+            isNew = true
+            current = [:]
+        }
+        if current?[index] == nil {
+            isNew = true
+        }
+        current?[index] = true
+
+        if !isNew { return }
+        
+        detectedDics[title] = current
+        
+        let columns = detectedDics.map { (title: String, ok: [Int : Bool]) -> CurrentResultsColumn in
+            let column = CurrentResultsColumn(title: title,
+                                              ok: (1...40).map { ok[$0] ?? false } )
+            return column
+        }
+
+        let entity = CurrentResultsEntity(columns: columns)
+        currentResultsSubject.send(entity)
+        
+        var latest = latestDetected.value
+        latest.append(text)
+        while latest.count > 10 {
+            latest.removeFirst()
+        }
+        latestDetected.send(latest)
     }
 }

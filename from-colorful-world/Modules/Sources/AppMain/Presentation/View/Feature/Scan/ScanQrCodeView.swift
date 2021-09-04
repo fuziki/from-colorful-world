@@ -26,7 +26,8 @@ struct ScanQrCodeView: View {
                 .ignoresSafeArea()
             ScanQrCodeControlPanelView(flip: viewModel.inputs.onTapFlipCamera,
                                        onComplete: onComplete,
-                                       showCurrentResult: viewModel.inputs.onTapShowCurrentResult)
+                                       showCurrentResult: viewModel.inputs.onTapShowCurrentResult,
+                                       scanedConsoleText: viewModel.outputs.scanedConsoleText)
             CurrentResultsRootView(currentResults: viewModel.outputs.currentResults,
                                    showCurrentResults: viewModel.outputs.showCurrentResults)
         }

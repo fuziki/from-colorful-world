@@ -13,6 +13,7 @@ struct ScanQrCodeControlPanelView: View {
     let flip: PassthroughSubject<Void, Never>
     let onComplete: PassthroughSubject<Void, Never>
     let showCurrentResult: PassthroughSubject<Void, Never>
+    let scanedConsoleText: AnyPublisher<String, Never>
     var body: some View {
         ZStack {
             scaned
@@ -31,7 +32,7 @@ struct ScanQrCodeControlPanelView: View {
     }
     
     private var scaned: some View {
-        Text("こくごノート001\nこくごノート001\nこくごノート001\nこく\nごノート0sss01こくごノート001")
+        ScanedConsoleTextView(textPublisher: scanedConsoleText)
             .font(.system(size: 14))
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
@@ -83,6 +84,26 @@ struct ScanQrCodeControlPanelView: View {
     }
 }
 
+struct ScanedConsoleTextView: View {
+    @ObservedObject private var viewModel: ScanedConsoleTextViewModel
+    init(textPublisher: AnyPublisher<String, Never>) {
+        viewModel = ScanedConsoleTextViewModel(textPublisher: textPublisher)
+    }
+    var body: some View {
+        Text(viewModel.text)
+    }
+}
+
+class ScanedConsoleTextViewModel: ObservableObject {
+    @Published var text: String = ""
+    private var cancellables: Set<AnyCancellable> = []
+    init(textPublisher: AnyPublisher<String, Never>) {
+        textPublisher.sink { [weak self] (text: String) in
+            self?.text = text
+        }.store(in: &cancellables)
+    }
+}
+
 struct ScanQrCodeControlPanelView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
@@ -92,7 +113,8 @@ struct ScanQrCodeControlPanelView_Previews: PreviewProvider {
                 .ignoresSafeArea()
             ScanQrCodeControlPanelView(flip: PassthroughSubject<Void, Never>(),
                                        onComplete: PassthroughSubject<Void, Never>(),
-                                       showCurrentResult: PassthroughSubject<Void, Never>())
+                                       showCurrentResult: PassthroughSubject<Void, Never>(),
+                                       scanedConsoleText: Just<String>("Hello\nworld").eraseToAnyPublisher())
         }
     }
 }

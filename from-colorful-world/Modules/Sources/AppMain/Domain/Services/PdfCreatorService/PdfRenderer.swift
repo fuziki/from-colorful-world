@@ -75,7 +75,7 @@ class PdfRenderer {
                     let titleY = itemY + qrSize + CGFloat(entity.qrTitleSpacerPx)
                     
                     let index = page * entity.horizontallyDivided * entity.verticallyDivided + i * entity.verticallyDivided + j + 1
-                    let text = "\(title) - \(index)" as NSString
+                    let text = "\(title)\(String(format: "%02d", index))" as NSString
                     
                     let ci: CIImage = makeQRCode(message: text as String, size: qrSize)!
                     let cgImage = cicontext.createCGImage(ci, from: ci.extent)!
