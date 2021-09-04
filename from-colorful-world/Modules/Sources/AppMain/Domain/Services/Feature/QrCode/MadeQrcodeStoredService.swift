@@ -31,7 +31,7 @@ class DefaultMadeQrcodeStoredService: MadeQrcodeStoredService {
 
 extension Array where Element: Equatable {
     mutating func removeAll(value: Element) {
-        while let i = self.index(of: value) {
+        while let i = self.firstIndex(of: value) {
             self.remove(at: i)
         }
     }
