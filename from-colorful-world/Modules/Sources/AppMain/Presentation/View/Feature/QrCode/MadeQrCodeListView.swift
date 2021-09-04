@@ -9,24 +9,19 @@ import Foundation
 import SwiftUI
 
 struct MadeQrCodeListView: View {
+    let store: MadeQrcodeStoredService
     var body: some View {
         Form {
-            NavigationLink(destination: PrintQrCodeView(title: "こくごノート")) {
-                Text("こくごノート")
+            if store.list.count > 0 {
+                ForEach(store.list.reversed(), id: \.self) { (title) in
+                    NavigationLink(destination: PrintQrCodeView(title: title)) {
+                        Text(title)
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                Text("作成された２次元コードはありません")
             }
-            .buttonStyle(PlainButtonStyle())
-            NavigationLink(destination: PrintQrCodeView(title: "さんすうノート")) {
-                Text("さんすうノート")
-            }
-            .buttonStyle(PlainButtonStyle())
-            NavigationLink(destination: PrintQrCodeView(title: "れんらくちょう")) {
-                Text("れんらくちょう")
-            }
-            .buttonStyle(PlainButtonStyle())
-            NavigationLink(destination: PrintQrCodeView(title: "ずがこうさくノート")) {
-                Text("ずがこうさくノート")
-            }
-            .buttonStyle(PlainButtonStyle())
         }
         .navigationBarTitle(Text("作成履歴"), displayMode: .inline)
     }

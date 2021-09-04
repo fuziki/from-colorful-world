@@ -10,8 +10,10 @@ import SwiftUI
 
 struct MakeNewQrCodeView: View {
     @State var text: String = ""
-    
     @State var isActive: Bool = false
+    
+    private let store: MadeQrcodeStoredService = DefaultMadeQrcodeStoredService()
+    
     var body: some View {
         VStack {
             form
@@ -48,6 +50,7 @@ struct MakeNewQrCodeView: View {
             print("make!")
             if text.count == 0 { return }
             isActive = true
+            store.store(title: text)
         }, label: {
             HStack {
                 Spacer()

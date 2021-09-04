@@ -59,7 +59,7 @@ public struct MainView: View {
                     Text("新しい2次元コードを作る")
                 }
             }
-            NavigationLink(destination: MadeQrCodeListView()) {
+            NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
                 HStack {
                     Image(systemName: "list.dash")
                     Text("コードの作成履歴を確認する")
