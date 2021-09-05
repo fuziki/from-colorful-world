@@ -60,6 +60,15 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         let vc = UIActivityViewController(activityItems: activityItems,
                                           applicationActivities: nil)
         let rootVC = UIApplication.shared.windows.first!.rootViewController!
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            vc.popoverPresentationController?.sourceView = rootVC.view
+            vc.popoverPresentationController?.sourceRect = CGRect(x: rootVC.view.frame.width / 2,
+                                                                  y: 128,
+                                                                  width: 1,
+                                                                  height: 1)
+        }
+        
         DispatchQueue.main.async {
             rootVC.present(vc, animated: true, completion: nil)
         }
