@@ -20,7 +20,7 @@ struct MadeQrCodeListView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
-                Text("作成された２次元コードはありません")
+                Text("作成された2次元コードはありません")
             }
         }
         .navigationBarTitle(Text("作成履歴"), displayMode: .inline)

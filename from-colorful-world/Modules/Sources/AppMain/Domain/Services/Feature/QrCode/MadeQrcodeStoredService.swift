@@ -22,7 +22,8 @@ class DefaultMadeQrcodeStoredService: MadeQrcodeStoredService {
         var current: [String] = userDefaults.fetch(key: key, type: [String].self) ?? []
         current.removeAll(value: title)
         current.append(title)
-        while current.count > 128 {
+        // TODO: 設定に
+        while current.count > 100 {
             current.removeFirst()
         }
         userDefaults.store(key: key, value: current)

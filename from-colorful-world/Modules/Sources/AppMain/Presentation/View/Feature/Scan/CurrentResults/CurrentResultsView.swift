@@ -75,10 +75,10 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
     
     private func makeOkView(index: Int, fontSize: CGFloat, ok: Bool) -> some View {
         return  Text(ok ? "OK!" : "\(index)")
-            .foregroundColor(ok ? .blue.opacity(0.7) : .black)
+            .foregroundColor(ok ? .blue.opacity(0.7) : .primary)
             .font(.system(size: fontSize))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(index%2==0 ? Color.clear : Color.systemGroupedBackground)
+            .background(index%2==0 ? Color.secondarySystemGroupedBackground : Color.systemGroupedBackground)
     }
     
     private func makeGridItems(size: CGFloat) -> [GridItem] {

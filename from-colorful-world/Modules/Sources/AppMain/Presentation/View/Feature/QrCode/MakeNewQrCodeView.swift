@@ -33,7 +33,7 @@ struct MakeNewQrCodeView: View {
     private var form: some View {
         Form {
             Section(header: Text("新しい2次元コード名を入力"),
-                    footer: Text("2次元コード名は20文字まで入力する事が可能です")) {
+                    footer: Text("2次元コード名は1〜20文字で入力してください")) {
                 TextField("ここをタップして入力", text: $text)
             }
             Section {

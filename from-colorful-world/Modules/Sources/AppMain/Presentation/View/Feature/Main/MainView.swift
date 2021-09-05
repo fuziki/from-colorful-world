@@ -31,6 +31,15 @@ public struct MainView: View {
                 ScanQrCodeView(onComplete: viewModel.onComplete)
             }
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("カメラの使用を許可してください"),
+                  primaryButton: .default(Text("設定アプリを開く"), action: {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                  }),
+                  secondaryButton: .cancel(Text("キャンセル")))
+        }
     }
     
     private var scanSection: some View {
@@ -62,7 +71,7 @@ public struct MainView: View {
             NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
                 HStack {
                     Image(systemName: "list.dash")
-                    Text("コードの作成履歴を確認する")
+                    Text("コードの作成履歴")
                 }
             }
         }

@@ -30,7 +30,7 @@ struct FormLikeButton: View {
                 }
                 .frame(height: 45)
                 .frame(maxWidth: .infinity)
-                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .background(Color.secondarySystemGroupedBackground)
                 .cornerRadius(10)
             })
             Text(footer)
