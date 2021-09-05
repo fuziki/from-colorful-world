@@ -19,12 +19,15 @@ public struct MainView: View {
     public var body: some View {
         ZStack {
             NavigationView {
-                Form {
-                    scanSection
-                    qrcodeSection
-                    miscSection
+                ZStack {
+                    Form {
+                        scanSection
+                        qrcodeSection
+                        miscSection
+                    }
+                    .navigationBarTitle(Text("ホーム"), displayMode: .large)
+                    versionLabel
                 }
-                .navigationBarTitle(Text("ホーム"), displayMode: .large)
             }
             .navigationViewStyle(StackNavigationViewStyle())
             if viewModel.scanning {
@@ -40,6 +43,16 @@ public struct MainView: View {
                   }),
                   secondaryButton: .cancel(Text("キャンセル")))
         }
+    }
+    
+    private var versionLabel: some View {
+        let appnem = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+        let versin = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        return Text("\(appnem ?? "app") : \(versin ?? "versin")(\(build ?? "build"))")
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .font(.system(size: 14))
+            .foregroundColor(.secondary)
     }
     
     private var scanSection: some View {
