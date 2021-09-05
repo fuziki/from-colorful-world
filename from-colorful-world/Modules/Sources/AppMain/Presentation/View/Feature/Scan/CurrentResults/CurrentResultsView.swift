@@ -26,7 +26,8 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
     @ObservedObject private var viewModel: ViewModelType
 
     init(currentResults: AnyPublisher<CurrentResultsEntity, Never>) where ViewModelType==CurrentResultsViewModel{
-        self.init(viewModel: CurrentResultsViewModel(currentResults: currentResults))
+        self.init(viewModel: CurrentResultsViewModel(currentResults: currentResults,
+                                                     settingService: DefaultSettingService()))
     }
     init(viewModel: ViewModelType) {
         self.viewModel = viewModel
