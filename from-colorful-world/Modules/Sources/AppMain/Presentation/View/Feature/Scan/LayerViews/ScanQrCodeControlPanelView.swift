@@ -73,7 +73,7 @@ struct ScanQrCodeControlPanelView: View {
             print("result")
             showCurrentResult.send(())
         }, label: {
-            Text("現在の結果")
+            Text("結果を見る")
                 .font(.system(size: 16))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
