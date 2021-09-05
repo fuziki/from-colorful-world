@@ -68,24 +68,33 @@ public struct MainView: View {
                     Text("新しい2次元コードを作る")
                 }
             }
-            NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
-                HStack {
-                    Image(systemName: "clock.arrow.circlepath")
-                    Text("コードの作成履歴")
-                }
-            }
+//            NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
+//                HStack {
+//                    Image(systemName: "clock.arrow.circlepath")
+//                    Text("コードの作成履歴")
+//                }
+//            }
         }
     }
     
     private var miscSection: some View {
         Section(header: Text("その他"),
                 footer:  Text("使い方を見るためにはインターネット接続が必要です")) {
-            NavigationLink(destination: UsageView()) {
-                HStack {
-                    Image(systemName: "info.circle")
-                    Text("使い方を見る")
+            Button {
+                let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
                 }
+            } label: {
+                NavigationLink(destination: EmptyView()) {
+                    HStack {
+                        Image(systemName: "info.circle")
+                        Text("使い方を見る")
+                    }
+                }
+                .contentShape(Rectangle())
             }
+            .buttonStyle(PlainButtonStyle())
         }
     }
 }
