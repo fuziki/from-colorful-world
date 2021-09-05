@@ -70,7 +70,7 @@ public struct MainView: View {
             }
             NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
                 HStack {
-                    Image(systemName: "list.dash")
+                    Image(systemName: "clock.arrow.circlepath")
                     Text("コードの作成履歴")
                 }
             }
