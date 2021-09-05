@@ -10,7 +10,7 @@ import SwiftUI
 
 struct UsageView: View {
     var body: some View {
-        WebViewWrapperView(url: URL(string: "https://note.com/shun_same/n/n79835b06b0a9")!)
+        WebViewWrapperView(url: URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!)
             .navigationBarTitle(Text("使い方"), displayMode: .inline)
     }
 }
