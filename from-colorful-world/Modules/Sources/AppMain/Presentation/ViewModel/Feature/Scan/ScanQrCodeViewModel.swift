@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/09/01.
 //
 
+import AVFoundation
 import Combine
 import Foundation
 
@@ -12,6 +13,7 @@ protocol ScanQrCodeViewModelInputs {
     var onDetected: PassthroughSubject<String, Never> { get }
     var onTapFlipCamera: PassthroughSubject<Void, Never> { get }
     var onTapShowCurrentResult: PassthroughSubject<Void, Never> { get }
+    var isSpeakerMute: CurrentValueSubject<Bool, Never> { get }
 }
 protocol ScanQrCodeViewModelOutputs {
     var flipCamera: AnyPublisher<Void, Never> { get }
@@ -36,6 +38,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     public let onDetected = PassthroughSubject<String, Never>()
     public let onTapFlipCamera = PassthroughSubject<Void, Never>()
     public let onTapShowCurrentResult = PassthroughSubject<Void, Never>()
+    public let isSpeakerMute = CurrentValueSubject<Bool, Never>(true)
     
     public var flipCamera: AnyPublisher<Void, Never> {
         return onTapFlipCamera.eraseToAnyPublisher()
@@ -59,8 +62,23 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     
     private var detectedDics: [String: [Int: Bool]] = [:]
     
+    private var audioPlayers: [AVPlayer] = {
+        return (0..<6).map { _ in
+            let url = Bundle.module.url(forResource: "audio/pon", withExtension: "mp3")!
+            let item = AVPlayerItem(url: url)
+            return AVPlayer(playerItem: item)
+        }
+    }()
+    private var nextPlayer: Int = 0
+    
     private var cancellables: Set<AnyCancellable> = []
     init() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+        } catch let error {
+            print("error: \(error)")
+        }
+
         onDetected.sink { [weak self] (detected: String) in
             self?.detected(text: detected)
         }.store(in: &cancellables)
@@ -102,5 +120,16 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
             latest.removeFirst()
         }
         latestDetected.send(latest)
+        
+        if isSpeakerMute.value { return }
+        
+        let player = audioPlayers[nextPlayer]
+        player.pause()
+        player.seek(to: .zero)
+        player.play()
+        nextPlayer += 1
+        if nextPlayer >= audioPlayers.count {
+            nextPlayer = 0
+        }
     }
 }

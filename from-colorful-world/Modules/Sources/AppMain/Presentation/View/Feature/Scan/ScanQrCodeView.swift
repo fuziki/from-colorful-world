@@ -27,6 +27,7 @@ struct ScanQrCodeView: View {
             ScanQrCodeControlPanelView(flip: viewModel.inputs.onTapFlipCamera,
                                        onComplete: onComplete,
                                        showCurrentResult: viewModel.inputs.onTapShowCurrentResult,
+                                       isSpeakerMute: viewModel.inputs.isSpeakerMute,
                                        scanedConsoleText: viewModel.outputs.scanedConsoleText)
             CurrentResultsRootView(currentResults: viewModel.outputs.currentResults,
                                    showCurrentResults: viewModel.outputs.showCurrentResults)

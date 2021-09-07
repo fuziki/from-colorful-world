@@ -25,7 +25,7 @@ let package = Package(
         .target(
             name: "AppMain",
             dependencies: [],
-            resources: [Resource.copy("AppMain/Resources/")]),
+            resources: [Resource.copy("Resources")]),
         .testTarget(
             name: "AppMainTests",
             dependencies: ["AppMain"]),

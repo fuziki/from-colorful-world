@@ -13,6 +13,7 @@ struct ScanQrCodeControlPanelView: View {
     let flip: PassthroughSubject<Void, Never>
     let onComplete: PassthroughSubject<Void, Never>
     let showCurrentResult: PassthroughSubject<Void, Never>
+    let isSpeakerMute: CurrentValueSubject<Bool, Never>
     let scanedConsoleText: AnyPublisher<String, Never>
     var body: some View {
         ZStack {
@@ -21,6 +22,7 @@ struct ScanQrCodeControlPanelView: View {
                 .padding(.bottom, 48)
             flipCamera
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.leading, 8)
             currentResult
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
             close
@@ -41,14 +43,29 @@ struct ScanQrCodeControlPanelView: View {
     }
     
     private var flipCamera: some View {
+        HStack(spacing: 8) {
+            flipCameraButton
+            beapMuteButton
+        }
+        .frame(height: 32, alignment: .center)
+    }
+
+    private var beapMuteButton: some View {
+        MicMuteButtonView(isSpeakerMute: isSpeakerMute)
+            .overlay(Capsule().stroke(lineWidth: 1))
+            .background(Capsule().fill(Color.white))
+            .foregroundColor(.black)
+    }
+    
+    private var flipCameraButton: some View {
         Button(action: {
             print("flip")
             flip.send(())
         }, label: {
-            Text("カメラ変更")
+            Image(systemName: "arrow.triangle.2.circlepath.camera")
                 .font(.system(size: 16))
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .frame(width: 32, height: 32, alignment: .center)
+                .padding(.horizontal, 8)
         })
         .overlay(Capsule().stroke(lineWidth: 1))
         .background(Capsule().fill(Color.white))
@@ -76,11 +93,38 @@ struct ScanQrCodeControlPanelView: View {
             Text("結果を見る")
                 .font(.system(size: 16))
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .frame(height: 32, alignment: .center)
         })
         .overlay(Capsule().stroke(lineWidth: 1))
         .background(Capsule().fill(Color.white))
         .foregroundColor(.black)
+    }
+}
+
+struct MicMuteButtonView: View {
+    let isSpeakerMute: CurrentValueSubject<Bool, Never>
+    @State var isMute: Bool
+    init(isSpeakerMute: CurrentValueSubject<Bool, Never>) {
+        self.isSpeakerMute = isSpeakerMute
+        self.isMute = isSpeakerMute.value
+    }
+    var body: some View {
+        Button(action: {
+            isMute = !isMute
+            isSpeakerMute.send(isMute)
+        }, label: {
+            if isMute {
+                Image(systemName: "speaker.slash")
+                    .font(.system(size: 16))
+                    .frame(width: 32, height: 32, alignment: .center)
+                    .padding(.horizontal, 8)
+            } else {
+                Image(systemName: "speaker.wave.3")
+                    .font(.system(size: 16))
+                    .frame(width: 32, height: 32, alignment: .center)
+                    .padding(.horizontal, 8)
+            }
+        })
     }
 }
 
@@ -114,6 +158,7 @@ struct ScanQrCodeControlPanelView_Previews: PreviewProvider {
             ScanQrCodeControlPanelView(flip: PassthroughSubject<Void, Never>(),
                                        onComplete: PassthroughSubject<Void, Never>(),
                                        showCurrentResult: PassthroughSubject<Void, Never>(),
+                                       isSpeakerMute: CurrentValueSubject<Bool, Never>(false),
                                        scanedConsoleText: Just<String>("Hello\nworld").eraseToAnyPublisher())
         }
     }
