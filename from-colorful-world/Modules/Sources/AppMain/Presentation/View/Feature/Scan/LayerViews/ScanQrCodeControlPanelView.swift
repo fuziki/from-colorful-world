@@ -102,18 +102,15 @@ struct ScanQrCodeControlPanelView: View {
 }
 
 struct MicMuteButtonView: View {
-    let isSpeakerMute: CurrentValueSubject<Bool, Never>
-    @State var isMute: Bool
+    @ObservedObject private var viewModel: MicMuteButtonViewModel
     init(isSpeakerMute: CurrentValueSubject<Bool, Never>) {
-        self.isSpeakerMute = isSpeakerMute
-        self.isMute = isSpeakerMute.value
+        self.viewModel = MicMuteButtonViewModel(isSpeakerMute: isSpeakerMute)
     }
     var body: some View {
         Button(action: {
-            isMute = !isMute
-            isSpeakerMute.send(isMute)
+            viewModel.toggle()
         }, label: {
-            if isMute {
+            if viewModel.isMute {
                 Image(systemName: "speaker.slash")
                     .font(.system(size: 16))
                     .frame(width: 32, height: 32, alignment: .center)
@@ -125,6 +122,19 @@ struct MicMuteButtonView: View {
                     .padding(.horizontal, 8)
             }
         })
+    }
+}
+
+class MicMuteButtonViewModel: ObservableObject {
+    @Published public var isMute: Bool
+    private let isSpeakerMute: CurrentValueSubject<Bool, Never>
+    init(isSpeakerMute: CurrentValueSubject<Bool, Never>) {
+        isMute = isSpeakerMute.value
+        self.isSpeakerMute = isSpeakerMute
+    }
+    public func toggle() {
+        isMute = !isMute
+        isSpeakerMute.send(isMute)
     }
 }
 

@@ -75,6 +75,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     init() {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch let error {
             print("error: \(error)")
         }
