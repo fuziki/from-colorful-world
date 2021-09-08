@@ -126,8 +126,9 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         
         let player = audioPlayers[nextPlayer]
         player.pause()
-        player.seek(to: .zero)
-        player.play()
+        player.seek(to: .zero) { (_: Bool) in
+            player.play()
+        }
         nextPlayer += 1
         if nextPlayer >= audioPlayers.count {
             nextPlayer = 0
