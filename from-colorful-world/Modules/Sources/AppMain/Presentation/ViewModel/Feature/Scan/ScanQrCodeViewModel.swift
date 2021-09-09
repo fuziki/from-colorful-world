@@ -35,11 +35,13 @@ extension ScanQrCodeViewModelType where Self: ScanQrCodeViewModelOutputs {
 class ScanQrCodeViewModel: ScanQrCodeViewModelType,
                            ScanQrCodeViewModelInputs,
                            ScanQrCodeViewModelOutputs {
+    // MARK:- Inputs
     public let onDetected = PassthroughSubject<String, Never>()
     public let onTapFlipCamera = PassthroughSubject<Void, Never>()
     public let onTapShowCurrentResult = PassthroughSubject<Void, Never>()
-    public let isSpeakerMute = CurrentValueSubject<Bool, Never>(true)
+    public let isSpeakerMute: CurrentValueSubject<Bool, Never>
     
+    // MARK:- Outputs
     public var flipCamera: AnyPublisher<Void, Never> {
         return onTapFlipCamera.eraseToAnyPublisher()
     }
@@ -60,25 +62,36 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         return onTapShowCurrentResult.eraseToAnyPublisher()
     }
     
+    // MARK:- Injected
+    private let storeServcie: ScanQrCodeViewStoreServcie
+    
+    // MARK:- Properties
     private var detectedDics: [String: [Int: Bool]] = [:]
     
     private var audioPlayers: [AVPlayer] = {
-        return (0..<6).map { _ in
+        return (0..<10).map { _ in
             let url = Bundle.module.url(forResource: "pon", withExtension: "mp3")!
             let item = AVPlayerItem(url: url)
             return AVPlayer(playerItem: item)
         }
     }()
     private var nextPlayer: Int = 0
-    
+
     private var cancellables: Set<AnyCancellable> = []
-    init() {
+    init(storeServcie: ScanQrCodeViewStoreServcie) {
+        self.storeServcie = storeServcie
+        self.isSpeakerMute = CurrentValueSubject<Bool, Never>(storeServcie.isSpeakerMute)
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error {
             print("error: \(error)")
         }
+        
+        isSpeakerMute.sink { [weak self] (isMute: Bool) in
+            self?.storeServcie.update(isSpeakerMute: isMute)
+        }.store(in: &cancellables)
 
         onDetected.sink { [weak self] (detected: String) in
             self?.detected(text: detected)
@@ -125,7 +138,6 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         if isSpeakerMute.value { return }
         
         let player = audioPlayers[nextPlayer]
-        player.pause()
         player.seek(to: .zero) { (_: Bool) in
             player.play()
         }

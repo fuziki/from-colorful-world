@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ScanQrCodeView: View {
     // カメラを使うので非 ObservedObject View Model だし、preview は使わない
-    private var viewModel: ScanQrCodeViewModelType = ScanQrCodeViewModel()
+    private var viewModel: ScanQrCodeViewModelType = ScanQrCodeViewModel(storeServcie: DefaultScanQrCodeViewStoreServcie())
     let onComplete: PassthroughSubject<Void, Never>
     init(onComplete: PassthroughSubject<Void, Never>) {
         self.onComplete = onComplete
