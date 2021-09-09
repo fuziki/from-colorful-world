@@ -16,9 +16,6 @@ class MakeNewQrCodeViewModel: ObservableObject {
         self.settingService = settingService
         self.qrcodeCount = settingService.currentEntity.classPeaples ?? 40
     }
-    public func onAppear() {
-        self.qrcodeCount = settingService.currentEntity.classPeaples ?? 40
-    }
     public func increment() {
         qrcodeCount = min(50, qrcodeCount + 1)
     }
