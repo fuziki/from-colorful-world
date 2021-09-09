@@ -64,7 +64,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     
     private var audioPlayers: [AVPlayer] = {
         return (0..<6).map { _ in
-            let url = Bundle.module.url(forResource: "audio/pon", withExtension: "mp3")!
+            let url = Bundle.module.url(forResource: "pon", withExtension: "mp3")!
             let item = AVPlayerItem(url: url)
             return AVPlayer(playerItem: item)
         }

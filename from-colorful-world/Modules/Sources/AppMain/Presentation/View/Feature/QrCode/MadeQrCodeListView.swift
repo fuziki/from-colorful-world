@@ -14,7 +14,7 @@ struct MadeQrCodeListView: View {
         Form {
             if store.list.count > 0 {
                 ForEach(store.list.reversed(), id: \.self) { (title) in
-                    NavigationLink(destination: PrintQrCodeView(title: title)) {
+                    NavigationLink(destination: PrintQrCodeView(title: title, qrcodeCount: 40)) {
                         Text(title)
                     }
                 }

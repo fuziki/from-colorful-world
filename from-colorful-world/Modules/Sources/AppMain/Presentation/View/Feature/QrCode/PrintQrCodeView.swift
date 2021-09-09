@@ -11,8 +11,8 @@ import SwiftUI
 struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {    
     @ObservedObject private var viewModel: ViewModelType
     
-    init(title: String) where ViewModelType == PrintQrCodeViewModel {
-        self.init(viewModel: PrintQrCodeViewModel(title: title))
+    init(title: String, qrcodeCount: Int) where ViewModelType == PrintQrCodeViewModel {
+        self.init(viewModel: PrintQrCodeViewModel(title: title, qrcodeCount: qrcodeCount))
     }
     
     init(viewModel: ViewModelType) {
@@ -69,6 +69,6 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
 
 struct PrintQrCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        PrintQrCodeView(title: "こくごノード")
+        PrintQrCodeView(title: "こくごノード", qrcodeCount: 40)
     }
 }

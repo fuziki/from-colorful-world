@@ -32,5 +32,11 @@ struct ScanQrCodeView: View {
             CurrentResultsRootView(currentResults: viewModel.outputs.currentResults,
                                    showCurrentResults: viewModel.outputs.showCurrentResults)
         }
+        .onAppear {
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
+        .onDisappear {
+            UIApplication.shared.isIdleTimerDisabled = false
+        }
     }
 }

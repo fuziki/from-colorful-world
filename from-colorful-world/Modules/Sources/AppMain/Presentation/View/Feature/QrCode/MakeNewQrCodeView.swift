@@ -12,30 +12,37 @@ struct MakeNewQrCodeView: View {
     @State var text: String = ""
     @State var isActive: Bool = false
     
-    private let store: MadeQrcodeStoredService = DefaultMadeQrcodeStoredService()
+    @ObservedObject var viewModel: MakeNewQrCodeViewModel
     
     var body: some View {
-        VStack {
+        ZStack {
             form
-            NavigationLink(destination: PrintQrCodeView(title: text),
+            NavigationLink(destination: PrintQrCodeView(title: text,
+                                                        qrcodeCount: viewModel.qrcodeCount),
                            isActive: $isActive,
                            label: {
                             EmptyView()
                            })
         }
-        .onTapGesture {
-            UIApplication.shared
-                .sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
         .navigationBarTitle(Text("新規2次元コード"), displayMode: .inline)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
-    
+
     private var form: some View {
         Form {
             Section(header: Text("新しい2次元コード名を入力"),
-                    footer: Text("2次元コード名は1〜20文字で入力してください")) {
-                TextField("ここをタップして入力", text: $text)
+                    footer: Text("2次元コード名は1〜10文字で入力してください")) {
+                TextField("タップして入力（例）国語ノート", text: $text)
+                Stepper("2次元コード数：\(viewModel.qrcodeCount)") {
+                    viewModel.increment()
+                } onDecrement: {
+                    viewModel.decrement()
+                }
             }
+            .font(.system(size: 16))
+            .buttonStyle(PlainButtonStyle())
             Section {
                 makeButton
                     .buttonStyle(PlainButtonStyle())
@@ -50,7 +57,6 @@ struct MakeNewQrCodeView: View {
             print("make!")
             if text.count == 0 { return }
             isActive = true
-            store.store(title: text)
         }, label: {
             HStack {
                 Spacer()
@@ -64,6 +70,6 @@ struct MakeNewQrCodeView: View {
 
 struct MakeNewQrCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeNewQrCodeView()
+        MakeNewQrCodeView(viewModel: MakeNewQrCodeViewModel(settingService: DefaultSettingService()))
     }
 }

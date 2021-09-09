@@ -17,6 +17,8 @@ class SettingViewModel: ObservableObject {
     }
     public func increment() {
         classPeaples += 1
+        // TODO: 50のハードコーディングをやめる
+        classPeaples = min(50, classPeaples)
         var entity = settingService.currentEntity
         entity.classPeaples = classPeaples
         settingService.update(entity: entity)

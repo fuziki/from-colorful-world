@@ -75,7 +75,8 @@ public struct MainView: View {
     
     private var qrcodeSection: some View {
         Section(header: Text("2次元コード")) {
-            NavigationLink(destination: MakeNewQrCodeView()) {
+            let viewModel = MakeNewQrCodeViewModel(settingService: DefaultSettingService())
+            NavigationLink(destination: MakeNewQrCodeView(viewModel: viewModel)) {
                 HStack {
                     Image(systemName: "qrcode")
                     Text("新しい2次元コードを作る")

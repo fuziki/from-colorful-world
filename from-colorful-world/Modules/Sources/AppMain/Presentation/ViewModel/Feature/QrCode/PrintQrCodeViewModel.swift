@@ -32,18 +32,20 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
                             PrintQrCodeViewModelInputs,
                             PrintQrCodeViewModelOutputs {
     public let title: String
+    private let qrcodeCount: Int
     
     @Published public var content: PdfViewerWrapperContent?
     
-    init(title: String) {
+    init(title: String, qrcodeCount: Int) {
         self.title = title
+        self.qrcodeCount = qrcodeCount
     }
     
     public func onAppear() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if self.content != nil { return }
-            let data = PdfRenderer().makePdfData(title: self.title)
+            let data = PdfRenderer().makePdfData(title: self.title, qrcodeCount: self.qrcodeCount)
             self.content = .data(data)
         }
     }
