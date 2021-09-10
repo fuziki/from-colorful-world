@@ -45,6 +45,7 @@ struct MakeNewQrCodeView: View {
                     .buttonStyle(PlainButtonStyle())
                     .contentShape(Rectangle())
                     .foregroundColor(.blue)
+                    .disabled(text.count <= 0 || text.count > 10)
             }
         }
     }
