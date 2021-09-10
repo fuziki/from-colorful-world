@@ -7,11 +7,22 @@
 
 import Foundation
 
+enum FeedbackSound: String, Codable, CaseIterable {
+    case pon
+    case shutter
+    case fanfare
+    case ohayo
+    var file: String {
+        return self.rawValue
+    }
+}
+
 struct SettingEntity: Codable {
     // 追加するときはオプショナル型にする
     var classPeaples: Int?
+    var feedbackSound: FeedbackSound?
     static var `default`: SettingEntity {
-        SettingEntity(classPeaples: nil)
+        SettingEntity(classPeaples: nil, feedbackSound: nil)
     }
 }
 

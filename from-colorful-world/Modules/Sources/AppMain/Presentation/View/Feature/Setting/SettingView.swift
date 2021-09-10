@@ -19,6 +19,13 @@ struct SettingView: View {
                     viewModel.decrement()
                 }
             }
+            Section(header: Text("その他")) {
+                Picker(selection: $viewModel.feedbackSound, label: Text("効果音")) {
+                    ForEach(FeedbackSound.allCases, id: \.self) { (sound: FeedbackSound) in
+                        Text(sound.display)
+                    }
+                }
+            }
         }
         .navigationBarTitle(Text("設定"), displayMode: .inline)
     }
