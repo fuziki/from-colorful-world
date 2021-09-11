@@ -7,10 +7,12 @@
 
 import Foundation
 import SwiftUI
+import SafariServices
 
 struct UsageView: View {
+    let url: URL
     var body: some View {
-        WebViewWrapperView(url: URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!)
+        WebViewWrapperView(url: url)
             .navigationBarTitle(Text("使い方"), displayMode: .inline)
     }
 }

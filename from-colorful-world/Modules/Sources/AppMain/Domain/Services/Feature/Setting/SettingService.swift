@@ -12,6 +12,7 @@ enum FeedbackSound: String, Codable, CaseIterable {
     case shutter
     case fanfare
     case ohayo
+    case recoded
     var file: String {
         return self.rawValue
     }

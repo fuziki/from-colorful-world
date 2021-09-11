@@ -17,6 +17,7 @@ extension FeedbackSound {
         case .fanfare: return "ラッパのファンファーレ"
         case .shutter: return "シャッター音"
         case .ohayo: return "おはよう"
+        case .recoded: return "データを記録しました"
         }
     }
 }

@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import SwiftUI
+import SafariServices
 
 public struct MainView: View {
     @ObservedObject private var viewModel = MainViewModel()
@@ -26,7 +27,8 @@ public struct MainView: View {
                         miscSection
                     }
                     .navigationBarTitle(Text("ホーム"), displayMode: .large)
-                    versionLabel
+                    bannerView
+                        .hidden()
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -44,17 +46,7 @@ public struct MainView: View {
                   secondaryButton: .cancel(Text("キャンセル")))
         }
     }
-    
-    private var versionLabel: some View {
-        let appnem = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-        let versin = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
-        return Text("\(appnem ?? "app") : \(versin ?? "versin")(\(build ?? "build"))")
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-            .font(.system(size: 14))
-            .foregroundColor(.secondary)
-    }
-    
+
     private var scanSection: some View {
         Section(header: Text("スキャン")) {
             Button(action: {
@@ -100,9 +92,19 @@ public struct MainView: View {
                     Text("設定")
                 }
             }
+            let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
+//            NavigationLink(destination: UsageView(url: url)) {
+//                HStack {
+//                    Image(systemName: "info.circle")
+//                    Text("使い方を見る")
+//                }
+//            }
             Button {
-                let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
-                if UIApplication.shared.canOpenURL(url) {
+                let root = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+                if let r = root {
+                    let vc = SFSafariViewController(url: url)
+                    r.present(vc, animated: true, completion: nil)
+                } else if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url)
                 }
             } label: {
@@ -115,7 +117,26 @@ public struct MainView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
+//            Button {
+//                if UIApplication.shared.canOpenURL(url) {
+//                    UIApplication.shared.open(url)
+//                }
+//            } label: {
+//                NavigationLink(destination: EmptyView()) {
+//                    HStack {
+//                        Image(systemName: "info.circle")
+//                        Text("使い方を見る")
+//                    }
+//                }
+//                .contentShape(Rectangle())
+//            }
+//            .buttonStyle(PlainButtonStyle())
         }
+    }
+    
+    private var bannerView: some View {
+        BannerAdView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
     }
 }
 

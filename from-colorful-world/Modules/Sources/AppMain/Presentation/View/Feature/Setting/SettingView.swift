@@ -11,8 +11,15 @@ import SwiftUI
 struct SettingView: View {
     @ObservedObject private var viewModel = SettingViewModel(settingService: DefaultSettingService())
     var body: some View {
+        ZStack {
+            form
+            versionLabel
+        }
+        .navigationBarTitle(Text("設定"), displayMode: .inline)
+    }
+    private var form: some View {
         Form {
-            Section(header: Text("クラスの人数")) {
+            Section(header: Text("スキャンの人数")) {
                 Stepper("\(viewModel.classPeaples)人") {
                     viewModel.increment()
                 } onDecrement: {
@@ -27,7 +34,16 @@ struct SettingView: View {
                 }
             }
         }
-        .navigationBarTitle(Text("設定"), displayMode: .inline)
+    }
+    
+    private var versionLabel: some View {
+        let appnem = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+        let versin = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        return Text("\(appnem ?? "app") : \(versin ?? "versin")(\(build ?? "build"))")
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .font(.system(size: 14))
+            .foregroundColor(.secondary)
     }
 }
 
