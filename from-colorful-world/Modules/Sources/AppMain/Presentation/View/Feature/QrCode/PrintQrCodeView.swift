@@ -12,7 +12,9 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
     @ObservedObject private var viewModel: ViewModelType
     
     init(title: String, qrcodeCount: Int) where ViewModelType == PrintQrCodeViewModel {
-        self.init(viewModel: PrintQrCodeViewModel(title: title, qrcodeCount: qrcodeCount))
+        self.init(viewModel: PrintQrCodeViewModel(title: title,
+                                                  qrcodeCount: qrcodeCount,
+                                                  inAppNoticeService: InAppNoticeService.shared))
     }
     
     init(viewModel: ViewModelType) {

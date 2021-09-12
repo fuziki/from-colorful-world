@@ -33,12 +33,16 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
                             PrintQrCodeViewModelOutputs {
     public let title: String
     private let qrcodeCount: Int
+    private let inAppNoticeService: InAppNoticeService
     
     @Published public var content: PdfViewerWrapperContent?
     
-    init(title: String, qrcodeCount: Int) {
+    init(title: String,
+         qrcodeCount: Int,
+         inAppNoticeService: InAppNoticeService) {
         self.title = title
         self.qrcodeCount = qrcodeCount
+        self.inAppNoticeService = inAppNoticeService
     }
     
     public func onAppear() {
@@ -98,6 +102,8 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
             try data.write(to: file)
         } catch let error {
             print("error: \(error)")
+            return
         }
+        inAppNoticeService.show.send("ファイルを保存しました！")
     }
 }

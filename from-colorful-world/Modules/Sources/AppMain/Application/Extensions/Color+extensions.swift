@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-extension Color {
+extension Color {    
+    static var systemBackground: Color {
+        return Color(UIColor.systemBackground)
+    }
+
     static var systemGroupedBackground: Color {
         return Color(UIColor.systemGroupedBackground)
     }

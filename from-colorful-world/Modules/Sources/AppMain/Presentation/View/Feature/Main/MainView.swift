@@ -35,6 +35,7 @@ public struct MainView: View {
             if viewModel.scanning {
                 ScanQrCodeView(onComplete: viewModel.onComplete)
             }
+            InAppNoticeView()
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(title: Text("カメラの使用を許可してください"),
