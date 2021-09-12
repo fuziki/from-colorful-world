@@ -29,7 +29,7 @@ struct MakeNewQrCodeView: View {
 
     private var form: some View {
         Form {
-            Section(header: Text("新しい2次元コード名を入力"),
+            Section(header: Text("新しい2次元コード名を入力（必須）"),
                     footer: Text("2次元コード名は1〜10文字で入力してください\n（例）国語ファイル")) {
                 TextField("ここをタップして入力", text: $text)
                 Stepper("2次元コード数：\(viewModel.qrcodeCount)") {
