@@ -40,12 +40,22 @@ struct MakeNewQrCodeView: View {
             }
             .font(.system(size: 16))
             .buttonStyle(PlainButtonStyle())
-            Section {
+            Section(footer: makeButtonFooter) {
                 makeButton
                     .buttonStyle(PlainButtonStyle())
                     .contentShape(Rectangle())
                     .foregroundColor(.blue)
                     .disabled(text.count <= 0 || text.count > 10)
+            }
+        }
+    }
+
+    private var makeButtonFooter: some View {
+        Group {
+            if text.count == 0 {
+                Text("2次元コード名を入力してください")
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
     }
