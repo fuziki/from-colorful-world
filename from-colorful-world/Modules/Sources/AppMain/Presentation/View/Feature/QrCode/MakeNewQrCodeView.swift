@@ -29,16 +29,17 @@ struct MakeNewQrCodeView: View {
 
     private var form: some View {
         Form {
-            Section(header: Text("新しい2次元コード名を入力（必須）"),
-                    footer: Text("2次元コード名は1〜10文字で入力してください\n（例）国語ファイル")) {
+            Section(header: Text("提出物名を入力（必須）"),
+                    footer: Text("提出物名は1〜10文字で入力してください\n（例）国語ファイル")) {
                 TextField("ここをタップして入力", text: $text)
+                    .font(.system(size: 16))
                 Stepper("2次元コード数：\(viewModel.qrcodeCount)") {
                     viewModel.increment()
                 } onDecrement: {
                     viewModel.decrement()
                 }
+                .font(.system(size: 16))
             }
-            .font(.system(size: 16))
             .buttonStyle(PlainButtonStyle())
             Section(footer: makeButtonFooter) {
                 makeButton
@@ -53,7 +54,7 @@ struct MakeNewQrCodeView: View {
     private var makeButtonFooter: some View {
         Group {
             if text.count == 0 {
-                Text("2次元コード名を入力してください")
+                Text("提出物名を入力してください")
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
