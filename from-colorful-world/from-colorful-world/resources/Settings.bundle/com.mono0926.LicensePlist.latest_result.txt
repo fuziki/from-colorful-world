@@ -1,0 +1,7 @@
+name: 効果音ラボ, nameSpecified: , version: 
+body: ©️効果音ラボ
+https://sound…
+
+add-version-numbers: false
+
+LicensePlist Version: 3.13.0

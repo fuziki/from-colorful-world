@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		527A669526F1013700C2A97B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 527A669126F1013700C2A97B /* Settings.bundle */; };
+		527A669626F1013700C2A97B /* licenseplist-config.yml in Resources */ = {isa = PBXBuildFile; fileRef = 527A669326F1013700C2A97B /* licenseplist-config.yml */; };
+		527A669726F1013700C2A97B /* soundeffect-lab.txt in Resources */ = {isa = PBXBuildFile; fileRef = 527A669426F1013700C2A97B /* soundeffect-lab.txt */; };
 		5292BE5626DA544200AE895E /* from_colorful_worldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292BE5526DA544200AE895E /* from_colorful_worldApp.swift */; };
 		5292BE5826DA544200AE895E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292BE5726DA544200AE895E /* ContentView.swift */; };
 		5292BE5A26DA544400AE895E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292BE5926DA544400AE895E /* Assets.xcassets */; };
@@ -15,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		527A669126F1013700C2A97B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		527A669326F1013700C2A97B /* licenseplist-config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "licenseplist-config.yml"; sourceTree = "<group>"; };
+		527A669426F1013700C2A97B /* soundeffect-lab.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "soundeffect-lab.txt"; sourceTree = "<group>"; };
 		5292BE5226DA544200AE895E /* from-colorful-world.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "from-colorful-world.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5292BE5526DA544200AE895E /* from_colorful_worldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = from_colorful_worldApp.swift; sourceTree = "<group>"; };
 		5292BE5726DA544200AE895E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -35,6 +41,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		527A669026F1013700C2A97B /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				527A669126F1013700C2A97B /* Settings.bundle */,
+				527A669226F1013700C2A97B /* licenses */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		527A669226F1013700C2A97B /* licenses */ = {
+			isa = PBXGroup;
+			children = (
+				527A669326F1013700C2A97B /* licenseplist-config.yml */,
+				527A669426F1013700C2A97B /* soundeffect-lab.txt */,
+			);
+			path = licenses;
+			sourceTree = "<group>";
+		};
 		5292BE4926DA544200AE895E = {
 			isa = PBXGroup;
 			children = (
@@ -55,6 +79,7 @@
 		5292BE5426DA544200AE895E /* from-colorful-world */ = {
 			isa = PBXGroup;
 			children = (
+				527A669026F1013700C2A97B /* resources */,
 				5292BE5526DA544200AE895E /* from_colorful_worldApp.swift */,
 				5292BE5726DA544200AE895E /* ContentView.swift */,
 				5292BE5926DA544400AE895E /* Assets.xcassets */,
@@ -140,6 +165,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5292BE5D26DA544400AE895E /* Preview Assets.xcassets in Resources */,
+				527A669626F1013700C2A97B /* licenseplist-config.yml in Resources */,
+				527A669726F1013700C2A97B /* soundeffect-lab.txt in Resources */,
+				527A669526F1013700C2A97B /* Settings.bundle in Resources */,
 				5292BE5A26DA544400AE895E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,7 +310,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"from-colorful-world/Preview Content\"";
 				DEVELOPMENT_TEAM = NT88A3VRE2;
 				ENABLE_PREVIEWS = YES;
@@ -308,7 +336,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"from-colorful-world/Preview Content\"";
 				DEVELOPMENT_TEAM = NT88A3VRE2;
 				ENABLE_PREVIEWS = YES;
