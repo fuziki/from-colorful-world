@@ -1,0 +1,2 @@
+format:
+	echo hoge
