@@ -1,6 +1,6 @@
 //
 //  MakeNewQrCodeViewModel.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/09.
 //

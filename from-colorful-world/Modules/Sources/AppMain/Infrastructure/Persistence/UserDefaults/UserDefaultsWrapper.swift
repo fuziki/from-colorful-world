@@ -1,6 +1,6 @@
 //
 //  UserDefaultsWrapper.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/05.
 //
@@ -21,6 +21,7 @@ extension UserDefaultsWrapper {
 
 class DefaultUserDefaultsWrapper: UserDefaultsWrapper {
     func store<T: Codable>(key: String, value: T) {
+        // swiftlint:disable force_try
         let data = try! JSONEncoder().encode(value)
         UserDefaults().set(data, forKey: key)
     }

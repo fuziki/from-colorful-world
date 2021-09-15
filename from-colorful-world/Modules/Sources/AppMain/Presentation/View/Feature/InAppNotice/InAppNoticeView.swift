@@ -1,6 +1,6 @@
 //
 //  InAppNoticeView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/12.
 //
@@ -10,12 +10,12 @@ import Foundation
 import SwiftUI
 
 struct InAppNoticeView: View {
-    @ObservedObject var viewModel = InAppNoticeViewModel(inAppNoticeService:  InAppNoticeService.shared)
-    
+    @ObservedObject var viewModel = InAppNoticeViewModel(inAppNoticeService: InAppNoticeService.shared)
+
     @State var gestureOffset: CGSize = .zero
-    
+
     let height: CGFloat = 80
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)

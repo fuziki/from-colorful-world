@@ -1,6 +1,6 @@
 //
 //  CurrentResultsRootView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/31.
 //

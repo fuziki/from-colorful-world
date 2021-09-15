@@ -1,6 +1,6 @@
 //
 //  ScanQrCodeControlPanelView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/31.
 //
@@ -32,7 +32,7 @@ struct ScanQrCodeControlPanelView: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 16)
     }
-    
+
     private var scaned: some View {
         ScanedConsoleTextView(textPublisher: scanedConsoleText)
             .font(.system(size: 14))
@@ -41,7 +41,7 @@ struct ScanQrCodeControlPanelView: View {
             .foregroundColor(.blue)
             .opacity(0.8)
     }
-    
+
     private var flipCamera: some View {
         HStack(spacing: 8) {
             flipCameraButton
@@ -56,7 +56,7 @@ struct ScanQrCodeControlPanelView: View {
             .background(Capsule().fill(Color.white))
             .foregroundColor(.black)
     }
-    
+
     private var flipCameraButton: some View {
         Button(action: {
             print("flip")
@@ -71,7 +71,7 @@ struct ScanQrCodeControlPanelView: View {
         .background(Capsule().fill(Color.white))
         .foregroundColor(.black)
     }
-    
+
     private var close: some View {
         Button(action: {
             onComplete.send(())
@@ -84,7 +84,7 @@ struct ScanQrCodeControlPanelView: View {
                 .shadow(color: .white, radius: 3, x: 0.0, y: 0.0)
         })
     }
-    
+
     private var currentResult: some View {
         Button(action: {
             print("result")

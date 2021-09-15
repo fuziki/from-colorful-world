@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/04.
 //
@@ -31,10 +31,10 @@ class CurrentResultsViewModel: CurrentResultsViewModelType,
     private static let defaultRowCount: Int = 41
     @Published public var rowCount: Int
     @Published public var columns: [CurrentResultsColumn] = []
-    
+
     private let currentResults: AnyPublisher<CurrentResultsEntity, Never>
     private let settingService: SettingService
-    
+
     private var cancellables: Set<AnyCancellable> = []
     init(currentResults: AnyPublisher<CurrentResultsEntity, Never>,
          settingService: SettingService) {

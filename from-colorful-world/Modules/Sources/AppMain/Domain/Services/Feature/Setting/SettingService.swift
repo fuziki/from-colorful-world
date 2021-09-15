@@ -1,6 +1,6 @@
 //
 //  SettingService.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/05.
 //
@@ -35,7 +35,7 @@ protocol SettingService {
 class DefaultSettingService: SettingService {
     private let key = "project.shannon.from-colorful-world.DefaultSettingService.key"
     private let userdefaults: UserDefaultsWrapper = DefaultUserDefaultsWrapper()
-    
+
     public var currentEntity: SettingEntity {
         return userdefaults.fetch(key: key) ?? .default
     }

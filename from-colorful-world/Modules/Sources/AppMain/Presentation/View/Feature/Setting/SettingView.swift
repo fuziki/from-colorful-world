@@ -1,6 +1,6 @@
 //
 //  SettingView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/05.
 //
@@ -35,7 +35,7 @@ struct SettingView: View {
             }
         }
     }
-    
+
     private var versionLabel: some View {
         let appnem = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
         let versin = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String

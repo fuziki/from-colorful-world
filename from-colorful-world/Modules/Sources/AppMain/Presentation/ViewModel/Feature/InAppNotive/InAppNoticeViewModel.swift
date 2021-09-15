@@ -1,6 +1,6 @@
 //
 //  InAppNoticeViewModel.swift
-//  
+//
 //
 //  Created by fuziki on 2021/09/12.
 //
@@ -11,12 +11,12 @@ import SwiftUI
 
 class InAppNoticeViewModel: ObservableObject {
     @Published var offset: CGSize
-    
+
     private let defaultOffset: CGSize
     private let inAppNoticeService: InAppNoticeService
-    
+
     private var counter: Int = 0
-    
+
     private var cancellables: Set<AnyCancellable> = []
     init(inAppNoticeService: InAppNoticeService) {
         let top = UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.top ?? 0
@@ -25,7 +25,7 @@ class InAppNoticeViewModel: ObservableObject {
         self.defaultOffset = offset
 
         self.inAppNoticeService = inAppNoticeService
-        
+
         self.inAppNoticeService.show.sink { [weak self] _ in
             self?.counter += 1
             let id = self?.counter ?? 0
@@ -41,7 +41,7 @@ class InAppNoticeViewModel: ObservableObject {
             }
         }.store(in: &cancellables)
     }
-    
+
     public func hide() {
         counter += 1
         withAnimation {

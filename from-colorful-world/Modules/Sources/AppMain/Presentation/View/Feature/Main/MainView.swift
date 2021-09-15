@@ -1,6 +1,6 @@
 //
 //  MainView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/28.
 //
@@ -12,11 +12,11 @@ import SafariServices
 
 public struct MainView: View {
     @ObservedObject private var viewModel = MainViewModel()
-    
+
     public init() {
-        
+
     }
-    
+
     public var body: some View {
         ZStack {
             NavigationView {
@@ -65,7 +65,7 @@ public struct MainView: View {
             .buttonStyle(PlainButtonStyle())
         }
     }
-    
+
     private var qrcodeSection: some View {
         Section(header: Text("2次元コード")) {
             let viewModel = MakeNewQrCodeViewModel(settingService: DefaultSettingService())
@@ -75,18 +75,18 @@ public struct MainView: View {
                     Text("新しい2次元コードを作る")
                 }
             }
-//            NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
-//                HStack {
-//                    Image(systemName: "clock.arrow.circlepath")
-//                    Text("コードの作成履歴")
-//                }
-//            }
+            //            NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
+            //                HStack {
+            //                    Image(systemName: "clock.arrow.circlepath")
+            //                    Text("コードの作成履歴")
+            //                }
+            //            }
         }
     }
-    
+
     private var miscSection: some View {
         Section(header: Text("その他"),
-                footer:  Text("使い方を見るためにはインターネット接続が必要です")) {
+                footer: Text("使い方を見るためにはインターネット接続が必要です")) {
             NavigationLink(destination: SettingView()) {
                 HStack {
                     Image(systemName: "gear")
@@ -94,12 +94,12 @@ public struct MainView: View {
                 }
             }
             let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
-//            NavigationLink(destination: UsageView(url: url)) {
-//                HStack {
-//                    Image(systemName: "info.circle")
-//                    Text("使い方を見る")
-//                }
-//            }
+            //            NavigationLink(destination: UsageView(url: url)) {
+            //                HStack {
+            //                    Image(systemName: "info.circle")
+            //                    Text("使い方を見る")
+            //                }
+            //            }
             Button {
                 let root = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
                 if let r = root {
@@ -118,23 +118,23 @@ public struct MainView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
-//            Button {
-//                if UIApplication.shared.canOpenURL(url) {
-//                    UIApplication.shared.open(url)
-//                }
-//            } label: {
-//                NavigationLink(destination: EmptyView()) {
-//                    HStack {
-//                        Image(systemName: "info.circle")
-//                        Text("使い方を見る")
-//                    }
-//                }
-//                .contentShape(Rectangle())
-//            }
-//            .buttonStyle(PlainButtonStyle())
+            //            Button {
+            //                if UIApplication.shared.canOpenURL(url) {
+            //                    UIApplication.shared.open(url)
+            //                }
+            //            } label: {
+            //                NavigationLink(destination: EmptyView()) {
+            //                    HStack {
+            //                        Image(systemName: "info.circle")
+            //                        Text("使い方を見る")
+            //                    }
+            //                }
+            //                .contentShape(Rectangle())
+            //            }
+            //            .buttonStyle(PlainButtonStyle())
         }
     }
-    
+
     private var bannerView: some View {
         BannerAdView()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)

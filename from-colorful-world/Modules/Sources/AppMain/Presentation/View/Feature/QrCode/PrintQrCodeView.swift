@@ -1,6 +1,6 @@
 //
 //  PrintQrCodeView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/29.
 //
@@ -8,19 +8,19 @@
 import Foundation
 import SwiftUI
 
-struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {    
+struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
     @ObservedObject private var viewModel: ViewModelType
-    
+
     init(title: String, qrcodeCount: Int) where ViewModelType == PrintQrCodeViewModel {
         self.init(viewModel: PrintQrCodeViewModel(title: title,
                                                   qrcodeCount: qrcodeCount,
                                                   inAppNoticeService: InAppNoticeService.shared))
     }
-    
+
     init(viewModel: ViewModelType) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         VStack {
             share
@@ -29,11 +29,11 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
         }
         .background(Color(UIColor.systemGroupedBackground))
         .navigationBarTitle(Text(viewModel.outputs.title), displayMode: .inline)
-        .onAppear() {
+        .onAppear {
             viewModel.inputs.onAppear()
         }
     }
-    
+
     private var share: some View {
         VStack(spacing: 0) {
             Spacer().frame(height: 18)
@@ -51,7 +51,7 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
             }
         }
     }
-    
+
     private var pdf: some View {
         Group {
             if viewModel.outputs.content != nil {

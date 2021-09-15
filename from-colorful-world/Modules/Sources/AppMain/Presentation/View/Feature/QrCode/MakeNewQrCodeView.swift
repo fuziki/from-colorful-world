@@ -1,6 +1,6 @@
 //
 //  MakeNewQrCodeView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/28.
 //
@@ -11,9 +11,9 @@ import SwiftUI
 struct MakeNewQrCodeView: View {
     @State var text: String = ""
     @State var isActive: Bool = false
-    
+
     @ObservedObject var viewModel: MakeNewQrCodeViewModel
-    
+
     var body: some View {
         ZStack {
             form

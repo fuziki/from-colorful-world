@@ -1,6 +1,6 @@
 //
 //  PrintQrCodeViewModel.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/31.
 //
@@ -34,9 +34,9 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
     public let title: String
     private let qrcodeCount: Int
     private let inAppNoticeService: InAppNoticeService
-    
+
     @Published public var content: PdfViewerWrapperContent?
-    
+
     init(title: String,
          qrcodeCount: Int,
          inAppNoticeService: InAppNoticeService) {
@@ -44,7 +44,7 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         self.qrcodeCount = qrcodeCount
         self.inAppNoticeService = inAppNoticeService
     }
-    
+
     public func onAppear() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -66,7 +66,7 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         let vc = UIActivityViewController(activityItems: activityItems,
                                           applicationActivities: nil)
         let rootVC = UIApplication.shared.windows.first!.rootViewController!
-        
+
         if UIDevice.current.userInterfaceIdiom == .pad {
             vc.popoverPresentationController?.sourceView = rootVC.view
             vc.popoverPresentationController?.sourceRect = CGRect(x: rootVC.view.frame.width / 2,
@@ -74,7 +74,7 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
                                                                   width: 1,
                                                                   height: 1)
         }
-        
+
         DispatchQueue.main.async {
             rootVC.present(vc, animated: true, completion: nil)
         }
@@ -86,14 +86,15 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         switch content {
         case .data(let d):
             data = d
-        case .url(_):
-           return
+        case .url:
+            return
         }
         let docPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let dir = docPath
             // FIXME: ハードコーディング
             .appendingPathComponent("2次元コード", isDirectory: true)
         // TODO: Mock
+        // swiftlint:disable force_try
         try! FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
         let file = dir
             .appendingPathComponent("\(title)", conformingTo: .pdf)

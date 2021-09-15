@@ -1,6 +1,6 @@
 //
 //  CurrentResultsView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/08/31.
 //
@@ -22,10 +22,10 @@ struct CurrentResultsEntity {
 }
 
 struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
-    
+
     @ObservedObject private var viewModel: ViewModelType
 
-    init(currentResults: AnyPublisher<CurrentResultsEntity, Never>) where ViewModelType==CurrentResultsViewModel{
+    init(currentResults: AnyPublisher<CurrentResultsEntity, Never>) where ViewModelType==CurrentResultsViewModel {
         self.init(viewModel: CurrentResultsViewModel(currentResults: currentResults,
                                                      settingService: DefaultSettingService()))
     }
@@ -46,7 +46,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
         }
         .padding(.vertical, 16)
     }
-    
+
     private func makeIndexView(gridItems: [GridItem], fontSize: CGFloat) -> some View {
         return LazyHGrid(rows: gridItems) {
             makeTitleView(title: "出席番号", fontSize: fontSize)
@@ -55,7 +55,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
             }
         }
     }
-    
+
     private func makeScanedView(gridItems: [GridItem], fontSize: CGFloat) -> some View {
         return LazyHGrid(rows: gridItems, spacing: 1) {
             ForEach(viewModel.outputs.columns, id: \.self) { (column: CurrentResultsColumn) in
@@ -66,14 +66,14 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
             }
         }
     }
-    
+
     private func makeTitleView(title: String, fontSize: CGFloat) -> some View {
         return Text(title)
             .font(.system(size: fontSize))
             .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
+
     private func makeOkView(index: Int, fontSize: CGFloat, ok: Bool) -> some View {
         return  Text(ok ? "OK!" : "\(index)")
             .foregroundColor(ok ? .blue.opacity(0.7) : .primary)
@@ -81,7 +81,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(index%2==0 ? Color.secondarySystemGroupedBackground : Color.systemGroupedBackground)
     }
-    
+
     private func makeGridItems(size: CGFloat) -> [GridItem] {
         return (0..<viewModel.outputs.rowCount).map { _ in
             return GridItem(.fixed(size), spacing: 0)
@@ -97,9 +97,9 @@ struct CurrentResultsView_Previews: PreviewProvider {
     }
     static var entity: CurrentResultsEntity {
         return CurrentResultsEntity(columns: [
-            CurrentResultsColumn(title: "こくごノート", ok: (1...40).map { $0 % 2 == 0 } ),
-            CurrentResultsColumn(title: "さんすうノート", ok: (1...40).map { $0 % 3 < 1 } ),
-            CurrentResultsColumn(title: "しゃかいかのけんがくノート", ok: (1...40).map { $0 % 5 < 3 } ),
+            CurrentResultsColumn(title: "こくごノート", ok: (1...40).map { $0 % 2 == 0 }),
+            CurrentResultsColumn(title: "さんすうノート", ok: (1...40).map { $0 % 3 < 1 }),
+            CurrentResultsColumn(title: "しゃかいかのけんがくノート", ok: (1...40).map { $0 % 5 < 3 })
         ])
     }
 }
