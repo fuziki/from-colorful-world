@@ -19,7 +19,7 @@ struct SettingView: View {
     }
     private var form: some View {
         Form {
-            Section(header: Text("スキャン人数")) {
+            Section(header: Text("スキャンの人数")) {
                 Stepper("\(viewModel.classPeaples)人") {
                     viewModel.increment()
                 } onDecrement: {
