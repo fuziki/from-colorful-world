@@ -11,7 +11,8 @@ import SwiftUI
 
 struct ScanQrCodeView: View {
     // カメラを使うので非 ObservedObject View Model だし、preview は使わない
-    private var viewModel: ScanQrCodeViewModelType = ScanQrCodeViewModel(storeServcie: DefaultScanQrCodeViewStoreServcie())
+    private var viewModel: ScanQrCodeViewModelType = ScanQrCodeViewModel(storeServcie: DefaultScanQrCodeViewStoreServcie(),
+                                                                         settingService: DefaultSettingService())
     let onComplete: PassthroughSubject<Void, Never>
     init(onComplete: PassthroughSubject<Void, Never>) {
         self.onComplete = onComplete
@@ -34,6 +35,7 @@ struct ScanQrCodeView: View {
         }
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
+            viewModel.inputs.onAppear()
         }
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false

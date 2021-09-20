@@ -15,9 +15,10 @@ struct CurrentResultsColumn: Hashable {
 }
 
 struct CurrentResultsEntity {
+    let rowCount: Int
     let columns: [CurrentResultsColumn]
     static var `default`: CurrentResultsEntity {
-        return CurrentResultsEntity(columns: [])
+        return CurrentResultsEntity(rowCount: 40, columns: [])
     }
 }
 
@@ -96,7 +97,7 @@ struct CurrentResultsView_Previews: PreviewProvider {
         }
     }
     static var entity: CurrentResultsEntity {
-        return CurrentResultsEntity(columns: [
+        return CurrentResultsEntity(rowCount: 40, columns: [
             CurrentResultsColumn(title: "こくごノート", ok: (1...40).map { $0 % 2 == 0 }),
             CurrentResultsColumn(title: "さんすうノート", ok: (1...40).map { $0 % 3 < 1 }),
             CurrentResultsColumn(title: "しゃかいかのけんがくノート", ok: (1...40).map { $0 % 5 < 3 })

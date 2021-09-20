@@ -14,6 +14,7 @@ protocol ScanQrCodeViewModelInputs {
     var onTapFlipCamera: PassthroughSubject<Void, Never> { get }
     var onTapShowCurrentResult: PassthroughSubject<Void, Never> { get }
     var isSpeakerMute: CurrentValueSubject<Bool, Never> { get }
+    func onAppear()
 }
 protocol ScanQrCodeViewModelOutputs {
     var flipCamera: AnyPublisher<Void, Never> { get }
@@ -53,7 +54,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
             .eraseToAnyPublisher()
     }
 
-    private let currentResultsSubject = CurrentValueSubject<CurrentResultsEntity, Never>(.default)
+    private let currentResultsSubject: CurrentValueSubject<CurrentResultsEntity, Never>
     public var currentResults: AnyPublisher<CurrentResultsEntity, Never> {
         return currentResultsSubject.eraseToAnyPublisher()
     }
@@ -64,9 +65,11 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
 
     // MARK: - Injected
     private let storeServcie: ScanQrCodeViewStoreServcie
+    private let settingService: SettingService
 
     // MARK: - Properties
     private var detectedDics: [String: [Int: Bool]] = [:]
+    private var classPeaples: Int
 
     private var audioPlayers: [AVPlayer] = {
         // TODO: Inject
@@ -80,9 +83,13 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     private var nextPlayer: Int = 0
 
     private var cancellables: Set<AnyCancellable> = []
-    init(storeServcie: ScanQrCodeViewStoreServcie) {
+    init(storeServcie: ScanQrCodeViewStoreServcie, settingService: SettingService) {
         self.storeServcie = storeServcie
+        self.settingService = settingService
+        self.classPeaples = settingService.currentEntity.classPeaples ?? 40
         self.isSpeakerMute = CurrentValueSubject<Bool, Never>(storeServcie.isSpeakerMute)
+        self.currentResultsSubject = CurrentValueSubject(CurrentResultsEntity(rowCount: classPeaples,
+                                                                              columns: []))
 
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
@@ -99,6 +106,11 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
             self?.detected(text: detected)
         }.store(in: &cancellables)
     }
+
+    public func onAppear() {
+        self.classPeaples = settingService.currentEntity.classPeaples ?? 40
+    }
+
     private func detected(text: String) {
         let indexStr = text.suffix(2)
         guard let index = Int(indexStr) else { return }
@@ -123,11 +135,11 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
 
         let columns = detectedDics.map { (title: String, ok: [Int: Bool]) -> CurrentResultsColumn in
             let column = CurrentResultsColumn(title: title,
-                                              ok: (1...40).map { ok[$0] ?? false })
+                                              ok: (1...classPeaples).map { ok[$0] ?? false })
             return column
         }
 
-        let entity = CurrentResultsEntity(columns: columns)
+        let entity = CurrentResultsEntity(rowCount: classPeaples, columns: columns)
         currentResultsSubject.send(entity)
 
         var latest = latestDetected.value
