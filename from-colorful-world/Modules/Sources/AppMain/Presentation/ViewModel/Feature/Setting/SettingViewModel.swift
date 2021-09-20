@@ -69,4 +69,23 @@ class SettingViewModel: ObservableObject {
         entity.classPeaples = classPeaples
         settingService.update(entity: entity)
     }
+
+    public func tapShare() {
+        // FIXME: ハードコーディング
+        let activityItems: [Any] = [URL(string: "https://apps.apple.com/jp/app/%E6%8F%90%E5%87%BA%E7%89%A9ok/id1584545788")!]
+        let vc = UIActivityViewController(activityItems: activityItems,
+                                          applicationActivities: nil)
+        let rootVC = UIApplication.shared.windows.first!.rootViewController!
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            vc.popoverPresentationController?.sourceView = rootVC.view
+            vc.popoverPresentationController?.sourceRect = CGRect(x: rootVC.view.frame.width / 2,
+                                                                  y: 128,
+                                                                  width: 1,
+                                                                  height: 1)
+        }
+        DispatchQueue.main.async {
+            rootVC.present(vc, animated: true, completion: nil)
+        }
+    }
 }

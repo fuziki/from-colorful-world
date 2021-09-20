@@ -19,19 +19,26 @@ struct SettingView: View {
     }
     private var form: some View {
         Form {
-            Section(header: Text("スキャンの人数")) {
+            Section(header: Text("スキャン人数")) {
                 Stepper("\(viewModel.classPeaples)人") {
                     viewModel.increment()
                 } onDecrement: {
                     viewModel.decrement()
                 }
             }
-            Section(header: Text("その他")) {
+            Section(header: Text("スキャン設定")) {
                 Picker(selection: $viewModel.feedbackSound, label: Text("効果音")) {
                     ForEach(FeedbackSound.allCases, id: \.self) { (sound: FeedbackSound) in
                         Text(sound.display)
                     }
                 }
+            }
+            Section(header: Text("その他")) {
+                Button(action: {
+                    viewModel.tapShare()
+                }, label: {
+                    Text("このアプリをシェアする")
+                })
             }
         }
     }
