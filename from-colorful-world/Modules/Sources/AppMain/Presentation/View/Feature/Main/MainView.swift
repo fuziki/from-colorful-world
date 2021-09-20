@@ -27,6 +27,9 @@ public struct MainView: View {
                         miscSection
                     }
                     .navigationBarTitle(Text("ホーム"), displayMode: .large)
+                    .toolbar {
+                        toolbar
+                    }
                     bannerView
                         .hidden()
                 }
@@ -45,6 +48,19 @@ public struct MainView: View {
                     }
                   }),
                   secondaryButton: .cancel(Text("キャンセル")))
+        }
+    }
+
+    private var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            NavigationLink(destination: SettingView()) {
+                Button(action: {
+                }, label: {
+                    let ui = UIImage(systemName: "bell.badge")!
+                        .withTintColor(.label, renderingMode: .alwaysOriginal)
+                    Image(uiImage: ui)
+                })
+            }
         }
     }
 
@@ -143,6 +159,11 @@ public struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        Group {
+            MainView()
+                .colorScheme(.light)
+            MainView()
+                .colorScheme(.dark)
+        }
     }
 }
