@@ -33,16 +33,15 @@ class CurrentResultsViewModel: CurrentResultsViewModelType,
     @Published public var columns: [CurrentResultsColumn] = []
 
     private let currentResults: AnyPublisher<CurrentResultsEntity, Never>
-    private let settingService: SettingService
 
     private var cancellables: Set<AnyCancellable> = []
     init(currentResults: AnyPublisher<CurrentResultsEntity, Never>,
          settingService: SettingService) {
         self.currentResults = currentResults
-        self.settingService = settingService
-        // タイトルがあるので、クラス人数+1の行を用意する
-        self.rowCount = settingService.currentEntity.classPeaples.flatMap { $0 + 1 } ?? Self.defaultRowCount
+        self.rowCount = Self.defaultRowCount
         self.currentResults.sink { [weak self] (entity: CurrentResultsEntity) in
+            // タイトルがあるので、クラス人数+1の行を用意する
+            self?.rowCount = entity.rowCount + 1
             self?.columns = entity.columns
         }.store(in: &cancellables)
     }
