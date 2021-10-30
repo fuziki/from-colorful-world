@@ -4,3 +4,6 @@ license:
 	--force --suppress-opening-directory \
 	--config-path from-colorful-world/resources/licenses/licenseplist-config.yml \
 	--output-path from-colorful-world/resources/Settings.bundle
+
+test:
+	make $@ -C from-colorful-world/Modules
