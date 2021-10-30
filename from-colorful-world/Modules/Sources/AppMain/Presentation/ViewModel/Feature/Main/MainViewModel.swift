@@ -13,13 +13,25 @@ import SwiftUI
 class MainViewModel: ObservableObject {
     @Published public var scanning: Bool = false
     @Published public var showAlert: Bool = false
+    public let showBadge = CurrentValueSubject<Bool, Never>(false)
+
     public let onComplete = PassthroughSubject<Void, Never>()
     private var cancellables: Set<AnyCancellable> = []
     init() {
         onComplete.sink { [weak self] _ in
             self?.scanning = false
         }.store(in: &cancellables)
+        sub()
     }
+
+    private func sub() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            print("toggle")
+            self?.showBadge.send(!(self?.showBadge.value ?? true))
+            self?.sub()
+        }
+    }
+
     public func startScan() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:

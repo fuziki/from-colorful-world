@@ -10,6 +10,30 @@ import Foundation
 import SwiftUI
 import SafariServices
 
+struct BellIconView: View {
+    @ObservedObject var viewModel: BellIconViewModel
+    init(showBadge: AnyPublisher<Bool, Never>) {
+        viewModel = BellIconViewModel(showBadge: showBadge)
+    }
+    var body: some View {
+        let ui = UIImage(systemName: viewModel.iconName)!
+            .withTintColor(.label, renderingMode: .alwaysOriginal)
+        Image(uiImage: ui)
+    }
+}
+
+class BellIconViewModel: ObservableObject {
+    @Published var iconName: String = "bell"
+    let showBadge: AnyPublisher<Bool, Never>
+    private var cancellables: Set<AnyCancellable> = []
+    init(showBadge: AnyPublisher<Bool, Never>) {
+        self.showBadge = showBadge
+        self.showBadge.sink { [weak self] showBadge in
+            self?.iconName = showBadge ? "bell.badge" : "bell"
+        }.store(in: &cancellables)
+    }
+}
+
 public struct MainView: View {
     @ObservedObject private var viewModel = MainViewModel()
 
@@ -56,9 +80,7 @@ public struct MainView: View {
             NavigationLink(destination: SettingView()) {
                 Button(action: {
                 }, label: {
-                    let ui = UIImage(systemName: "bell.badge")!
-                        .withTintColor(.label, renderingMode: .alwaysOriginal)
-                    Image(uiImage: ui)
+                    BellIconView(showBadge: viewModel.showBadge.eraseToAnyPublisher())
                 })
             }
         }
