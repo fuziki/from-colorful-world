@@ -112,6 +112,7 @@
 			buildConfigurationList = 5292BE6126DA544400AE895E /* Build configuration list for PBXNativeTarget "from-colorful-world" */;
 			buildPhases = (
 				5292BE4E26DA544200AE895E /* Sources */,
+				522D111B272E54D10035B824 /* License */,
 				527A669926F1909600C2A97B /* Format */,
 				5292BE4F26DA544200AE895E /* Frameworks */,
 				5292BE5026DA544200AE895E /* Resources */,
@@ -177,6 +178,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		522D111B272E54D10035B824 /* License */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = License;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake license\n";
+		};
 		527A669826F10BB100C2A97B /* Update Settings.bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,7 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:0:DefaultValue ${MARKETING_VERSION}(${CURRENT_PROJECT_VERSION})\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Settings.bundle/Root.plist\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake update-version\n";
 		};
 		527A669926F1909600C2A97B /* Format */ = {
 			isa = PBXShellScriptBuildPhase;
