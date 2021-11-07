@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/mono0926/LicensePlist",
         "state": {
           "branch": null,
-          "revision": "38db6f435cc77513a528780d14b1b29daf042439",
-          "version": "3.13.0"
+          "revision": "22d5de3a45008f5c366bea25e5279e49d3a3f3fd",
+          "version": "3.14.4"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
           "branch": null,
-          "revision": "7f4be006fe73211b0fd9666c73dc2f2303ffa756",
-          "version": "0.31.0"
+          "revision": "558628392eb31d37cb251cfe626c53eafd330df6",
+          "version": "0.31.1"
         }
       },
       {
@@ -150,8 +150,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "9564d61b08a5335ae0a36f789a7d71493eacadfc",
-          "version": "0.3.2"
+          "revision": "d2930e8fcf9c33162b9fcc1d522bc975e2d4179b",
+          "version": "1.0.1"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "https://github.com/realm/SwiftLint",
         "state": {
           "branch": null,
-          "revision": "e820e750b08bd67bc9d98f4817868e9bc3d5d865",
-          "version": "0.44.0"
+          "revision": "99465e659fb91facab5b1d3c0f9229176d086bf1",
+          "version": "0.45.0"
         }
       },
       {

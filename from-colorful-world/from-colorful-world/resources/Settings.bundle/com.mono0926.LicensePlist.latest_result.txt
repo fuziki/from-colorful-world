@@ -4,4 +4,4 @@ https://sound…
 
 add-version-numbers: false
 
-LicensePlist Version: 3.13.0
+LicensePlist Version: 3.14.4
