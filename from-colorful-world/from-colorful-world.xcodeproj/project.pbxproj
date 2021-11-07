@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		522D2FBA2737649B0035B824 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Modules; sourceTree = "<group>"; };
 		527A669126F1013700C2A97B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		527A669326F1013700C2A97B /* licenseplist-config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "licenseplist-config.yml"; sourceTree = "<group>"; };
 		527A669426F1013700C2A97B /* soundeffect-lab.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "soundeffect-lab.txt"; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				5292BE5426DA544200AE895E /* from-colorful-world */,
+				522D2FBA2737649B0035B824 /* Modules */,
 				5292BE5326DA544200AE895E /* Products */,
 				5292BE6426DA56AB00AE895E /* Frameworks */,
 			);
