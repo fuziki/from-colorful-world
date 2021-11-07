@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  from-colorful-world
+
+  Created by fuziki on 2021/11/07.
+  
+*/
+
+"MainView.Navigate.Title" = "Home";
+"MainView.Scan.Header" = "Scan";
+"MainView.Scan.StartScan" = "Start Scan";
