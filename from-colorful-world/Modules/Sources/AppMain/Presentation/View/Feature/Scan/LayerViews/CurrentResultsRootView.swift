@@ -15,7 +15,7 @@ struct CurrentResultsRootView: View {
         viewModel = CurrentResultsRootViewModel(currentResults: currentResults, showCurrentResults: showCurrentResults)
     }
     var body: some View {
-        EmptyView()
+        Color.clear
             .sheet(isPresented: $viewModel.show) {
                 CurrentResultsView(currentResults: viewModel.currentResults)
             }

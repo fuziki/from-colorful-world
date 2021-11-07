@@ -17,9 +17,6 @@ struct CurrentResultsColumn: Hashable {
 struct CurrentResultsEntity {
     let rowCount: Int
     let columns: [CurrentResultsColumn]
-    static var `default`: CurrentResultsEntity {
-        return CurrentResultsEntity(rowCount: 40, columns: [])
-    }
 }
 
 struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
@@ -52,7 +49,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
         return LazyHGrid(rows: gridItems) {
             makeTitleView(title: "出席番号", fontSize: fontSize)
             ForEach(1..<viewModel.outputs.rowCount) { i in
-                makeOkView(index: i, fontSize: fontSize, ok: false)
+                makeOkView(title: "出席番号", index: i, fontSize: fontSize, ok: false)
             }
         }
     }
@@ -62,7 +59,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
             ForEach(viewModel.outputs.columns, id: \.self) { (column: CurrentResultsColumn) in
                 makeTitleView(title: column.title, fontSize: fontSize)
                 ForEach(1..<viewModel.outputs.rowCount) { i in
-                    makeOkView(index: i, fontSize: fontSize, ok: column.ok[i-1])
+                    makeOkView(title: column.title, index: i, fontSize: fontSize, ok: column.ok[i-1])
                 }
             }
         }
@@ -72,15 +69,17 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
         return Text(title)
             .font(.system(size: fontSize))
             .padding(.horizontal, 8)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private func makeOkView(index: Int, fontSize: CGFloat, ok: Bool) -> some View {
-        return  Text(ok ? "OK!" : "\(index)")
-            .foregroundColor(ok ? .blue.opacity(0.7) : .primary)
-            .font(.system(size: fontSize))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(index%2==0 ? Color.secondarySystemGroupedBackground : Color.systemGroupedBackground)
+    private func makeOkView(title: String, index: Int, fontSize: CGFloat, ok: Bool) -> some View {
+        return ZStack {
+            Text(title).opacity(0).layoutPriority(1)
+            Text(ok ? "OK!" : "\(index)")
+        }
+        .padding(.horizontal, 8)
+        .foregroundColor(ok ? .blue.opacity(0.7) : .primary)
+        .font(.system(size: fontSize))
+        .background(index%2==0 ? Color.secondarySystemGroupedBackground : Color.systemGroupedBackground)
     }
 
     private func makeGridItems(size: CGFloat) -> [GridItem] {
@@ -92,9 +91,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
 
 struct CurrentResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            CurrentResultsView(currentResults: Just<CurrentResultsEntity>(entity).eraseToAnyPublisher())
-        }
+        CurrentResultsView(currentResults: Just<CurrentResultsEntity>(entity).eraseToAnyPublisher())
     }
     static var entity: CurrentResultsEntity {
         return CurrentResultsEntity(rowCount: 40, columns: [
