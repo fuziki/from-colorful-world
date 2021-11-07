@@ -10,6 +10,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/mono0926/LicensePlist", from: "3.0.5"),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.43.1"),
+        .package(url: "https://github.com/SwiftGen/SwiftGen", from: "6.5.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

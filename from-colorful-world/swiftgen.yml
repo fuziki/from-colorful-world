@@ -1,0 +1,9 @@
+strings:
+  inputs:
+    - Modules/Sources/Assets/ResourceFiles/Locales/en.lproj
+  filter: .+\.strings$
+  outputs:
+    - templateName: structured-swift5
+      output: Modules/Sources/Assets/Generated/Strings+Generated.swift
+      params:
+        publicAccess: true
