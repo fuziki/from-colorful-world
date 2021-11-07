@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  from-colorful-world
+
+  Created by fuziki on 2021/11/07.
+  
+*/
+
+"MainView.Navigate.Title" = "ホーム";
+"MainView.Scan.Header" = "スキャン";
+"MainView.Scan.StartScan" = "スキャンを開始する";

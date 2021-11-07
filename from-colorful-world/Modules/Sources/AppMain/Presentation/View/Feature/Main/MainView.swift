@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/08/28.
 //
 
+import Assets
 import Combine
 import Foundation
 import SwiftUI
@@ -26,7 +27,7 @@ public struct MainView: View {
                         qrcodeSection
                         miscSection
                     }
-                    .navigationBarTitle(Text("ホーム"), displayMode: .large)
+                    .navigationBarTitle(Text(HandMadeStrings.mainViewNavigateTitle), displayMode: .large)
                     bannerView
                         .hidden()
                 }
@@ -49,7 +50,7 @@ public struct MainView: View {
     }
 
     private var scanSection: some View {
-        Section(header: Text("スキャン")) {
+        Section(header: Text(HandMadeStrings.mainViewScanHeader)) {
             Button(action: {
                 print("act!")
                 viewModel.startScan()
@@ -57,7 +58,7 @@ public struct MainView: View {
                 NavigationLink(destination: EmptyView(), isActive: .constant(false)) {
                     HStack {
                         Image(systemName: "viewfinder")
-                        Text("スキャンを開始する")
+                        Text(HandMadeStrings.mainViewScanStartScan)
                     }
                 }
                 .contentShape(Rectangle())
@@ -75,12 +76,6 @@ public struct MainView: View {
                     Text("新しい2次元コードを作る")
                 }
             }
-            //            NavigationLink(destination: MadeQrCodeListView(store: DefaultMadeQrcodeStoredService())) {
-            //                HStack {
-            //                    Image(systemName: "clock.arrow.circlepath")
-            //                    Text("コードの作成履歴")
-            //                }
-            //            }
         }
     }
 

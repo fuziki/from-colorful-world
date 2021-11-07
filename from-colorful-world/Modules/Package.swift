@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Modules",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v14),
         .macOS(.v10_15)
@@ -24,6 +25,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "AppMain",
+            dependencies: [.target(name: "Assets")],
+            resources: [.process("ResourceFiles")]),
+        .target(
+            name: "Assets",
             dependencies: [],
             resources: [.process("ResourceFiles")]),
         .testTarget(
