@@ -46,11 +46,24 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
     }
 
     public func onAppear() {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.global(qos: .default).async { [weak self] in
             guard let self = self else { return }
             if self.content != nil { return }
             let data = PdfRenderer().makePdfData(title: self.title, qrcodeCount: self.qrcodeCount)
-            self.content = .data(data)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                let dir = FileManager.default
+                    .urls(for: .cachesDirectory, in: .userDomainMask)
+                    .first!
+                    .appendingPathComponent("hogehoge", isDirectory: true)
+                try! FileManager.default.createDirectory(at: dir,
+                                                         withIntermediateDirectories: true,
+                                                         attributes: [:])
+                let url = dir
+                    .appendingPathComponent("\(self.title).pdf")
+                try! data.write(to: url)
+                self.content = .url(url)
+            }
         }
     }
 
