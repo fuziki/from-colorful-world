@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/08/28.
 //
 
+import Assets
 import Foundation
 import SwiftUI
 
@@ -70,15 +71,32 @@ struct MakeNewQrCodeView: View {
             HStack {
                 Spacer()
                 Text("2次元コードを作成する")
+                    .fontWeight(.bold)
                 Spacer()
             }
             .contentShape(Rectangle())
         })
+        .foregroundColor(.systemBackground)
+        .listRowBackground(Color.gunjou.opacity(text.count == 0 ? 0.4 : 1))
     }
 }
 
 struct MakeNewQrCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeNewQrCodeView(viewModel: MakeNewQrCodeViewModel(settingService: DefaultSettingService()))
+        Group {
+            makeView(text: "こくご")
+                .colorScheme(.light)
+            makeView(text: "さんすうノート")
+                .colorScheme(.dark)
+            makeView(text: "")
+                .colorScheme(.light)
+            makeView(text: "")
+                .colorScheme(.dark)
+        }
+    }
+    static func makeView(text: String) -> some View {
+        let vm = MakeNewQrCodeViewModel(settingService: DefaultSettingService())
+        let v = MakeNewQrCodeView(text: text, viewModel: vm)
+        return v
     }
 }

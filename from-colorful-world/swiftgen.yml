@@ -7,3 +7,15 @@ strings:
       output: Modules/Sources/Assets/Generated/Strings+Generated.swift
       params:
         publicAccess: true
+        enumName: AppLocales
+        bundle: MyBundleToken.bundle
+xcassets:
+  inputs:
+    - Modules/Sources/Assets/ResourceFiles/Colors/AppColors.xcassets
+  outputs:
+    - templateName: swift5
+      output: Modules/Sources/Assets/Generated/AppColors+Generated.swift
+      params:
+        publicAccess: true
+        enumName: AppColors
+        bundle: MyBundleToken.bundle
