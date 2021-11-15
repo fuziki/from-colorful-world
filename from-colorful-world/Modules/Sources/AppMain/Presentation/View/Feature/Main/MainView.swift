@@ -38,6 +38,7 @@ public struct MainView: View {
             }
             InAppNoticeView()
         }
+        .preferredColorScheme(viewModel.colorScheme)
         .alert(isPresented: $viewModel.showAlert) {
             Alert(title: Text("カメラの使用を許可してください"),
                   primaryButton: .default(Text("設定アプリを開く"), action: {

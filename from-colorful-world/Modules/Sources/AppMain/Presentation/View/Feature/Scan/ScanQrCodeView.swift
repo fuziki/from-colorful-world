@@ -25,6 +25,15 @@ struct ScanQrCodeView: View {
             QrCodeDetectorView(flip: viewModel.outputs.flipCamera, detected: viewModel.inputs.onDetected)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
+            VStack {
+                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.3), .black.opacity(0)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                    .frame(height: 128)
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .ignoresSafeArea()
             ScanQrCodeControlPanelView(flip: viewModel.inputs.onTapFlipCamera,
                                        onComplete: onComplete,
                                        showCurrentResult: viewModel.inputs.onTapShowCurrentResult,

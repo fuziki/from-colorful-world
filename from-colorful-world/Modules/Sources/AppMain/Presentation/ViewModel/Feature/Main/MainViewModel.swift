@@ -12,23 +12,28 @@ import SwiftUI
 
 class MainViewModel: ObservableObject {
     @Published public var scanning: Bool = false
+    @Published public var colorScheme: ColorScheme? = nil
     @Published public var showAlert: Bool = false
     public let onComplete = PassthroughSubject<Void, Never>()
     private var cancellables: Set<AnyCancellable> = []
     init() {
         onComplete.sink { [weak self] _ in
             self?.scanning = false
+            self?.colorScheme = nil
         }.store(in: &cancellables)
     }
     public func startScan() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
+            // scanning が true の場合は colorScheme を変更しない方がよさそう
+            colorScheme = .dark
             scanning = true
 
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] authorized in
                 DispatchQueue.main.async { [weak self] in
                     if authorized {
+                        self?.colorScheme = .dark
                         self?.scanning = true
                     } else {
                         self?.showAlert = true
