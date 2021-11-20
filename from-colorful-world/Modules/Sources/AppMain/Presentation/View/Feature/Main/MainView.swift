@@ -15,7 +15,6 @@ public struct MainView: View {
     @ObservedObject private var viewModel = MainViewModel()
 
     public init() {
-
     }
 
     public var body: some View {
@@ -33,20 +32,24 @@ public struct MainView: View {
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            if viewModel.scanning {
-                ScanQrCodeView(onComplete: viewModel.onComplete)
-            }
             InAppNoticeView()
         }
-        .preferredColorScheme(viewModel.colorScheme)
+        .preferredColorScheme(nil)
         .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("カメラの使用を許可してください"),
-                  primaryButton: .default(Text("設定アプリを開く"), action: {
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    }
-                  }),
-                  secondaryButton: .cancel(Text("キャンセル")))
+            let accept: Alert.Button = .default(Text("設定アプリを開く"), action: {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            })
+            return Alert(title: Text("カメラの使用を許可してください"),
+                         primaryButton: accept,
+                         secondaryButton: .cancel(Text("キャンセル")))
+        }
+        .fullScreenCover(isPresented: $viewModel.scanning) {
+        } content: {
+            ScanQrCodeView(onComplete: viewModel.onComplete)
+                .preferredColorScheme(.dark)
+                .transition(.identity)
         }
     }
 
@@ -90,12 +93,6 @@ public struct MainView: View {
                 }
             }
             let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
-            //            NavigationLink(destination: UsageView(url: url)) {
-            //                HStack {
-            //                    Image(systemName: "info.circle")
-            //                    Text("使い方を見る")
-            //                }
-            //            }
             Button {
                 let root = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
                 if let r = root {
@@ -114,20 +111,6 @@ public struct MainView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
-            //            Button {
-            //                if UIApplication.shared.canOpenURL(url) {
-            //                    UIApplication.shared.open(url)
-            //                }
-            //            } label: {
-            //                NavigationLink(destination: EmptyView()) {
-            //                    HStack {
-            //                        Image(systemName: "info.circle")
-            //                        Text("使い方を見る")
-            //                    }
-            //                }
-            //                .contentShape(Rectangle())
-            //            }
-            //            .buttonStyle(PlainButtonStyle())
         }
     }
 
