@@ -78,10 +78,10 @@ struct ScanQrCodeControlPanelView: View {
         }, label: {
             Image(systemName: "xmark")
                 .font(.system(size: 32, weight: .medium, design: .default))
-                .foregroundColor(.black)
+                .foregroundColor(.white)
                 .padding(.horizontal, 4)
                 .shadow(radius: 3)
-                .shadow(color: .white, radius: 3, x: 0.0, y: 0.0)
+                .shadow(color: .black, radius: 3, x: 0.0, y: 0.0)
         })
     }
 

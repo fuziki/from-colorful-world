@@ -18,6 +18,7 @@ struct CurrentResultsRootView: View {
         Color.clear
             .sheet(isPresented: $viewModel.show) {
                 CurrentResultsView(currentResults: viewModel.currentResults)
+                    .preferredColorScheme(nil)
             }
     }
 }
