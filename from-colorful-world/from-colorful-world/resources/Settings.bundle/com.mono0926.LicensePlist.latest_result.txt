@@ -1,3 +1,57 @@
+name: APIKit, nameSpecified: APIKit, owner: ishkawa, version: 5.2.0
+
+name: Commander, nameSpecified: Commander, owner: kylef, version: 0.9.2
+
+name: HeliumLogger, nameSpecified: HeliumLogger, owner: Kitura, version: 1.9.200
+
+name: Kanna, nameSpecified: Kanna, owner: tid-kijyun, version: 5.2.7
+
+name: Komondor, nameSpecified: Komondor, owner: shibapm, version: 1.1.2
+
+name: LicensePlist, nameSpecified: LicensePlist, owner: mono0926, version: 3.14.4
+
+name: Logger, nameSpecified: Logger, owner: shibapm, version: 0.2.3
+
+name: LoggerAPI, nameSpecified: LoggerAPI, owner: Kitura, version: 1.9.200
+
+name: PackageConfig, nameSpecified: PackageConfig, owner: shibapm, version: 1.1.0
+
+name: PathKit, nameSpecified: PathKit, owner: kylef, version: 1.0.1
+
+name: Rocket, nameSpecified: Rocket, owner: f-meloni, version: 1.2.1
+
+name: ShellOut, nameSpecified: ShellOut, owner: JohnSundell, version: 2.3.0
+
+name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
+
+name: Spectre, nameSpecified: Spectre, owner: kylef, version: 0.10.1
+
+name: Stencil, nameSpecified: Stencil, owner: kylef, version: 0.14.2
+
+name: StencilSwiftKit, nameSpecified: StencilSwiftKit, owner: SwiftGen, version: 2.8.0
+
+name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 1.0.1
+
+name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 3.0.200
+
+name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
+
+name: SwiftFormat, nameSpecified: SwiftFormat, owner: nicklockwood, version: 0.48.18
+
+name: SwiftGen, nameSpecified: SwiftGen, owner: SwiftGen, version: 6.5.1
+
+name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.0
+
+name: SwiftShell, nameSpecified: SwiftShell, owner: kareman, version: 5.1.0-beta.1
+
+name: SwiftyTextTable, nameSpecified: SwiftyTextTable, owner: scottrhoyt, version: 0.9.0
+
+name: SWXMLHash, nameSpecified: SWXMLHash, owner: drmohundro, version: 5.0.2
+
+name: YamlSwift, nameSpecified: Yaml, owner: behrang, version: 3.4.4
+
+name: Yams, nameSpecified: Yams, owner: jpsim, version: 4.0.6
+
 name: 効果音ラボ, nameSpecified: , version: 
 body: ©️効果音ラボ
 https://sound…
