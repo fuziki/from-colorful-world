@@ -8,6 +8,7 @@ update-version:
 license:
 	xcrun --sdk macosx swift run --package-path ../tools license-plist \
 		--force --suppress-opening-directory \
+		--swift-package-paths ../tools/Package.swift \
 		--output-path from-colorful-world/resources/Settings.bundle
 
 swiftgen:
