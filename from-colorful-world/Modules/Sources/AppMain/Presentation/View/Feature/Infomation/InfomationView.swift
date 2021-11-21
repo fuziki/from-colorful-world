@@ -1,6 +1,6 @@
 //
 //  InfomationView.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/21.
 //
@@ -19,7 +19,7 @@ struct InfomationViewCellEntity: Hashable {
 
 struct InfomationView<ViewModelType: InfomationViewModelType>: View {
     @ObservedObject var viewModel: ViewModelType
-    
+
     var body: some View {
         if #available(iOS 15.0, *) {
             shared
@@ -38,7 +38,7 @@ struct InfomationView<ViewModelType: InfomationViewModelType>: View {
         .navigationBarTitle(Text("お知らせ"), displayMode: .inline)
         .onAppear { viewModel.inputs.onAppear() }
     }
-    
+
     private func makeCell(entity: InfomationViewCellEntity) -> some View {
         Button {
             present(url: entity.url)
@@ -89,7 +89,7 @@ struct InfomationView_Previews: PreviewProvider {
         let entities: [InfomationViewCellEntity] = [
             .init(title: "バージョン1.3.0を公開しました", date: "2021/01/03", url: url),
             .init(title: "バージョン1.2.0を公開しました", date: "2021/01/02", url: url),
-            .init(title: "バージョン1.1.0を公開しました", date: "2021/01/01", url: url),
+            .init(title: "バージョン1.1.0を公開しました", date: "2021/01/01", url: url)
         ]
         let viewModel = MockedInfomationViewModel(entities: entities)
         Group {

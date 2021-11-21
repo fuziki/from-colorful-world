@@ -1,6 +1,6 @@
 //
 //  MainViewUseCase.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/21.
 //
@@ -18,7 +18,7 @@ class DefaultMainViewUseCase: MainViewUseCase {
     public var latestReadInfomationDate: Date? {
         return DefaultLatestReadInfomationUseCase().latestDate
     }
-    
+
     public func fetchLatestInfomationDate(gistId: String) -> AnyPublisher<Date, Error> {
         return GistGitHubApi(gistId: gistId)
             .request()

@@ -1,6 +1,6 @@
 //
 //  InfomationViewUseCase.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/21.
 //
@@ -26,7 +26,7 @@ class DefaultInfomationViewUseCase: InfomationViewUseCase {
             }
             .eraseToAnyPublisher()
     }
-    
+
     public func read() {
         DefaultLatestReadInfomationUseCase().read(date: Date())
     }

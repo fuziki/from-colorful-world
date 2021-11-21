@@ -1,6 +1,6 @@
 //
 //  MyBundleToken.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/13.
 //
@@ -16,7 +16,7 @@ internal final class MyBundleToken {
         return "\(packageName)_\(m)"
     }()
     static let bundle: Bundle = {
-#if SWIFT_PACKAGE
+        #if SWIFT_PACKAGE
         if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
             let url = Bundle(for: MyBundleToken.self)
                 .bundleURL
@@ -27,8 +27,8 @@ internal final class MyBundleToken {
         } else {
             return Bundle.module
         }
-#else
+        #else
         return Bundle(for: MyBundleToken.self)
-#endif
+        #endif
     }()
 }

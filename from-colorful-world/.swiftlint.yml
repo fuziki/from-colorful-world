@@ -3,3 +3,6 @@ included:
 line_length: 300
 identifier_name:
   min_length: 1
+nesting:
+  type_level:
+    warning: 5

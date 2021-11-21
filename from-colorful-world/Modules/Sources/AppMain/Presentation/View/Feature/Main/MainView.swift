@@ -33,7 +33,7 @@ public struct MainView: View {
                     .transition(.identity)
             }
     }
-    
+
     private var main: some View {
         ZStack {
             NavigationView {
@@ -56,7 +56,7 @@ public struct MainView: View {
             InAppNoticeView()
         }
     }
-    
+
     private var infoLink: some View {
         let infoViewModel = InfomationViewModel(usecase: DefaultInfomationViewUseCase())
         let infoView = InfomationView(viewModel: infoViewModel)
@@ -64,7 +64,7 @@ public struct MainView: View {
                               isActive: $viewModel.showInfomation) { }
 
     }
-    
+
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: {
@@ -92,7 +92,7 @@ public struct MainView: View {
             .buttonStyle(PlainButtonStyle())
         }
     }
-    
+
     private var alert: Alert {
         let accept: Alert.Button = .default(Text("設定アプリを開く"), action: {
             if let url = URL(string: UIApplication.openSettingsURLString) {

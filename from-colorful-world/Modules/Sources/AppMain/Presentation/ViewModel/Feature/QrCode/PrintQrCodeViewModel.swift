@@ -56,11 +56,15 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
                     .urls(for: .cachesDirectory, in: .userDomainMask)
                     .first!
                     .appendingPathComponent("hogehoge", isDirectory: true)
+                // FIXME: fix force_try
+                // swiftlint:disable force_try
                 try! FileManager.default.createDirectory(at: dir,
                                                          withIntermediateDirectories: true,
                                                          attributes: [:])
                 let url = dir
                     .appendingPathComponent("\(self.title).pdf")
+                // FIXME: fix force_try
+                // swiftlint:disable force_try
                 try! data.write(to: url)
                 self.content = .url(url)
             }

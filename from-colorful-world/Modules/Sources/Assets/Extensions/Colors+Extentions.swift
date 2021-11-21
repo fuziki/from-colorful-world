@@ -1,6 +1,6 @@
 //
 //  Colors+Extentions.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/13.
 //
