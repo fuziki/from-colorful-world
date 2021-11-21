@@ -27,6 +27,7 @@ let package = Package(
             name: "AppMain",
             dependencies: [
                 .target(name: "Assets"),
+                .target(name: "AppleExtensions"),
                 .target(name: "Core")
             ],
             resources: [.process("ResourceFiles")]),
@@ -35,6 +36,9 @@ let package = Package(
             dependencies: [],
             exclude: ["Token/_AppToken.swift"],
             resources: [.process("ResourceFiles")]),
+        .target(
+            name: "AppleExtensions",
+            dependencies: []),
         .target(
             name: "Core",
             dependencies: []),

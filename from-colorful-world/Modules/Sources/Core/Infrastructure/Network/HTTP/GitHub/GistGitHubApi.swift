@@ -13,7 +13,7 @@ public struct GistGitHubApi: GitHubApi {
         public struct File: Codable {
             public let rawUrl: String
             enum CodingKeys: String, CodingKey {
-              case rawUrl = "raw_url"
+                case rawUrl = "raw_url"
             }
         }
         public let files: [String: File]

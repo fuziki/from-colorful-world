@@ -1,6 +1,6 @@
 //
 //  InfomationViewModel.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/21.
 //
@@ -35,11 +35,11 @@ class InfomationViewModel: InfomationViewModelType,
                            InfomationViewModelOutputs {
     @Published public var isLoading: Bool = false
     @Published public var cellEntities: [InfomationViewCellEntity] = []
-    
+
     private let usecase: InfomationViewUseCase
-    
+
     private let fetch = PassthroughSubject<Void, Never>()
-    
+
     private var cancellables: Set<AnyCancellable> = []
     init(usecase: InfomationViewUseCase) {
         self.usecase = usecase

@@ -6,6 +6,9 @@ test:
 license:
 	make $@ -C from-colorful-world
 
+format:
+	make $@ -C from-colorful-world
+
 swiftgen:
 	make $@ -C from-colorful-world
 

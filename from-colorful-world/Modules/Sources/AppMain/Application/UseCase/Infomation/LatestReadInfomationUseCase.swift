@@ -1,6 +1,6 @@
 //
 //  LatestReadInfomationUseCase.swift
-//  
+//
 //
 //  Created by fuziki on 2021/11/21.
 //
@@ -24,7 +24,7 @@ class DefaultLatestReadInfomationUseCase: LatestReadInfomationUseCase {
             .fetch(key: key, type: Stored.self)?
             .latestDate
     }
-    
+
     public func read(date: Date) {
         let stored = Stored(latestDate: date)
         userdefaults.store(key: key, value: stored)

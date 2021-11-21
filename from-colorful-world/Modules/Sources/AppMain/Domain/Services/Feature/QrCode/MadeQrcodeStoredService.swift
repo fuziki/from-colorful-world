@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/09/05.
 //
 
+import AppleExtensions
 import Foundation
 
 protocol MadeQrcodeStoredService {
@@ -27,13 +28,5 @@ class DefaultMadeQrcodeStoredService: MadeQrcodeStoredService {
             current.removeFirst()
         }
         userDefaults.store(key: key, value: current)
-    }
-}
-
-extension Array where Element: Equatable {
-    mutating func removeAll(value: Element) {
-        while let i = self.firstIndex(of: value) {
-            self.remove(at: i)
-        }
     }
 }

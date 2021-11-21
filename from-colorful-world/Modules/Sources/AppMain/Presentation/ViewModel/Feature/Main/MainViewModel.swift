@@ -17,12 +17,12 @@ class MainViewModel: ObservableObject {
     @Published public var scanning: Bool = false
     @Published public var showAlert: Bool = false
     public let onComplete = PassthroughSubject<Void, Never>()
-    
+
     private let usecase: MainViewUseCase
 
     private let showBadgeSubject = CurrentValueSubject<Bool, Never>(false)
     private let fetchInfomation = PassthroughSubject<Void, Never>()
-    
+
     private var cancellables: Set<AnyCancellable> = []
     init(usecase: MainViewUseCase) {
         print("init MainViewModel")
@@ -31,7 +31,7 @@ class MainViewModel: ObservableObject {
         onComplete.sink { [weak self] _ in
             self?.scanning = false
         }.store(in: &cancellables)
-        
+
         fetchInfomation
             .flatMap { [weak self] _ -> AnyPublisher<Date, Error> in
                 guard let self = self else { return Empty().eraseToAnyPublisher() }
@@ -53,7 +53,7 @@ class MainViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     public func tapInfomation() {
         showInfomation = true
         showBadgeSubject.send(false)
