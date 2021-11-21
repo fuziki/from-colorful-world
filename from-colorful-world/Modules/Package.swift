@@ -25,12 +25,19 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "AppMain",
-            dependencies: [.target(name: "Assets")],
+            dependencies: [
+                .target(name: "Assets"),
+                .target(name: "Core")
+            ],
             resources: [.process("ResourceFiles")]),
         .target(
             name: "Assets",
             dependencies: [],
+            exclude: ["Token/_AppToken.swift"],
             resources: [.process("ResourceFiles")]),
+        .target(
+            name: "Core",
+            dependencies: []),
         .testTarget(
             name: "AppMainTests",
             dependencies: ["AppMain"])

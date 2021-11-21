@@ -12,12 +12,29 @@ import SwiftUI
 import SafariServices
 
 public struct MainView: View {
-    @ObservedObject private var viewModel = MainViewModel()
+    @ObservedObject private var viewModel = MainViewModel(usecase: DefaultMainViewUseCase())
 
     public init() {
     }
 
     public var body: some View {
+        main
+            .preferredColorScheme(nil)
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .alert(isPresented: $viewModel.showAlert) {
+                alert
+            }
+            .fullScreenCover(isPresented: $viewModel.scanning) {
+            } content: {
+                ScanQrCodeView(onComplete: viewModel.onComplete)
+                    .preferredColorScheme(.dark)
+                    .transition(.identity)
+            }
+    }
+    
+    private var main: some View {
         ZStack {
             NavigationView {
                 ZStack {
@@ -27,29 +44,34 @@ public struct MainView: View {
                         miscSection
                     }
                     .navigationBarTitle(Text(AppLocales.MainView.Navigate.title), displayMode: .large)
+                    .toolbar {
+                        toolbar
+                    }
                     bannerView
                         .hidden()
+                    infoLink
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
             InAppNoticeView()
         }
-        .preferredColorScheme(nil)
-        .alert(isPresented: $viewModel.showAlert) {
-            let accept: Alert.Button = .default(Text("設定アプリを開く"), action: {
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
+    }
+    
+    private var infoLink: some View {
+        let infoViewModel = InfomationViewModel(usecase: DefaultInfomationViewUseCase())
+        let infoView = InfomationView(viewModel: infoViewModel)
+        return NavigationLink(destination: infoView,
+                              isActive: $viewModel.showInfomation) { }
+
+    }
+    
+    private var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+                viewModel.tapInfomation()
+            }, label: {
+                BellIconView(showBadge: viewModel.showBadge)
             })
-            return Alert(title: Text("カメラの使用を許可してください"),
-                         primaryButton: accept,
-                         secondaryButton: .cancel(Text("キャンセル")))
-        }
-        .fullScreenCover(isPresented: $viewModel.scanning) {
-        } content: {
-            ScanQrCodeView(onComplete: viewModel.onComplete)
-                .preferredColorScheme(.dark)
-                .transition(.identity)
         }
     }
 
@@ -69,6 +91,17 @@ public struct MainView: View {
             })
             .buttonStyle(PlainButtonStyle())
         }
+    }
+    
+    private var alert: Alert {
+        let accept: Alert.Button = .default(Text("設定アプリを開く"), action: {
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        })
+        return Alert(title: Text("カメラの使用を許可してください"),
+                     primaryButton: accept,
+                     secondaryButton: .cancel(Text("キャンセル")))
     }
 
     private var qrcodeSection: some View {
