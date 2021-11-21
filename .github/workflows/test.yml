@@ -33,7 +33,8 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
+      - name: Install
+        run: make install
+
       - name: Test
         run: make test
-      
-
