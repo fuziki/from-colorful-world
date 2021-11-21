@@ -27,7 +27,7 @@ class MainViewModel: ObservableObject {
     init(usecase: MainViewUseCase) {
         print("init MainViewModel")
         self.usecase = usecase
-        showBadge = showBadgeSubject.share().eraseToAnyPublisher()
+        showBadge = showBadgeSubject.eraseToAnyPublisher()
         onComplete.sink { [weak self] _ in
             self?.scanning = false
         }.store(in: &cancellables)
