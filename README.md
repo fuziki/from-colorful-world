@@ -1,8 +1,8 @@
 # from-colorful-world
 
 ![Platform](https://img.shields.io/badge/platform-%20iOS%20-green.svg)
-![Swift](https://img.shields.io/badge/language-swift-green.svg)
-![Xcode](https://img.shields.io/badge/xcode-xcode13-green.svg)
+![Swift](https://img.shields.io/badge/language-Swift-green.svg)
+![Xcode](https://img.shields.io/badge/xcode-Xcode13-green.svg)
 
 ## Requirements
 * Xcode 13.1
