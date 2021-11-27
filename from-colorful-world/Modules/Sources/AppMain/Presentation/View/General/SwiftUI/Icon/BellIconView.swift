@@ -16,8 +16,16 @@ struct BellIconView: View {
     }
     var body: some View {
         let ui = UIImage(systemName: viewModel.iconName)!
-            .withTintColor(.label, renderingMode: .alwaysOriginal)
+            .withTintColor(.label, renderingMode: renderingMode)
         Image(uiImage: ui)
+            .foregroundColor(Color(UIColor.label))
+    }
+    private var renderingMode: UIImage.RenderingMode {
+        if #available(iOS 15.0, *) {
+            return .alwaysTemplate
+        } else {
+            return .alwaysOriginal
+        }
     }
 }
 
