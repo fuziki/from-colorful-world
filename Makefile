@@ -18,4 +18,6 @@ environment:
 		> from-colorful-world/Modules/Sources/Assets/Token/AppToken.swift
 	echo "Applied environment"
 
+install-test: environment swiftgen
+
 install: environment swiftgen license

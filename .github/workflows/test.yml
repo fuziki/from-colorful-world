@@ -34,7 +34,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Install
-        run: make install
+        run: make install-test
 
       - name: Test
         run: make test

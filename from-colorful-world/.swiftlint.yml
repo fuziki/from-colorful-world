@@ -1,5 +1,7 @@
 included:
   - Modules/Sources
+excluded:
+  - Modules/Sources/Assets/Generated/
 line_length: 300
 identifier_name:
   min_length: 1
