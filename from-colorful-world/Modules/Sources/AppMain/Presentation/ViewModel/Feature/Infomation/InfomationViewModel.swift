@@ -10,6 +10,7 @@ import Core
 import Combine
 import Foundation
 import SwiftUI
+import CombineSchedulers
 
 protocol InfomationViewModelInputs {
     func onAppear()
@@ -37,21 +38,28 @@ class InfomationViewModel: InfomationViewModelType,
     @Published public var cellEntities: [InfomationViewCellEntity] = []
 
     private let usecase: InfomationViewUseCase
+    private let scheduler: AnySchedulerOf<RunLoop>
 
     private let fetch = PassthroughSubject<Void, Never>()
 
     private var cancellables: Set<AnyCancellable> = []
-    init(usecase: InfomationViewUseCase) {
+    init(usecase: InfomationViewUseCase, scheduler: AnySchedulerOf<RunLoop>) {
         self.usecase = usecase
+        self.scheduler = scheduler
+        self.setupFetch()
+    }
+
+    private func setupFetch() {
         fetch
-            .flatMap { [weak self] _ -> AnyPublisher<InformationApi.Response, Error> in
-                guard let self = self else { return Empty().eraseToAnyPublisher() }
+            .flatMap { [weak self] _ -> AnyPublisher<InformationApi.Response, Never> in
+                guard let self = self else { return .empty() }
                 return self.usecase
                     .fetch(gistId: AppToken.gistId)
-            }
-            .catch { (e: Error) -> AnyPublisher<InformationApi.Response, Never> in
-                print("error: \(e)")
-                return Empty().eraseToAnyPublisher()
+                    .catch { (e: Error) -> AnyPublisher<InformationApi.Response, Never> in
+                        print("error: \(e)")
+                        return .empty()
+                    }
+                    .eraseToAnyPublisher()
             }
             .map { (response: InformationApi.Response) in
                 return response
@@ -67,7 +75,7 @@ class InfomationViewModel: InfomationViewModelType,
                                      url: info.url)
                     }
             }
-            .receive(on: RunLoop.main)
+            .receive(on: self.scheduler)
             .sink { [weak self] (entities: [InfomationViewCellEntity]) in
                 self?.usecase.read()
                 self?.cellEntities = entities

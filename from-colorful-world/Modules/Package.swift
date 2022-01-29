@@ -19,6 +19,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        .package(name: "combine-schedulers", url: "https://github.com/pointfreeco/combine-schedulers.git", from: "0.5.3"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -28,7 +29,8 @@ let package = Package(
             dependencies: [
                 .target(name: "Assets"),
                 .target(name: "AppleExtensions"),
-                .target(name: "Core")
+                .target(name: "Core"),
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ],
             resources: [.process("ResourceFiles")]),
         .target(
