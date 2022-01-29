@@ -43,7 +43,8 @@ public struct MainView: View {
                         qrcodeSection
                         miscSection
                     }
-                    .navigationBarTitle(Text(AppLocales.MainView.Navigate.title), displayMode: .large)
+                    .navigationBarTitle(Text(Assets.Localization.MainView.Navigate.title),
+                                        displayMode: .large)
                     .toolbar {
                         toolbar
                     }
@@ -76,7 +77,7 @@ public struct MainView: View {
     }
 
     private var scanSection: some View {
-        Section(header: Text(AppLocales.MainView.Scan.header)) {
+        Section(header: Text(Assets.Localization.MainView.Scan.header)) {
             Button(action: {
                 print("act!")
                 viewModel.startScan()
@@ -84,7 +85,7 @@ public struct MainView: View {
                 NavigationLink(destination: EmptyView(), isActive: .constant(false)) {
                     HStack {
                         Image(systemName: "viewfinder")
-                        Text(AppLocales.MainView.Scan.startScan)
+                        Text(Assets.Localization.MainView.Scan.startScan)
                     }
                 }
                 .contentShape(Rectangle())

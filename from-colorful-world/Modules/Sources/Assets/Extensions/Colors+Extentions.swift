@@ -10,6 +10,6 @@ import SwiftUI
 
 extension Color {
     public static var gunjou: Color {
-        return Color(AppColors.gunjou.color)
+        return Color(Assets.AppColors.gunjou.color)
     }
 }

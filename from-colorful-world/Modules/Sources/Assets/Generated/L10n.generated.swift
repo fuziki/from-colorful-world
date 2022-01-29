@@ -9,18 +9,18 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
-public enum AppLocales {
+public enum L10n {
 
     public enum MainView {
         public enum Navigate {
             /// Home
-            public static let title = AppLocales.tr("Localizable", "MainView.Navigate.Title")
+            public static let title = L10n.tr("Localizable", "MainView.Navigate.Title")
         }
         public enum Scan {
             /// Scan
-            public static let header = AppLocales.tr("Localizable", "MainView.Scan.Header")
+            public static let header = L10n.tr("Localizable", "MainView.Scan.Header")
             /// Start Scan
-            public static let startScan = AppLocales.tr("Localizable", "MainView.Scan.StartScan")
+            public static let startScan = L10n.tr("Localizable", "MainView.Scan.StartScan")
         }
     }
 }
@@ -29,7 +29,7 @@ public enum AppLocales {
 
 // MARK: - Implementation Details
 
-extension AppLocales {
+extension L10n {
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = MyBundleToken.bundle.localizedString(forKey: key, value: nil, table: table)
         return String(format: format, locale: Locale.current, arguments: args)
