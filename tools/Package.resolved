@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "Mockolo",
+        "repositoryURL": "https://github.com/uber/mockolo.git",
+        "state": {
+          "branch": null,
+          "revision": "61d4fb9c10eacf78b63c9473ce792b2772c0ad0d",
+          "version": "1.6.3"
+        }
+      },
+      {
         "package": "PackageConfig",
         "repositoryURL": "https://github.com/shibapm/PackageConfig.git",
         "state": {
@@ -146,15 +155,6 @@
         }
       },
       {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
-        "state": {
-          "branch": null,
-          "revision": "d2930e8fcf9c33162b9fcc1d522bc975e2d4179b",
-          "version": "1.0.1"
-        }
-      },
-      {
         "package": "HTMLEntities",
         "repositoryURL": "https://github.com/Kitura/swift-html-entities.git",
         "state": {
@@ -170,6 +170,24 @@
           "branch": null,
           "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
           "version": "1.4.2"
+        }
+      },
+      {
+        "package": "SwiftSyntax",
+        "repositoryURL": "https://github.com/apple/swift-syntax.git",
+        "state": {
+          "branch": null,
+          "revision": "75e60475d9d8fd5bbc16a12e0eaa2cb01b0c322e",
+          "version": "0.50500.0"
+        }
+      },
+      {
+        "package": "swift-tools-support-core",
+        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
+        "state": {
+          "branch": null,
+          "revision": "3b6b97d612b56e25d80d0807f5bc38ea08b7bdf3",
+          "version": "0.2.3"
         }
       },
       {

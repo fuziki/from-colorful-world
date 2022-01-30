@@ -18,6 +18,9 @@ environment:
 		> from-colorful-world/Modules/Sources/Assets/Token/AppToken.swift
 	echo "Applied environment"
 
-install-test: environment swiftgen
+mock:
+	make $@ -C from-colorful-world
 
-install: environment swiftgen license
+install-test: environment swiftgen mock
+
+install: environment swiftgen mock license

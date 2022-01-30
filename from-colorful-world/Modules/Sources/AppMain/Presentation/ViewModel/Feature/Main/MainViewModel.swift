@@ -32,15 +32,20 @@ class MainViewModel: ObservableObject {
             self?.scanning = false
         }.store(in: &cancellables)
 
+        setupInfomation()
+    }
+
+    private func setupInfomation() {
         fetchInfomation
-            .flatMap { [weak self] _ -> AnyPublisher<Date, Error> in
-                guard let self = self else { return Empty().eraseToAnyPublisher() }
+            .flatMap { [weak self] _ -> AnyPublisher<Date, Never> in
+                guard let self = self else { return .empty() }
                 return self.usecase
                     .fetchLatestInfomationDate(gistId: AppToken.gistId)
-            }
-            .catch { (e: Error) -> AnyPublisher<Date, Never> in
-                print("error: \(e)")
-                return Empty().eraseToAnyPublisher()
+                    .catch { (e: Error) -> AnyPublisher<Date, Never> in
+                        print("error: \(e)")
+                        return .empty()
+                    }
+                    .eraseToAnyPublisher()
             }
             .sink { [weak self] (date: Date) in
                 print("latest: \(date)")

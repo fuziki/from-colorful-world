@@ -9,6 +9,7 @@ import Core
 import Combine
 import Foundation
 
+/// @mockable
 protocol InfomationViewUseCase {
     func fetch(gistId: String) -> AnyPublisher<InformationApi.Response, Error>
     func read()

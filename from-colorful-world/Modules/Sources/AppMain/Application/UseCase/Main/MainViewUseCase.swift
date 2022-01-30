@@ -9,6 +9,7 @@ import Combine
 import Core
 import Foundation
 
+/// @mockable
 protocol MainViewUseCase {
     var latestReadInfomationDate: Date? { get }
     func fetchLatestInfomationDate(gistId: String) -> AnyPublisher<Date, Error>

@@ -14,8 +14,16 @@ public struct InformationApi: HttpRequest {
             public let title: [String: String]
             public let date: String
             public let url: URL
+            public init(title: [String: String], date: String, url: URL) {
+                self.title = title
+                self.date = date
+                self.url = url
+            }
         }
         public let information: [Information]
+        public init(information: [InformationApi.Response.Information]) {
+            self.information = information
+        }
     }
     public let method: HttpRequestMethod = .get
     public init(url: URL) {

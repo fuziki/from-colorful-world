@@ -13,3 +13,11 @@ license:
 
 swiftgen:
 	xcrun --sdk macosx swift run --package-path ../tools swiftgen
+
+mock:
+	mkdir -p Modules/Tests/AppMainTests/Mock
+	touch Modules/Tests/AppMainTests/Mock/Mock.generated.swift
+	xcrun --sdk macosx swift run --package-path ../tools mockolo \
+		-s Modules/Sources \
+		-d Modules/Tests/AppMainTests/Mock/Mock.generated.swift \
+		-i AppMain

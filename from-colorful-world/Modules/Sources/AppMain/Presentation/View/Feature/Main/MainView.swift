@@ -59,7 +59,8 @@ public struct MainView: View {
     }
 
     private var infoLink: some View {
-        let infoViewModel = InfomationViewModel(usecase: DefaultInfomationViewUseCase())
+        let infoViewModel = InfomationViewModel(usecase: DefaultInfomationViewUseCase(),
+                                                scheduler: .main)
         let infoView = InfomationView(viewModel: infoViewModel)
         return NavigationLink(destination: infoView,
                               isActive: $viewModel.showInfomation) { }

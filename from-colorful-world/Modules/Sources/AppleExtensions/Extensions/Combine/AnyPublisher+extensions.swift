@@ -12,6 +12,10 @@ extension AnyPublisher {
         return Empty(completeImmediately: completeImmediately).eraseToAnyPublisher()
     }
 
+    public static func just(output: Self.Output) -> Self {
+        return Just(output).setFailureType(to: Self.Failure.self).eraseToAnyPublisher()
+    }
+
     public static func fail(error: Self.Failure) -> Self {
         return Fail(error: error).eraseToAnyPublisher()
     }
