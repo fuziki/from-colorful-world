@@ -21,6 +21,6 @@ environment:
 mock:
 	make $@ -C from-colorful-world
 
-install-test: environment swiftgen
+install-test: environment swiftgen mock
 
-install: environment swiftgen license
+install: environment swiftgen mock license
