@@ -16,6 +16,27 @@ import UIKit
 @testable import AppMain
 
 
+class MainViewUseCaseMock: MainViewUseCase {
+    init() { }
+    init(latestReadInfomationDate: Date? = nil) {
+        self.latestReadInfomationDate = latestReadInfomationDate
+    }
+
+
+    private(set) var latestReadInfomationDateSetCallCount = 0
+    var latestReadInfomationDate: Date? = nil { didSet { latestReadInfomationDateSetCallCount += 1 } }
+
+    private(set) var fetchLatestInfomationDateCallCount = 0
+    var fetchLatestInfomationDateHandler: ((String) -> (AnyPublisher<Date, Error>))?
+    func fetchLatestInfomationDate(gistId: String) -> AnyPublisher<Date, Error> {
+        fetchLatestInfomationDateCallCount += 1
+        if let fetchLatestInfomationDateHandler = fetchLatestInfomationDateHandler {
+            return fetchLatestInfomationDateHandler(gistId)
+        }
+        fatalError("fetchLatestInfomationDateHandler returns can't have a default value thus its handler must be set")
+    }
+}
+
 class InfomationViewUseCaseMock: InfomationViewUseCase {
     init() { }
 
