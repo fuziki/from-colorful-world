@@ -19,3 +19,14 @@ xcassets:
         publicAccess: true
         enumName: AppColorsAsset
         bundle: MyBundleToken.bundle
+
+files:
+  inputs:
+    - Modules/Sources/Assets/ResourceFiles/
+  filter: .+\.mp3$
+  outputs:
+    - templateName: structured-swift5
+      output: Modules/Sources/Assets/Generated/Files.generated.swift
+      params:
+        publicAccess: true
+        bundle: MyBundleToken.bundle

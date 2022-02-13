@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/09/05.
 //
 
+import Assets
 import AVFoundation
 import Combine
 import Foundation
@@ -18,6 +19,15 @@ extension FeedbackSound {
         case .shutter: return "シャッター音"
         case .ohayo: return "おはよう"
         case .recoded: return "データを記録しました"
+        }
+    }
+    var url: URL {
+        switch self {
+        case .pon: return Files.Audio.Se.ponMp3.url
+        case .fanfare: return Files.Audio.Se.fanfareMp3.url
+        case .shutter: return Files.Audio.Se.shutterMp3.url
+        case .ohayo: return Files.Audio.Se.ohayoMp3.url
+        case .recoded: return Files.Audio.Se.recodedMp3.url
         }
     }
 }
@@ -44,7 +54,7 @@ class SettingViewModel: ObservableObject {
 
         $feedbackSound.dropFirst().sink { [weak self] (sound: FeedbackSound) in
             guard let self = self else { return }
-            let url = Bundle.module.url(forResource: sound.file, withExtension: "mp3")!
+            let url = sound.url
             let item = AVPlayerItem(url: url)
             self.player = AVPlayer(playerItem: item)
             self.player?.play()
