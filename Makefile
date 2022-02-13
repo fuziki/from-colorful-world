@@ -23,7 +23,8 @@ environment:
 
 download-audio:
 	mkdir -p tmp
-	curl -o tmp/SE.zip -LO "$(AUDIO_FILE_URI)"
+	@curl -o tmp/SE.zip -LO "$(AUDIO_FILE_URI)"
+	echo "Downloaded zip"
 	rm -rf from-colorful-world/Modules/Sources/Assets/ResourceFiles/Audio/SE
 	mkdir -p from-colorful-world/Modules/Sources/Assets/ResourceFiles/Audio/SE
 	unzip -o tmp/SE.zip -d from-colorful-world/Modules/Sources/Assets/ResourceFiles/Audio/SE
