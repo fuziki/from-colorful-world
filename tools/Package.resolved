@@ -155,6 +155,15 @@
         }
       },
       {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "e394bf350e38cb100b6bc4172834770ede1b7232",
+          "version": "1.0.3"
+        }
+      },
+      {
         "package": "HTMLEntities",
         "repositoryURL": "https://github.com/Kitura/swift-html-entities.git",
         "state": {

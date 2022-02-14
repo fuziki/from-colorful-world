@@ -31,8 +31,7 @@ let package = Package(
                 .target(name: "AppleExtensions"),
                 .target(name: "Core"),
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
-            ],
-            resources: [.process("ResourceFiles")]),
+            ]),
         .target(
             name: "Assets",
             dependencies: [],

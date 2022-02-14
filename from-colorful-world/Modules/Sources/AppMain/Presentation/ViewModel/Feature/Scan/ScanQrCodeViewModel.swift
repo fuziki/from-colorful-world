@@ -75,7 +75,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         // TODO: Inject
         let sound = DefaultSettingService().currentEntity.feedbackSound ?? .pon
         return (0..<10).map { _ in
-            let url = Bundle.module.url(forResource: sound.file, withExtension: "mp3")!
+            let url = sound.url
             let item = AVPlayerItem(url: url)
             return AVPlayer(playerItem: item)
         }
