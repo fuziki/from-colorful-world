@@ -12,6 +12,7 @@ license:
 		--output-path from-colorful-world/resources/Settings.bundle
 
 swiftgen:
+	mkdir -p Modules/Sources/Assets/Generated
 	xcrun --sdk macosx swift run --package-path ../tools swiftgen
 
 mock:
