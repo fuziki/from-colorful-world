@@ -5,4 +5,9 @@
 xcuserdata/
 DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# ignore audio files
 Sources/Assets/ResourceFiles/Audio/SE/
+
+# ignore generated files
+*.generated.swift
