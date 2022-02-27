@@ -1,6 +1,7 @@
 format:
-	xcrun --sdk macosx swift run --package-path ../tools swiftlint autocorrect --format
-	xcrun --sdk macosx swift run --package-path ../tools swiftlint
+	make spm-install product=swiftlint -C ../tools
+	../tools/export/swiftlint/swiftlint autocorrect --format
+	../tools/export/swiftlint/swiftlint
 
 update-version:
 	/usr/libexec/PlistBuddy -c "Set :PreferenceSpecifiers:0:DefaultValue ${MARKETING_VERSION}(${CURRENT_PROJECT_VERSION})" "${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Settings.bundle/Root.plist"
