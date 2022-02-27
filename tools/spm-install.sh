@@ -31,15 +31,11 @@ fi
 
 if "${NEED_BUILD}"; then
     echo 'NEED_BUILD'
-    
+
     xcrun --sdk macosx swift build --package-path "${PACKAGE_PATH}" -c release --product "${PRODUCT}"
-    
+
     cp ".build/release/${PRODUCT}" "${PRODUCT_FILE_PATH}"
 
     echo "${PACKAGE_RESOLEVED_HASH} -> ${HASH_FILE_PATH}"
     echo "${PACKAGE_RESOLEVED_HASH}" > "${HASH_FILE_PATH}"
 fi
-
-
-
-
