@@ -33,6 +33,9 @@ if "${NEED_BUILD}"; then
     echo 'NEED_BUILD'
 
     xcrun --sdk macosx swift build --package-path "${PACKAGE_PATH}" -c release --product "${PRODUCT}"
+    
+    rm -r -f "${EXPORT_PATH}/${PRODUCT}"
+    mkdir -p "${EXPORT_PATH}/${PRODUCT}"
 
     cp ".build/release/${PRODUCT}" "${PRODUCT_FILE_PATH}"
 
