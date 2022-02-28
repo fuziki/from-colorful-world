@@ -14,12 +14,14 @@ license:
 
 swiftgen:
 	mkdir -p Modules/Sources/Assets/Generated
-	xcrun --sdk macosx swift run --package-path ../tools swiftgen
+	make spm-install product=swiftgen -C ../tools
+	time ../tools/export/swiftgen/swiftgen
 
 mock:
 	mkdir -p Modules/Tests/AppMainTests/Mock
 	touch Modules/Tests/AppMainTests/Mock/Mock.generated.swift
-	xcrun --sdk macosx swift run --package-path ../tools mockolo \
+	make spm-install product=mockolo -C ../tools
+	time ../tools/export/mockolo/mockolo \
 		-s Modules/Sources \
 		-d Modules/Tests/AppMainTests/Mock/Mock.generated.swift \
 		-i AppMain
