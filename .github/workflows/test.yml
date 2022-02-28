@@ -36,7 +36,9 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: tools/export
+          path: |
+           tools/export
+           tools/.build
           key: npm-${{ hashFiles('tools/Package.resolved') }}
 
       # Runs a set of commands using the runners shell
