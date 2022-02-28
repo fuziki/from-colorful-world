@@ -10,5 +10,5 @@ echo "product: ${PRODUCT}"
 
 if [ ! -d ${BUNDLE_DST} ]; then
     echo "not exist ${BUNDLE_DST}"
-    rm -r "${EXPORT_PATH}/${PRODUCT}"
+    rm -r -f "${EXPORT_PATH}/${PRODUCT}"
 fi
