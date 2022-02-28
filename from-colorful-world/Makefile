@@ -14,6 +14,7 @@ license:
 
 swiftgen:
 	mkdir -p Modules/Sources/Assets/Generated
+	make swiftgen-pre-script -C ../tools
 	make spm-install product=swiftgen -C ../tools
 	make swiftgen-post-script -C ../tools
 	time ../tools/export/swiftgen/swiftgen
