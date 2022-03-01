@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "FAAB5E85-E9DB-4977-B75D-688B2C803B80",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AppMainTests",
+        "name" : "AppMainTests"
+      }
+    }
+  ],
+  "version" : 1
+}

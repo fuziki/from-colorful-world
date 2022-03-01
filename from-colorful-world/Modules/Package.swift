@@ -45,6 +45,7 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "AppMainTests",
-            dependencies: ["AppMain"])
+            dependencies: ["AppMain"],
+            exclude: ["AppMainTest.xctestplan"])
     ]
 )
