@@ -18,7 +18,7 @@ protocol ScanQrCodeViewModelInputs {
 }
 protocol ScanQrCodeViewModelOutputs {
     var flipCamera: AnyPublisher<Void, Never> { get }
-    var scanedConsoleText: AnyPublisher<String, Never> { get }
+    var scanedConsoleText: AnyPublisher<[String], Never> { get }
     var currentResults: AnyPublisher<CurrentResultsEntity, Never> { get }
     var showCurrentResults: AnyPublisher<Void, Never> { get }
 }
@@ -48,10 +48,8 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     }
 
     private let latestDetected = CurrentValueSubject<[String], Never>([])
-    public var scanedConsoleText: AnyPublisher<String, Never> {
-        return latestDetected
-            .map { $0.joined(separator: "\n") }
-            .eraseToAnyPublisher()
+    public var scanedConsoleText: AnyPublisher<[String], Never> {
+        return latestDetected.eraseToAnyPublisher()
     }
 
     private let currentResultsSubject: CurrentValueSubject<CurrentResultsEntity, Never>
@@ -144,7 +142,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
 
         var latest = latestDetected.value
         latest.append(text)
-        while latest.count > 10 {
+        while latest.count > 6 {
             latest.removeFirst()
         }
         latestDetected.send(latest)
