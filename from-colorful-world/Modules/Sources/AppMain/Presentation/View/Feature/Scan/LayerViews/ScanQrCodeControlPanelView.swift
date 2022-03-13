@@ -14,7 +14,7 @@ struct ScanQrCodeControlPanelView: View {
     let onComplete: PassthroughSubject<Void, Never>
     let showCurrentResult: PassthroughSubject<Void, Never>
     let isSpeakerMute: CurrentValueSubject<Bool, Never>
-    let scanedConsoleText: AnyPublisher<String, Never>
+    let scanedConsoleText: AnyPublisher<[String], Never>
     var body: some View {
         ZStack {
             scaned
@@ -35,10 +35,7 @@ struct ScanQrCodeControlPanelView: View {
 
     private var scaned: some View {
         ScanedConsoleTextView(textPublisher: scanedConsoleText)
-            .font(.system(size: 14))
-            .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-            .foregroundColor(.blue)
             .opacity(0.8)
     }
 
@@ -58,31 +55,31 @@ struct ScanQrCodeControlPanelView: View {
     }
 
     private var flipCameraButton: some View {
-        Button(action: {
+        Button {
             print("flip")
             flip.send(())
-        }, label: {
+        } label: {
             Image(systemName: "arrow.triangle.2.circlepath.camera")
                 .font(.system(size: 16))
                 .frame(width: 32, height: 32, alignment: .center)
                 .padding(.horizontal, 8)
-        })
+        }
         .overlay(Capsule().stroke(lineWidth: 1))
         .background(Capsule().fill(Color.white))
         .foregroundColor(.black)
     }
 
     private var close: some View {
-        Button(action: {
+        Button {
             onComplete.send(())
-        }, label: {
+        } label: {
             Image(systemName: "xmark")
                 .font(.system(size: 32, weight: .medium, design: .default))
                 .foregroundColor(.white)
                 .padding(.horizontal, 4)
                 .shadow(radius: 3)
                 .shadow(color: .black, radius: 3, x: 0.0, y: 0.0)
-        })
+        }
     }
 
     private var currentResult: some View {
@@ -101,63 +98,6 @@ struct ScanQrCodeControlPanelView: View {
     }
 }
 
-struct MicMuteButtonView: View {
-    @ObservedObject private var viewModel: MicMuteButtonViewModel
-    init(isSpeakerMute: CurrentValueSubject<Bool, Never>) {
-        self.viewModel = MicMuteButtonViewModel(isSpeakerMute: isSpeakerMute)
-    }
-    var body: some View {
-        Button(action: {
-            viewModel.toggle()
-        }, label: {
-            if viewModel.isMute {
-                Image(systemName: "speaker.slash")
-                    .font(.system(size: 16))
-                    .frame(width: 32, height: 32, alignment: .center)
-                    .padding(.horizontal, 8)
-            } else {
-                Image(systemName: "speaker.wave.3")
-                    .font(.system(size: 16))
-                    .frame(width: 32, height: 32, alignment: .center)
-                    .padding(.horizontal, 8)
-            }
-        })
-    }
-}
-
-class MicMuteButtonViewModel: ObservableObject {
-    @Published public var isMute: Bool
-    private let isSpeakerMute: CurrentValueSubject<Bool, Never>
-    init(isSpeakerMute: CurrentValueSubject<Bool, Never>) {
-        isMute = isSpeakerMute.value
-        self.isSpeakerMute = isSpeakerMute
-    }
-    public func toggle() {
-        isMute = !isMute
-        isSpeakerMute.send(isMute)
-    }
-}
-
-struct ScanedConsoleTextView: View {
-    @ObservedObject private var viewModel: ScanedConsoleTextViewModel
-    init(textPublisher: AnyPublisher<String, Never>) {
-        viewModel = ScanedConsoleTextViewModel(textPublisher: textPublisher)
-    }
-    var body: some View {
-        Text(viewModel.text)
-    }
-}
-
-class ScanedConsoleTextViewModel: ObservableObject {
-    @Published var text: String = ""
-    private var cancellables: Set<AnyCancellable> = []
-    init(textPublisher: AnyPublisher<String, Never>) {
-        textPublisher.sink { [weak self] (text: String) in
-            self?.text = text
-        }.store(in: &cancellables)
-    }
-}
-
 struct ScanQrCodeControlPanelView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
@@ -169,7 +109,7 @@ struct ScanQrCodeControlPanelView_Previews: PreviewProvider {
                                        onComplete: PassthroughSubject<Void, Never>(),
                                        showCurrentResult: PassthroughSubject<Void, Never>(),
                                        isSpeakerMute: CurrentValueSubject<Bool, Never>(false),
-                                       scanedConsoleText: Just<String>("Hello\nworld").eraseToAnyPublisher())
+                                       scanedConsoleText: .just(output: ["Hello", "new world"]))
         }
     }
 }
