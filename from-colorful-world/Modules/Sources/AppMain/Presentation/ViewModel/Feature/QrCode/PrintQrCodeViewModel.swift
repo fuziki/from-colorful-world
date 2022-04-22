@@ -103,8 +103,13 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         switch content {
         case .data(let d):
             data = d
-        case .url:
-            return
+        case .url(let url):
+            do {
+                data = try Data(contentsOf: url)
+            } catch let e {
+                print("error: \(e), load data from: \(url)")
+                return
+            }
         }
         let docPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let dir = docPath
