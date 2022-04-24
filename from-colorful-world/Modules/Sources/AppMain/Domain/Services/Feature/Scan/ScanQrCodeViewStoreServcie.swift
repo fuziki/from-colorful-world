@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/09/10.
 //
 
+import Core
 import Foundation
 
 protocol ScanQrCodeViewStoreServcie {

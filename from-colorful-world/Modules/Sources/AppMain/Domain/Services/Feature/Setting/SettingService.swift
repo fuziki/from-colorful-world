@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/09/05.
 //
 
+import Core
 import Foundation
 
 enum FeedbackSound: String, Codable, CaseIterable {
