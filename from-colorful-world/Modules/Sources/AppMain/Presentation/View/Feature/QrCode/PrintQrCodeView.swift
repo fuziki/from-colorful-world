@@ -9,6 +9,7 @@ import Core
 import Foundation
 import SwiftUI
 import PortableDocumentFormat
+import UIComponents
 
 struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
     @ObservedObject private var viewModel: ViewModelType

@@ -63,11 +63,11 @@ struct MakeNewQrCodeView: View {
     }
 
     private var makeButton: some View {
-        Button(action: {
+        Button {
             print("make!")
             if text.count == 0 { return }
             isActive = true
-        }, label: {
+        } label: {
             HStack {
                 Spacer()
                 Text("2次元コードを作成する")
@@ -75,7 +75,7 @@ struct MakeNewQrCodeView: View {
                 Spacer()
             }
             .contentShape(Rectangle())
-        })
+        }
         .foregroundColor(.systemBackground)
         .listRowBackground(Color.gunjou.opacity(text.count == 0 ? 0.4 : 1))
     }

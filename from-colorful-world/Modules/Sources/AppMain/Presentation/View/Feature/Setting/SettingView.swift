@@ -34,11 +34,11 @@ struct SettingView: View {
                 }
             }
             Section(header: Text("その他")) {
-                Button(action: {
+                Button {
                     viewModel.tapShare()
-                }, label: {
+                } label: {
                     Text("このアプリをシェアする")
-                })
+                }
             }
         }
     }

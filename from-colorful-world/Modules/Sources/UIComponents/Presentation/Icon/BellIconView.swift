@@ -9,12 +9,12 @@ import Combine
 import Foundation
 import SwiftUI
 
-struct BellIconView: View {
+public struct BellIconView: View {
     @ObservedObject private var viewModel: BellIconViewModel
-    init(showBadge: AnyPublisher<Bool, Never>) {
+    public init(showBadge: AnyPublisher<Bool, Never>) {
         viewModel = BellIconViewModel(showBadge: showBadge)
     }
-    var body: some View {
+    public var body: some View {
         let ui = UIImage(systemName: viewModel.iconName)!
             .withTintColor(.label, renderingMode: renderingMode)
         Image(uiImage: ui)

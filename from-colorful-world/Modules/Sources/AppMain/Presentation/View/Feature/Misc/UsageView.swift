@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SafariServices
+import UIComponents
 
 struct UsageView: View {
     let url: URL
