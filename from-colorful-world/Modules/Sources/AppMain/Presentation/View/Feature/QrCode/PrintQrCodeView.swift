@@ -14,7 +14,8 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
     init(title: String, qrcodeCount: Int) where ViewModelType == PrintQrCodeViewModel {
         self.init(viewModel: PrintQrCodeViewModel(title: title,
                                                   qrcodeCount: qrcodeCount,
-                                                  inAppNoticeService: InAppNoticeService.shared))
+                                                  inAppNoticeService: InAppNoticeService.shared,
+                                                  fileManagerWrapper: DefaultFileManagerWrapper()))
     }
 
     init(viewModel: ViewModelType) {
@@ -54,8 +55,8 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
 
     private var pdf: some View {
         Group {
-            if viewModel.outputs.content != nil {
-                PdfViewerWrapperView(content: viewModel.outputs.content!)
+            if let content = viewModel.outputs.content {
+                PdfViewerWrapperView(content: content)
             } else {
                 VStack {
                     Spacer().frame(height: 32)

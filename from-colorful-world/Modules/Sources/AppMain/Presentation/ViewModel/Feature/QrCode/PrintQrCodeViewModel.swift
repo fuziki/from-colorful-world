@@ -34,15 +34,18 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
     public let title: String
     private let qrcodeCount: Int
     private let inAppNoticeService: InAppNoticeService
+    private let fileManagerWrapper: FileManagerWrapper
 
     @Published public var content: PdfViewerWrapperContent?
 
     init(title: String,
          qrcodeCount: Int,
-         inAppNoticeService: InAppNoticeService) {
+         inAppNoticeService: InAppNoticeService,
+         fileManagerWrapper: FileManagerWrapper) {
         self.title = title
         self.qrcodeCount = qrcodeCount
         self.inAppNoticeService = inAppNoticeService
+        self.fileManagerWrapper = fileManagerWrapper
     }
 
     public func onAppear() {
@@ -52,21 +55,18 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
             let data = PdfRenderer().makePdfData(title: self.title, qrcodeCount: self.qrcodeCount)
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                let dir = FileManager.default
-                    .urls(for: .cachesDirectory, in: .userDomainMask)
-                    .first!
-                    .appendingPathComponent("hogehoge", isDirectory: true)
-                // FIXME: fix force_try
-                // swiftlint:disable force_try
-                try! FileManager.default.createDirectory(at: dir,
-                                                         withIntermediateDirectories: true,
-                                                         attributes: [:])
-                let url = dir
-                    .appendingPathComponent("\(self.title).pdf")
-                // FIXME: fix force_try
-                // swiftlint:disable force_try
-                try! data.write(to: url)
-                self.content = .url(url)
+                do {
+                    let dir = try self.fileManagerWrapper.url(directory: .caches)
+                        .appendingPathComponent("hogehoge", isDirectory: true)
+                    try self.fileManagerWrapper.createDirectory(at: dir, withIntermediateDirectories: true)
+                    let url = dir
+                        .appendingPathComponent("\(self.title).pdf")
+                    try data.write(to: url)
+                    self.content = .url(url)
+                } catch let error {
+                    print("failed save error: \(error)")
+                    self.content = .data(data)
+                }
             }
         }
     }
@@ -82,7 +82,7 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         }
         let vc = UIActivityViewController(activityItems: activityItems,
                                           applicationActivities: nil)
-        let rootVC = UIApplication.shared.windows.first!.rootViewController!
+        guard let rootVC = UIApplication.shared.windows.first?.rootViewController else { return }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             vc.popoverPresentationController?.sourceView = rootVC.view
@@ -106,22 +106,19 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
         case .url(let url):
             do {
                 data = try Data(contentsOf: url)
-            } catch let e {
-                print("error: \(e), load data from: \(url)")
+            } catch let error {
+                print("error: \(error), load data from: \(url)")
                 return
             }
         }
-        let docPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let dir = docPath
-            // FIXME: ハードコーディング
-            .appendingPathComponent("2次元コード", isDirectory: true)
-        // TODO: Mock
-        // swiftlint:disable force_try
-        try! FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
-        let file = dir
-            .appendingPathComponent("\(title)", conformingTo: .pdf)
-        print("\(docPath), \(file)")
         do {
+            // FIXME: ハードコーディング
+            let dir = try fileManagerWrapper.url(directory: .document)
+                .appendingPathComponent("2次元コード", isDirectory: true)
+            try fileManagerWrapper.createDirectory(at: dir, withIntermediateDirectories: true)
+            let file = dir
+                .appendingPathComponent("\(title)", conformingTo: .pdf)
+            print("\(dir), \(file)")
             try data.write(to: file)
         } catch let error {
             print("error: \(error)")

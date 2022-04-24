@@ -78,8 +78,10 @@ class PdfRenderer {
 
                     let text = "\(title)\(String(format: "%02d", index))" as NSString
 
-                    let ci: CIImage = makeQRCode(message: text as String, size: qrSize)!
-                    let cgImage = cicontext.createCGImage(ci, from: ci.extent)!
+                    guard let ci: CIImage = makeQRCode(message: text as String, size: qrSize),
+                          let cgImage = cicontext.createCGImage(ci, from: ci.extent) else {
+                        continue
+                    }
                     context.cgContext.draw(cgImage, in: CGRect(x: qrX, y: itemY, width: qrSize, height: qrSize))
 
                     let paragraphStyle = NSMutableParagraphStyle()

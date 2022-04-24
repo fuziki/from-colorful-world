@@ -18,7 +18,7 @@ class DefaultQrCodeDetectorService: NSObject, QrCodeDetectorService {
     public let preview = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 
     private let session = AVCaptureSession()
-    private var currentPreviewLayer: AVCaptureVideoPreviewLayer!
+    private var currentPreviewLayer: AVCaptureVideoPreviewLayer?
 
     private var useBack = true
     private var flip: AnyPublisher<Void, Never>
@@ -93,7 +93,7 @@ class DefaultQrCodeDetectorService: NSObject, QrCodeDetectorService {
         currentPreviewLayer = newPreviewLayer
 
         preview.publisher(for: \.frame).eraseToAnyPublisher().sink { [weak self] (rect: CGRect) in
-            self?.currentPreviewLayer.frame = rect
+            self?.currentPreviewLayer?.frame = rect
         }.store(in: &cancellables)
 
         session.startRunning()

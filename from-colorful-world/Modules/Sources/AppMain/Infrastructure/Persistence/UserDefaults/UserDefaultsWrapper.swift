@@ -21,9 +21,12 @@ extension UserDefaultsWrapper {
 
 class DefaultUserDefaultsWrapper: UserDefaultsWrapper {
     func store<T: Codable>(key: String, value: T) {
-        // swiftlint:disable force_try
-        let data = try! JSONEncoder().encode(value)
-        UserDefaults().set(data, forKey: key)
+        do {
+            let data = try JSONEncoder().encode(value)
+            UserDefaults().set(data, forKey: key)
+        } catch let error {
+            print("failed store error: \(error)")
+        }
     }
 
     func fetch<T: Codable>(key: String, type: T.Type) -> T? {
