@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/11/21.
 //
 
+import Core
 import Foundation
 
 protocol LatestReadInfomationUseCase {
