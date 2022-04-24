@@ -8,3 +8,5 @@ identifier_name:
 nesting:
   type_level:
     warning: 5
+opt_in_rules:
+  - force_unwrapping

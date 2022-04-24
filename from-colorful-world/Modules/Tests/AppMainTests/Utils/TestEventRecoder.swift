@@ -1,6 +1,6 @@
 //
 //  TestEventRecoder.swift
-//  
+//
 //
 //  Created by fuziki on 2022/01/30.
 //
@@ -39,13 +39,13 @@ class TestEventRecoder<Output, SchedulerTimeType, SchedulerOptions, TestSchedule
     }
 
     private let testScheduler: TestSchedulerType
-    
+
     public init(outputType: Output.Type, testScheduler: TestSchedulerType) {
         self.testScheduler = testScheduler
     }
-    
+
     public private(set) var eventRecorded: [LineAssertEventRecorded] = []
-    
+
     public func send(_ output: Output) {
         eventRecorded.append(.init(time: testScheduler.now, output: output))
     }
@@ -71,9 +71,9 @@ func XCTAssertEqual<Output,
     for i in 0..<lineAssertReferences.count {
         let r = lineAssertReferences[i]
         if let l = left[safe: i] {
-            XCTAssertEqual(l, r, file:r.file, line: r.line)
+            XCTAssertEqual(l, r, file: r.file, line: r.line)
         } else {
-            XCTAssertEqual(nil, r, file:r.file, line: r.line)
+            XCTAssertEqual(nil, r, file: r.file, line: r.line)
         }
     }
 }

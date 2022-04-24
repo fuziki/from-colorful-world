@@ -48,7 +48,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
     private func makeIndexView(gridItems: [GridItem], fontSize: CGFloat) -> some View {
         return LazyHGrid(rows: gridItems) {
             makeTitleView(title: "出席番号", fontSize: fontSize)
-            ForEach(1..<viewModel.outputs.rowCount) { i in
+            ForEach(1..<viewModel.outputs.rowCount, id: \.self) { i in
                 makeOkView(title: "出席番号", index: i, fontSize: fontSize, ok: false)
             }
         }
@@ -58,7 +58,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
         return LazyHGrid(rows: gridItems, spacing: 1) {
             ForEach(viewModel.outputs.columns, id: \.self) { (column: CurrentResultsColumn) in
                 makeTitleView(title: column.title, fontSize: fontSize)
-                ForEach(1..<viewModel.outputs.rowCount) { i in
+                ForEach(1..<viewModel.outputs.rowCount, id: \.self) { i in
                     makeOkView(title: column.title, index: i, fontSize: fontSize, ok: column.ok[i-1])
                 }
             }
