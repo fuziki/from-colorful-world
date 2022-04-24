@@ -7,6 +7,7 @@
 
 import Core
 import Foundation
+import PortableDocumentFormat
 import SwiftUI
 
 protocol PrintQrCodeViewModelInputs {
@@ -36,24 +37,27 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
     private let qrcodeCount: Int
     private let inAppNoticeService: InAppNoticeService
     private let fileManagerWrapper: FileManagerWrapper
+    private let pdfRenderer: PdfRenderer
 
     @Published public var content: PdfViewerWrapperContent?
 
     init(title: String,
          qrcodeCount: Int,
          inAppNoticeService: InAppNoticeService,
-         fileManagerWrapper: FileManagerWrapper) {
+         fileManagerWrapper: FileManagerWrapper,
+         pdfRenderer: PdfRenderer) {
         self.title = title
         self.qrcodeCount = qrcodeCount
         self.inAppNoticeService = inAppNoticeService
         self.fileManagerWrapper = fileManagerWrapper
+        self.pdfRenderer = pdfRenderer
     }
 
     public func onAppear() {
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let self = self else { return }
             if self.content != nil { return }
-            let data = PdfRenderer().makePdfData(title: self.title, qrcodeCount: self.qrcodeCount)
+            let data = self.pdfRenderer.makePdfData(title: self.title, qrcodeCount: self.qrcodeCount)
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 do {

@@ -9,15 +9,18 @@ import Foundation
 import PDFKit
 import SwiftUI
 
-enum PdfViewerWrapperContent {
+public enum PdfViewerWrapperContent {
     case data(Data)
     case url(URL)
 }
 
-struct PdfViewerWrapperView: UIViewRepresentable {
-    let content: PdfViewerWrapperContent
+public struct PdfViewerWrapperView: UIViewRepresentable {
+    private let content: PdfViewerWrapperContent
+    public init(content: PdfViewerWrapperContent) {
+        self.content = content
+    }
 
-    func makeUIView(context: Context) -> PDFView {
+    public func makeUIView(context: Context) -> PDFView {
         let pdfDocument: PDFDocument?
         switch content {
         case .data(let data):
@@ -33,7 +36,7 @@ struct PdfViewerWrapperView: UIViewRepresentable {
         return pdfView
     }
 
-    func updateUIView(_ uiView: UIViewType, context: Context) {
+    public func updateUIView(_ uiView: UIViewType, context: Context) {
         let pdfDocument: PDFDocument?
         switch content {
         case .data(let data):
