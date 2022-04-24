@@ -1,6 +1,6 @@
 //
 //  MainViewModelTest.swift
-//  
+//
 //
 //  Created by fuziki on 2022/01/30.
 //
@@ -26,11 +26,11 @@ final class MainViewModelTest: XCTestCase {
         let scheduler = DispatchQueue.test
         let showBadgeSubject = TestEventRecoder(outputType: Bool.self, testScheduler: scheduler)
         let now = scheduler.now
-        
+
         scheduler.schedule(after: now.advanced(by: .seconds(1))) {
             viewModel.onAppear()
         }
-        
+
         viewModel.showBadge.sink { (showBadge: Bool) in
             showBadgeSubject.send(showBadge)
         }.store(in: &cancellables)
@@ -57,11 +57,11 @@ final class MainViewModelTest: XCTestCase {
         let scheduler = DispatchQueue.test
         let showBadgeSubject = TestEventRecoder(outputType: Bool.self, testScheduler: scheduler)
         let now = scheduler.now
-        
+
         scheduler.schedule(after: now.advanced(by: .seconds(1))) {
             viewModel.onAppear()
         }
-        
+
         viewModel.showBadge.sink { (showBadge: Bool) in
             showBadgeSubject.send(showBadge)
         }.store(in: &cancellables)
@@ -88,11 +88,11 @@ final class MainViewModelTest: XCTestCase {
         let scheduler = DispatchQueue.test
         let showBadgeSubject = TestEventRecoder(outputType: Bool.self, testScheduler: scheduler)
         let now = scheduler.now
-        
+
         scheduler.schedule(after: now.advanced(by: .seconds(1))) {
             viewModel.onAppear()
         }
-        
+
         viewModel.showBadge.sink { (showBadge: Bool) in
             showBadgeSubject.send(showBadge)
         }.store(in: &cancellables)

@@ -1,6 +1,6 @@
 //
 //  InfomationViewModelTest.swift
-//  
+//
 //
 //  Created by fuziki on 2022/01/29.
 //
@@ -16,7 +16,7 @@ final class InfomationViewModelTest: XCTestCase {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
-        
+
         let usecase = InfomationViewUseCaseMock()
         usecase.fetchHandler = { (_: String) -> AnyPublisher<InformationApi.Response, Error> in
             let information: [InformationApi.Response.Information] = [
