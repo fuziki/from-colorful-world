@@ -34,6 +34,7 @@ let package = Package(
                 .target(name: "AppleExtensions"),
                 .target(name: "Core"),
                 .target(name: "PortableDocumentFormat"),
+                .target(name: "QRCode"),
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
         .target(
@@ -49,6 +50,9 @@ let package = Package(
             dependencies: [
                 .target(name: "AppleExtensions"),
             ]),
+        .target(
+            name: "QRCode",
+            dependencies: []),
         .testTarget(
             name: "AppMainTests",
             dependencies: ["AppMain"],

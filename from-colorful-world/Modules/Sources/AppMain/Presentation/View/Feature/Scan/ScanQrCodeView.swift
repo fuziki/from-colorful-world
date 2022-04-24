@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import QRCode
 import SwiftUI
 
 struct ScanQrCodeView: View {

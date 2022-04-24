@@ -9,16 +9,16 @@ import Combine
 import Foundation
 import SwiftUI
 
-struct QrCodeDetectorView: UIViewRepresentable {
+public struct QrCodeDetectorView: UIViewRepresentable {
     private let detector: QrCodeDetectorService
-    init(flip: AnyPublisher<Void, Never>, detected: PassthroughSubject<String, Never>) {
+    public init(flip: AnyPublisher<Void, Never>, detected: PassthroughSubject<String, Never>) {
         detector = DefaultQrCodeDetectorService(flip: flip, detected: detected)
     }
 
-    func makeUIView(context: Context) -> UIView {
+    public func makeUIView(context: Context) -> UIView {
         return detector.preview
     }
 
-    func updateUIView(_ uiView: UIViewType, context: Context) {
+    public func updateUIView(_ uiView: UIViewType, context: Context) {
     }
 }
