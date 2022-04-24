@@ -7,22 +7,25 @@
 
 import Foundation
 
-enum DirectoryType {
+public enum DirectoryType {
     case caches
     case document
 }
 
-enum FileManagerWrapperError: Error {
+public enum FileManagerWrapperError: Error {
     case noDirectory
 }
 
-protocol FileManagerWrapper {
+public protocol FileManagerWrapper {
     func url(directory: DirectoryType) throws -> URL
     func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool) throws
 }
 
-class DefaultFileManagerWrapper: FileManagerWrapper {
-    func url(directory: DirectoryType) throws -> URL {
+public class DefaultFileManagerWrapper: FileManagerWrapper {
+    public init() {
+    }
+
+    public func url(directory: DirectoryType) throws -> URL {
         let search: FileManager.SearchPathDirectory
         switch directory {
         case .caches:
@@ -37,7 +40,7 @@ class DefaultFileManagerWrapper: FileManagerWrapper {
         }
         return url
     }
-    func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool) throws {
+    public func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool) throws {
         try FileManager.default.createDirectory(at: url,
                                                 withIntermediateDirectories: createIntermediates,
                                                 attributes: [:])

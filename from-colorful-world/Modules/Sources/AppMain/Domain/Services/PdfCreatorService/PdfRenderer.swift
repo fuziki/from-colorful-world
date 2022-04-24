@@ -8,6 +8,7 @@
 import Foundation
 import PDFKit
 
+// TODO: mock
 class PdfRenderer {
     struct Entity {
         var paperWidthMillimetre: Double = 210
