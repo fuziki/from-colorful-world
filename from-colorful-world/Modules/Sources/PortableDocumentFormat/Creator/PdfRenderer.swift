@@ -9,8 +9,11 @@ import AppleExtensions
 import Foundation
 import PDFKit
 
-// TODO: mock
-class PdfRenderer {
+public protocol PdfRenderer {
+    func makePdfData(title: String, qrcodeCount: Int) -> Data
+}
+
+public class DefaultPdfRenderer: PdfRenderer {
     struct Entity {
         var paperWidthMillimetre: Double = 210
         var paperHeightMillimetre: Double = 297
@@ -29,6 +32,9 @@ class PdfRenderer {
 
     private let cicontext = CIContext(options: [:])
 
+    public init() {
+    }
+
     private func makeQRCode(message: String, size: CGFloat) -> CIImage? {
         guard let data = message.data(using: .utf8) else { return nil }
         let params: [String: Any] = ["inputMessage": data,
@@ -40,7 +46,7 @@ class PdfRenderer {
         return outputImage.transformed(by: sizeTransform)
     }
 
-    func makePdfData(title: String, qrcodeCount: Int) -> Data {
+    public func makePdfData(title: String, qrcodeCount: Int) -> Data {
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = [
             kCGPDFContextAuthor as String: ""

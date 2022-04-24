@@ -25,11 +25,15 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
+            name: "AppleExtensions",
+            dependencies: []),
+        .target(
             name: "AppMain",
             dependencies: [
                 .target(name: "Assets"),
                 .target(name: "AppleExtensions"),
                 .target(name: "Core"),
+                .target(name: "PortableDocumentFormat"),
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
         .target(
@@ -38,11 +42,13 @@ let package = Package(
             exclude: ["Token/_AppToken.swift"],
             resources: [.process("ResourceFiles")]),
         .target(
-            name: "AppleExtensions",
-            dependencies: []),
-        .target(
             name: "Core",
             dependencies: []),
+        .target(
+            name: "PortableDocumentFormat",
+            dependencies: [
+                .target(name: "AppleExtensions"),
+            ]),
         .testTarget(
             name: "AppMainTests",
             dependencies: ["AppMain"],
