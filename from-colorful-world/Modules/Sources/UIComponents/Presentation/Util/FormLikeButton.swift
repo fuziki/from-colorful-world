@@ -9,22 +9,22 @@ import AppleExtensions
 import Foundation
 import SwiftUI
 
-struct FormLikeButton: View {
-    let systemName: String
-    let title: String
-    let footer: String
-    let action: () -> Void
-    init(systemName: String, title: String, footer: String, action: @escaping () -> Void) {
+public struct FormLikeButton: View {
+    private let systemName: String
+    private let title: String
+    private let footer: String
+    private let action: () -> Void
+    public init(systemName: String, title: String, footer: String, action: @escaping () -> Void) {
         self.systemName = systemName
         self.title = title
         self.footer = footer
         self.action = action
     }
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 0) {
-            Button(action: {
+            Button {
                 action()
-            }, label: {
+            } label: {
                 HStack {
                     Image(systemName: systemName)
                     Text(title)
@@ -33,7 +33,7 @@ struct FormLikeButton: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.secondarySystemGroupedBackground)
                 .cornerRadius(10)
-            })
+            }
             Text(footer)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 13))

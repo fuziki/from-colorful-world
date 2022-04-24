@@ -10,11 +10,11 @@ import Combine
 import Foundation
 import UIKit
 
-protocol QrCodeDetectorService {
+public protocol QrCodeDetectorService {
     var preview: UIView { get }
 }
 
-class DefaultQrCodeDetectorService: NSObject, QrCodeDetectorService {
+public class DefaultQrCodeDetectorService: NSObject, QrCodeDetectorService {
     public let preview = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 
     private let session = AVCaptureSession()
@@ -27,7 +27,7 @@ class DefaultQrCodeDetectorService: NSObject, QrCodeDetectorService {
     private var capturedFrame: [UIView] = []
 
     private var cancellables: Set<AnyCancellable> = []
-    init(flip: AnyPublisher<Void, Never>, detected: PassthroughSubject<String, Never>) {
+    public init(flip: AnyPublisher<Void, Never>, detected: PassthroughSubject<String, Never>) {
         self.flip = flip
         self.detected = detected
         super.init()
@@ -101,7 +101,7 @@ class DefaultQrCodeDetectorService: NSObject, QrCodeDetectorService {
 }
 
 extension DefaultQrCodeDetectorService: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         let metadataObjects = metadataObjects.compactMap({ $0 as? AVMetadataMachineReadableCodeObject })
         for metadata in metadataObjects {
             guard let stringValue = metadata.stringValue else { return }

@@ -83,15 +83,15 @@ struct ScanQrCodeControlPanelView: View {
     }
 
     private var currentResult: some View {
-        Button(action: {
+        Button {
             print("result")
             showCurrentResult.send(())
-        }, label: {
+        } label: {
             Text("結果を見る")
                 .font(.system(size: 16))
                 .padding(.horizontal, 16)
                 .frame(height: 32, alignment: .center)
-        })
+        }
         .overlay(Capsule().stroke(lineWidth: 1))
         .background(Capsule().fill(Color.white))
         .foregroundColor(.black)

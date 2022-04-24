@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import SwiftUI
 import SafariServices
+import UIComponents
 
 public struct MainView: View {
     @ObservedObject private var viewModel = MainViewModel(usecase: DefaultMainViewUseCase())
@@ -69,20 +70,20 @@ public struct MainView: View {
 
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: {
+            Button {
                 viewModel.tapInfomation()
-            }, label: {
+            } label: {
                 BellIconView(showBadge: viewModel.showBadge)
-            })
+            }
         }
     }
 
     private var scanSection: some View {
         Section(header: Text(Assets.Localization.MainView.Scan.header)) {
-            Button(action: {
+            Button {
                 print("act!")
                 viewModel.startScan()
-            }, label: {
+            } label: {
                 NavigationLink(destination: EmptyView(), isActive: .constant(false)) {
                     HStack {
                         Image(systemName: "viewfinder")
@@ -90,7 +91,7 @@ public struct MainView: View {
                     }
                 }
                 .contentShape(Rectangle())
-            })
+            }
             .buttonStyle(PlainButtonStyle())
         }
     }
