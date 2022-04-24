@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/08/30.
 //
 
+import AppleExtensions
 import Foundation
 import PDFKit
 
@@ -21,6 +22,7 @@ class PdfRenderer {
         var fontSize: CGFloat = 48.0
         var titleHeightPx: Int = 120
         var qrTitleSpacerPx: Int = 16
+        var dpiScale: CGFloat { CGFloat(dpi) / 72 }
     }
 
     let entity = Entity()
@@ -43,8 +45,8 @@ class PdfRenderer {
         format.documentInfo = [
             kCGPDFContextAuthor as String: ""
         ]
-        let paperWidth = Int(entity.paperWidthMillimetre / 25.4 * Double(entity.dpi))
-        let paperHeight = Int(entity.paperHeightMillimetre / 25.4 * Double(entity.dpi))
+        let paperWidth = Int(entity.paperWidthMillimetre / 25.4 * Double(72))
+        let paperHeight = Int(entity.paperHeightMillimetre / 25.4 * Double(72))
         let paperSize = CGSize(width: paperWidth, height: paperHeight)
         let paperRect = CGRect(origin: .zero, size: paperSize)
         let renderer = UIGraphicsPDFRenderer(bounds: paperRect, format: format)
@@ -56,7 +58,7 @@ class PdfRenderer {
     }
 
     private func render(context: UIGraphicsPDFRendererContext, title: String, qrcodeCount: Int) {
-        let paperSize = context.pdfContextBounds.size
+        let paperSize = context.pdfContextBounds.size * entity.dpiScale
         let padding = CGFloat(Int(entity.paddingMillimetre / 25.4 * Double(entity.dpi)))
         let spacing = CGFloat(Int(entity.spacingMillimetre / 25.4 * Double(entity.dpi)))
 
@@ -65,6 +67,7 @@ class PdfRenderer {
 
         for page in 0..<(qrcodeCount / (entity.verticallyDivided * entity.horizontallyDivided))+1 {
             context.beginPage()
+            context.cgContext.scaleBy(x: 1 / entity.dpiScale, y: 1 / entity.dpiScale)
             for i in 0..<entity.horizontallyDivided {
                 for j in 0..<entity.verticallyDivided {
                     let index = page * entity.horizontallyDivided * entity.verticallyDivided + i * entity.verticallyDivided + j + 1
