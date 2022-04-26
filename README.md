@@ -69,6 +69,8 @@ $ touch .env
 
 ```
 GIST_ID=hogehoge
+APP_APPLE_ID=fugaufga
+AUDIO_FILE_URI=example.com
 ```
 
 * Run make
@@ -80,5 +82,5 @@ make environment
 ### Use Environment variable
 
 ```
-GIST_ID=hogehoge make environment
+GIST_ID=hogehoge APP_APPLE_ID=fugaufga make environment
 ```

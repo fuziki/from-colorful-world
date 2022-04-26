@@ -9,4 +9,5 @@ import Foundation
 
 public enum AppToken {
     public static let gistId: String = "GIST_ID"
+    public static let appAppleId: String = "APP_APPLE_ID"
 }

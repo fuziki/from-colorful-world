@@ -39,6 +39,11 @@ struct SettingView: View {
                 } label: {
                     Text("このアプリをシェアする")
                 }
+                Button {
+                    viewModel.tapReviewThisApp()
+                } label: {
+                    Text("このアプリのレビューを書く")
+                }
             }
         }
     }
