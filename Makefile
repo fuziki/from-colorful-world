@@ -16,7 +16,9 @@ mock:
 	make $@ -C from-colorful-world
 
 environment:
-	@sed -e "s/GIST_ID/$(GIST_ID)/" \
+	@sed \
+		-e "s/GIST_ID/$(GIST_ID)/" \
+		-e "s/APP_APPLE_ID/$(APP_APPLE_ID)/" \
 		from-colorful-world/Modules/Sources/Assets/Token/_AppToken.swift \
 		> from-colorful-world/Modules/Sources/Assets/Token/AppToken.swift
 	echo "Applied environment"

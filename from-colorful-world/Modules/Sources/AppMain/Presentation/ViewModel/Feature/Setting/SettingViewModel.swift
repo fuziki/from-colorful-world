@@ -82,7 +82,7 @@ class SettingViewModel: ObservableObject {
 
     public func tapShare() {
         // FIXME: ハードコーディング
-        let activityItems: [Any] = [URL(string: "https://apps.apple.com/jp/app/%E6%8F%90%E5%87%BA%E7%89%A9ok/id1584545788")!]
+        let activityItems: [Any] = [URL(string: "https://apps.apple.com/jp/app/%E6%8F%90%E5%87%BA%E7%89%A9ok/id\(AppToken.appAppleId)")!]
         let vc = UIActivityViewController(activityItems: activityItems,
                                           applicationActivities: nil)
         let rootVC = UIApplication.shared.windows.first!.rootViewController!
@@ -97,5 +97,10 @@ class SettingViewModel: ObservableObject {
         DispatchQueue.main.async {
             rootVC.present(vc, animated: true, completion: nil)
         }
+    }
+
+    public func tapReviewThisApp() {
+        guard let url = URL(string: "https://itunes.apple.com/app/id\(AppToken.appAppleId)?action=write-review") else { return }
+        UIApplication.shared.open(url)
     }
 }
