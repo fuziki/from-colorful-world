@@ -70,6 +70,7 @@ $ touch .env
 ```
 GIST_ID=hogehoge
 APP_APPLE_ID=fugaufga
+USAGE_PAGE_URL=example.com
 CONTACT_US_FORM_ID=hogehogehoge
 CONTACT_US_ENV_ENTRY_ID=fugafugafuga
 AUDIO_FILE_URI=example.com
