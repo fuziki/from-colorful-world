@@ -85,7 +85,8 @@ struct InfomationView_Previews: PreviewProvider {
         func onRefresh() { }
     }
     static var previews: some View {
-        let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
+        // swiftlint:disable force_unwrapping
+        let url = URL(string: "https://example.com/")!
         let entities: [InfomationViewCellEntity] = [
             .init(title: "バージョン1.3.0を公開しました", date: "2021/01/03", url: url),
             .init(title: "バージョン1.2.0を公開しました", date: "2021/01/02", url: url),

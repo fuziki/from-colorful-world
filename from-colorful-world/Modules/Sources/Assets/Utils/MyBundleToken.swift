@@ -40,6 +40,7 @@ internal final class MyBundleToken {
     static let bundle: Bundle = {
         #if SWIFT_PACKAGE
         if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+            // swiftlint:disable force_unwrapping
             return Bundle(url: previewBundlePath)!
         } else {
             return Bundle.module
