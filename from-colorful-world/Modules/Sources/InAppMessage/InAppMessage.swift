@@ -9,6 +9,7 @@ import Foundation
 import SwiftEntryKit
 import UIKit
 
+/// @mockable
 public protocol InAppMessageService {
     func showLikePush(image: UIImage?, title: String, description: String)
     func showToast(title: String)

@@ -47,7 +47,10 @@ class MainViewModel: ObservableObject {
                     .fetchLatestInfomationDate(gistId: AppToken.gistId)
                     .catch { [weak self] (e: Error) -> AnyPublisher<Date, Never> in
                         print("error: \(e)")
-                        self?.inAppMessageService.showToast(title: "最新情報の取得に失敗しました")
+                        // 即時実行すると表示されない事があったので少し遅らせる
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                            self?.inAppMessageService.showToast(title: "最新情報の取得に失敗しました")
+                        }
                         return .empty()
                     }
                     .eraseToAnyPublisher() ?? .empty()
@@ -92,8 +95,6 @@ class MainViewModel: ObservableObject {
     }
 
     public func onAppear() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.fetchInfomation.send(())
-        }
+        self.fetchInfomation.send(())
     }
 }
