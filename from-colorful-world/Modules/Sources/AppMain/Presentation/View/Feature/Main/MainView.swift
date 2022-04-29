@@ -8,12 +8,14 @@
 import Assets
 import Combine
 import Foundation
-import SwiftUI
+import InAppMessage
 import SafariServices
+import SwiftUI
 import UIComponents
 
 public struct MainView: View {
-    @ObservedObject private var viewModel = MainViewModel(usecase: DefaultMainViewUseCase())
+    @ObservedObject private var viewModel = MainViewModel(usecase: DefaultMainViewUseCase(),
+                                                          inAppMessageService: DefaultInAppMessageService())
 
     public init() {
     }
@@ -55,7 +57,6 @@ public struct MainView: View {
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            InAppNoticeView()
         }
     }
 

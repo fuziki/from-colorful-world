@@ -7,6 +7,7 @@
 
 import Core
 import Foundation
+import InAppMessage
 import SwiftUI
 import PortableDocumentFormat
 import UIComponents
@@ -17,7 +18,7 @@ struct PrintQrCodeView<ViewModelType: PrintQrCodeViewModelType>: View {
     init(title: String, qrcodeCount: Int) where ViewModelType == PrintQrCodeViewModel {
         self.init(viewModel: PrintQrCodeViewModel(title: title,
                                                   qrcodeCount: qrcodeCount,
-                                                  inAppNoticeService: InAppNoticeService.shared,
+                                                  inAppMessageService: DefaultInAppMessageService(),
                                                   fileManagerWrapper: DefaultFileManagerWrapper(),
                                                   pdfRenderer: DefaultPdfRenderer()))
     }
