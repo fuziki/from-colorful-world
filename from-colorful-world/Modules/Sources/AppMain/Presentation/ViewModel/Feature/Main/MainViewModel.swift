@@ -9,6 +9,7 @@ import Assets
 import AVFoundation
 import Combine
 import Foundation
+import InAppMessage
 import SwiftUI
 
 class MainViewModel: ObservableObject {
@@ -18,15 +19,19 @@ class MainViewModel: ObservableObject {
     @Published public var showAlert: Bool = false
     public let onComplete = PassthroughSubject<Void, Never>()
 
+    private let inAppMessageService: InAppMessageService
     private let usecase: MainViewUseCase
 
     private let showBadgeSubject = CurrentValueSubject<Bool, Never>(false)
     private let fetchInfomation = PassthroughSubject<Void, Never>()
 
     private var cancellables: Set<AnyCancellable> = []
-    init(usecase: MainViewUseCase) {
+    init(usecase: MainViewUseCase,
+         inAppMessageService: InAppMessageService) {
         print("init MainViewModel")
         self.usecase = usecase
+        self.inAppMessageService = inAppMessageService
+
         showBadge = showBadgeSubject.eraseToAnyPublisher()
         onComplete.sink { [weak self] _ in
             self?.scanning = false
@@ -38,14 +43,14 @@ class MainViewModel: ObservableObject {
     private func setupInfomation() {
         fetchInfomation
             .flatMap { [weak self] _ -> AnyPublisher<Date, Never> in
-                guard let self = self else { return .empty() }
-                return self.usecase
+                return self?.usecase
                     .fetchLatestInfomationDate(gistId: AppToken.gistId)
-                    .catch { (e: Error) -> AnyPublisher<Date, Never> in
+                    .catch { [weak self] (e: Error) -> AnyPublisher<Date, Never> in
                         print("error: \(e)")
+                        self?.inAppMessageService.showToast(title: "最新情報の取得に失敗しました")
                         return .empty()
                     }
-                    .eraseToAnyPublisher()
+                    .eraseToAnyPublisher() ?? .empty()
             }
             .sink { [weak self] (date: Date) in
                 print("latest: \(date)")
@@ -87,6 +92,8 @@ class MainViewModel: ObservableObject {
     }
 
     public func onAppear() {
-        fetchInfomation.send(())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.fetchInfomation.send(())
+        }
     }
 }

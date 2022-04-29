@@ -7,6 +7,7 @@
 
 import Core
 import Foundation
+import InAppMessage
 import PortableDocumentFormat
 import SwiftUI
 
@@ -35,7 +36,7 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
                             PrintQrCodeViewModelOutputs {
     public let title: String
     private let qrcodeCount: Int
-    private let inAppNoticeService: InAppNoticeService
+    private let inAppMessageService: InAppMessageService
     private let fileManagerWrapper: FileManagerWrapper
     private let pdfRenderer: PdfRenderer
 
@@ -43,12 +44,12 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
 
     init(title: String,
          qrcodeCount: Int,
-         inAppNoticeService: InAppNoticeService,
+         inAppMessageService: InAppMessageService,
          fileManagerWrapper: FileManagerWrapper,
          pdfRenderer: PdfRenderer) {
         self.title = title
         self.qrcodeCount = qrcodeCount
-        self.inAppNoticeService = inAppNoticeService
+        self.inAppMessageService = inAppMessageService
         self.fileManagerWrapper = fileManagerWrapper
         self.pdfRenderer = pdfRenderer
     }
@@ -129,6 +130,8 @@ class PrintQrCodeViewModel: PrintQrCodeViewModelType,
             print("error: \(error)")
             return
         }
-        inAppNoticeService.show.send("ファイルを保存しました！")
+        inAppMessageService.showLikePush(image: UIImage(systemName: "arrow.down.doc"),
+                                         title: "成功！",
+                                         description: "ファイルを保存しました")
     }
 }
