@@ -19,6 +19,9 @@ environment:
 	@sed \
 		-e "s/GIST_ID/$(GIST_ID)/" \
 		-e "s/APP_APPLE_ID/$(APP_APPLE_ID)/" \
+		-e "s/USAGE_PAGE_URL/$(USAGE_PAGE_URL)/" \
+		-e "s/CONTACT_US_FORM_ID/$(CONTACT_US_FORM_ID)/" \
+		-e "s/CONTACT_US_ENV_ENTRY_ID/$(CONTACT_US_ENV_ENTRY_ID)/" \
 		from-colorful-world/Modules/Sources/Assets/Token/_AppToken.swift \
 		> from-colorful-world/Modules/Sources/Assets/Token/AppToken.swift
 	echo "Applied environment"

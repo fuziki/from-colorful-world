@@ -129,8 +129,8 @@ public struct MainView: View {
                     Text("設定")
                 }
             }
-            let url = URL(string: "https://note.com/mori__chan/n/nda0a6c09ee89")!
             Button {
+                guard let url = URL(string: AppToken.usagePageUrl) else { return }
                 let root = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
                 if let r = root {
                     let vc = SFSafariViewController(url: url)

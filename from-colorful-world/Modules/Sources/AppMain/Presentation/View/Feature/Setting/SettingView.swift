@@ -5,6 +5,7 @@
 //  Created by fuziki on 2021/09/05.
 //
 
+import Assets
 import Foundation
 import SwiftUI
 
@@ -34,6 +35,15 @@ struct SettingView: View {
                 }
             }
             Section(header: Text("その他")) {
+                Button {
+                    viewModel.tapContactUs()
+                } label: {
+                    NavigationLink(destination: EmptyView()) {
+                        Text("お問い合わせ")
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(PlainButtonStyle())
                 Button {
                     viewModel.tapShare()
                 } label: {

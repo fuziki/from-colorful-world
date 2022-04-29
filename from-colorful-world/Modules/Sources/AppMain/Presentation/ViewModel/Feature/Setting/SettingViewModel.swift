@@ -9,7 +9,9 @@ import Assets
 import AVFoundation
 import Combine
 import Foundation
+import SafariServices
 import SwiftUI
+import UIKit
 
 extension FeedbackSound {
     var display: String {
@@ -80,12 +82,28 @@ class SettingViewModel: ObservableObject {
         settingService.update(entity: entity)
     }
 
+    public func tapContactUs() {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let ascii = NSString(bytes: &systemInfo.machine, length: Int(_SYS_NAMELEN), encoding: String.Encoding.utf8.rawValue)
+        let model = ascii?.utf8String.flatMap { String(validatingUTF8: $0) } ?? "Model"
+        let sysytem = UIDevice.current.systemVersion
+        let env = "\(model.replacingOccurrences(of: ",", with: "%2C"))(\(sysytem))"
+        guard let url = URL(string: "https://docs.google.com/forms/d/e/\(AppToken.contactUsFormId)/viewform?usp=pp_url&entry.\(AppToken.contactUsEntryId)=\(env)") else { return }
+        if let root = getRootViewController() {
+            let vc = SFSafariViewController(url: url)
+            root.present(vc, animated: true, completion: nil)
+        } else if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+
     public func tapShare() {
-        // FIXME: ハードコーディング
-        let activityItems: [Any] = [URL(string: "https://apps.apple.com/jp/app/%E6%8F%90%E5%87%BA%E7%89%A9ok/id\(AppToken.appAppleId)")!]
+        guard let url = URL(string: "https://apps.apple.com/jp/app/id\(AppToken.appAppleId)") else { return }
+        let activityItems: [Any] = [url]
         let vc = UIActivityViewController(activityItems: activityItems,
                                           applicationActivities: nil)
-        let rootVC = UIApplication.shared.windows.first!.rootViewController!
+        guard let rootVC = getRootViewController() else { return }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             vc.popoverPresentationController?.sourceView = rootVC.view
@@ -102,5 +120,9 @@ class SettingViewModel: ObservableObject {
     public func tapReviewThisApp() {
         guard let url = URL(string: "https://itunes.apple.com/app/id\(AppToken.appAppleId)?action=write-review") else { return }
         UIApplication.shared.open(url)
+    }
+
+    private func getRootViewController() -> UIViewController? {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
     }
 }
