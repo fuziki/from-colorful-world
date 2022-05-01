@@ -7,6 +7,8 @@ name: DeployGitHubPages
 on:
   push:
       branches: [ develop ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,16 +28,16 @@ jobs:
           node-version: 'v15.0.1'
   
       - name: Install Dependencies
-        working-directory: ./web-contents
+        working-directory: web-contents
         run: npm install
 
       - name: Build Project
-        working-directory: ./web-contents
+        working-directory: web-contents
         run: npm run build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
-        working-directory: ./web-contents
+        working-directory: web-contents
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
