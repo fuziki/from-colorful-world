@@ -39,3 +39,6 @@ download-audio:
 install-test: environment download-audio swiftgen mock
 
 install: environment download-audio swiftgen mock license
+
+run-sev:
+	cd web-contents; npm run dev
