@@ -26,9 +26,11 @@ jobs:
           node-version: 'v15.0.1'
   
       - name: Install Dependencies
+        working-directory: ./web-contents
         run: npm install
 
       - name: Build Project
+        working-directory: ./web-contents
         run: npm run build
 
       - name: deploy
