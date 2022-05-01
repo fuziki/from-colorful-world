@@ -1,7 +1,10 @@
 <script setup lang="ts">
-defineProps<{
+import { computed, defineProps, withDefaults, defineEmits } from "vue";
+const props = withDefaults(defineProps<{
   msg: string
-}>()
+}>(), {
+  msg: "hello world"
+})
 </script>
 
 <template>
