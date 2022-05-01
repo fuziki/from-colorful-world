@@ -17,10 +17,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: macos-11
 
-    defaults:
-      run:
-        working-directory: web-contents
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -33,12 +29,14 @@ jobs:
   
       - name: Install Dependencies
         run: npm install
+        working-directory: web-contents
 
       - name: Build Project
         run: npm run build
+        working-directory: web-contents
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs
+          publish_dir: web-contents/dist
