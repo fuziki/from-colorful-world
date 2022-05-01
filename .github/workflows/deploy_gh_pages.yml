@@ -26,16 +26,16 @@ jobs:
           node-version: 'v15.0.1'
   
       - name: Install Dependencies
-        working-directory: ./web-contents
+        working-directory: web-contents
         run: npm install
 
       - name: Build Project
-        working-directory: ./web-contents
+        working-directory: web-contents
         run: npm run build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
-        working-directory: ./web-contents
+        working-directory: web-contents
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
