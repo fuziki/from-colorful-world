@@ -4,7 +4,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: () => import('../views/HomeView.vue')
     },
@@ -17,8 +17,8 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/csv',
-      name: 'index',
+      path: '/',
+      name: 'csv',
       component: () => import('../views/CsvCreatorView.vue')
     },
   ]
