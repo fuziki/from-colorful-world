@@ -13,9 +13,13 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  deploy:
     # The type of runner that the job will run on
     runs-on: macos-11
+
+    defaults:
+      run:
+        working-directory: web-contents
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -28,16 +32,13 @@ jobs:
           node-version: 'v15.0.1'
   
       - name: Install Dependencies
-        working-directory: web-contents
         run: npm install
 
       - name: Build Project
-        working-directory: web-contents
         run: npm run build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
-        working-directory: web-contents
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
