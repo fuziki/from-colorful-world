@@ -117,6 +117,25 @@ public struct MainView: View {
                     Text("新しい2次元コードを作る")
                 }
             }
+            Button {
+                guard let url = URL(string: AppToken.createQrCodeOnPcPageUrl) else { return }
+                let root = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+                if let r = root {
+                    let vc = SFSafariViewController(url: url)
+                    r.present(vc, animated: true, completion: nil)
+                } else if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
+            } label: {
+                NavigationLink(destination: EmptyView()) {
+                    HStack {
+                        Image(systemName: "desktopcomputer")
+                        Text("PCで2次元コードを作る")
+                    }
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(PlainButtonStyle())
         }
     }
 
