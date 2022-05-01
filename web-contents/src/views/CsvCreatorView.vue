@@ -13,8 +13,9 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   data() {
     return {
       text: "",
@@ -35,18 +36,18 @@ export default {
       obj.download = this.text + ".csv"
       document.body.appendChild(obj);
       obj.click();
-      obj.parentNode.removeChild(obj);
+      obj.parentNode!.removeChild(obj);
     },
-    onChangeInput: function(event) {
+    onChangeInput: function(event: any) {
       if((event.target.value.length) * 2 > 15) {
         this.reactiveWidth = ((event.target.value.length) * 2 + 10) + "ch"
       } else {
         this.reactiveWidth = "25ch"
       }
-      document.getElementById("copy-button").disabled = event.target.value.length == 0;
+      (document.getElementById("copy-button")! as HTMLButtonElement).disabled = event.target.value.length == 0;
     },
   }
-};
+});
 </script>
 
 <style>
