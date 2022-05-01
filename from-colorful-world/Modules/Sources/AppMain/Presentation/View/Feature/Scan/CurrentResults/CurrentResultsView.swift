@@ -60,6 +60,7 @@ struct CurrentResultsView<ViewModelType: CurrentResultsViewModelType>: View {
                 makeTitleView(title: column.title, fontSize: fontSize)
                 ForEach(1..<viewModel.outputs.rowCount, id: \.self) { i in
                     makeOkView(title: column.title, index: i, fontSize: fontSize, ok: column.ok[i-1])
+                        .id("\(column.title)-\(i)-\(column.ok[i-1])")
                 }
             }
         }
