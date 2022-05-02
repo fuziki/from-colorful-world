@@ -5,7 +5,7 @@
 ![Xcode](https://img.shields.io/badge/xcode-Xcode13-green.svg)
 
 ## Requirements
-* Xcode 13.1
+* Xcode 13.3
 
 ## Setup
 
