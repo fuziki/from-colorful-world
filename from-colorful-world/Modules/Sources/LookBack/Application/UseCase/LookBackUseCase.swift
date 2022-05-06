@@ -113,7 +113,6 @@ extension LookBackUseCase: LookBackWriteUseCaseProtocol {
         }
         current = current.replacingOccurrences(of: "\r", with: "")
         let indexes = current.components(separatedBy: "\n")
-        print("indexes: \(indexes)")
         let res = (0..<classPeaples).map { (i: Int) -> String in
             let ex = indexes[safe: i] == "1"
             let dt = detected.contains(i + 1)

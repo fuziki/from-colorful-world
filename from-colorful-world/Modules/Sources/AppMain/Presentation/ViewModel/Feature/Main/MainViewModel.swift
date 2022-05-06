@@ -17,11 +17,8 @@ class MainViewModel: ObservableObject {
     @Published public var showInfomation: Bool = false
     @Published public var scanning: Bool = false
     @Published public var showAlert: Bool = false
+    @Published public var classPeaples: Int
     public let onComplete = PassthroughSubject<Void, Never>()
-    public var classPeaples: Int {
-        // FIXME: 40のハードコーティング
-        return settingService.currentEntity.classPeaples ?? 40
-    }
 
     private let inAppMessageService: InAppMessageService
     private let settingService: SettingService
@@ -38,6 +35,7 @@ class MainViewModel: ObservableObject {
         self.usecase = usecase
         self.settingService = settingService
         self.inAppMessageService = inAppMessageService
+        self.classPeaples = settingService.currentEntity.classPeaples ?? 40
 
         showBadge = showBadgeSubject.eraseToAnyPublisher()
         onComplete.sink { [weak self] _ in

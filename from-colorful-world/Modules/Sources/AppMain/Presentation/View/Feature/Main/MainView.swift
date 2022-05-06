@@ -83,7 +83,8 @@ public struct MainView: View {
     }
 
     private var scanSection: some View {
-        Section(header: Text(Assets.Localization.MainView.Scan.header)) {
+        Section(header: Text(Assets.Localization.MainView.Scan.header),
+                footer: Text("「結果を保存する」設定が有効の場合、スキャンした結果が保存されます")) {
             Button {
                 print("act!")
                 viewModel.startScan()
