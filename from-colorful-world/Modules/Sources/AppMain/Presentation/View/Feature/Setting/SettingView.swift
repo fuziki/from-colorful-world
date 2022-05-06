@@ -26,6 +26,9 @@ struct SettingView: View {
                 } onDecrement: {
                     viewModel.decrement()
                 }
+                Toggle(isOn: $viewModel.enableLookBack) {
+                    Text("結果を保存する")
+                }
             }
             Section(header: Text("スキャン設定")) {
                 Picker(selection: $viewModel.feedbackSound, label: Text("効果音")) {

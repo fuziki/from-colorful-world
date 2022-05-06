@@ -9,15 +9,18 @@ import Assets
 import Combine
 import Foundation
 import InAppMessage
+import LookBack
 import SafariServices
 import SwiftUI
 import UIComponents
 
 public struct MainView: View {
-    @ObservedObject private var viewModel = MainViewModel(usecase: DefaultMainViewUseCase(),
-                                                          inAppMessageService: DefaultInAppMessageService())
+    @ObservedObject private var viewModel: MainViewModel
 
     public init() {
+        viewModel = MainViewModel(usecase: DefaultMainViewUseCase(),
+                                  settingService: DefaultSettingService(),
+                                  inAppMessageService: DefaultInAppMessageService())
     }
 
     public var body: some View {
@@ -80,7 +83,8 @@ public struct MainView: View {
     }
 
     private var scanSection: some View {
-        Section(header: Text(Assets.Localization.MainView.Scan.header)) {
+        Section(header: Text(Assets.Localization.MainView.Scan.header),
+                footer: Text("「結果を保存する」設定が有効の場合、スキャンした結果が保存されます")) {
             Button {
                 print("act!")
                 viewModel.startScan()
@@ -94,6 +98,13 @@ public struct MainView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
+
+            NavigationLink(destination: LookBackCalendarView(classPeaples: viewModel.classPeaples)) {
+                HStack {
+                    Image(systemName: "folder")
+                    Text("保存された結果を見る")
+                }
+            }
         }
     }
 

@@ -8,6 +8,8 @@
 import AVFoundation
 import Combine
 import Foundation
+import LookBack
+import UIKit
 
 protocol ScanQrCodeViewModelInputs {
     var onDetected: PassthroughSubject<String, Never> { get }
@@ -15,6 +17,7 @@ protocol ScanQrCodeViewModelInputs {
     var onTapShowCurrentResult: PassthroughSubject<Void, Never> { get }
     var isSpeakerMute: CurrentValueSubject<Bool, Never> { get }
     func onAppear()
+    func onDisappear()
 }
 protocol ScanQrCodeViewModelOutputs {
     var flipCamera: AnyPublisher<Void, Never> { get }
@@ -64,10 +67,12 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     // MARK: - Injected
     private let storeServcie: ScanQrCodeViewStoreServcie
     private let settingService: SettingService
+    private let lookBackWriteUseCase: LookBackWriteUseCaseProtocol
 
     // MARK: - Properties
     private var detectedDics: [String: [Int: Bool]] = [:]
     private var classPeaples: Int
+    private var enableLookBack: Bool
 
     private var audioPlayers: [AVPlayer] = {
         // TODO: Inject
@@ -81,10 +86,14 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     private var nextPlayer: Int = 0
 
     private var cancellables: Set<AnyCancellable> = []
-    init(storeServcie: ScanQrCodeViewStoreServcie, settingService: SettingService) {
+    init(storeServcie: ScanQrCodeViewStoreServcie,
+         settingService: SettingService,
+         lookBackWriteUseCase: LookBackWriteUseCaseProtocol) {
         self.storeServcie = storeServcie
         self.settingService = settingService
+        self.lookBackWriteUseCase = lookBackWriteUseCase
         self.classPeaples = settingService.currentEntity.classPeaples ?? 40
+        self.enableLookBack = settingService.currentEntity.enableLookBack ?? false
         self.isSpeakerMute = CurrentValueSubject<Bool, Never>(storeServcie.isSpeakerMute)
         self.currentResultsSubject = CurrentValueSubject(CurrentResultsEntity(rowCount: classPeaples,
                                                                               columns: []))
@@ -103,10 +112,22 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         onDetected.sink { [weak self] (detected: String) in
             self?.detected(text: detected)
         }.store(in: &cancellables)
+
+        NotificationCenter.default
+            .publisher(for: UIApplication.didEnterBackgroundNotification)
+            .sink { [weak self] (_: Notification) in
+                self?.save()
+            }
+            .store(in: &cancellables)
     }
 
     public func onAppear() {
         self.classPeaples = settingService.currentEntity.classPeaples ?? 40
+        self.enableLookBack = settingService.currentEntity.enableLookBack ?? false
+    }
+
+    public func onDisappear() {
+        save()
     }
 
     private func detected(text: String) {
@@ -128,6 +149,10 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         current?[index] = true
 
         if !isNew { return }
+
+        if enableLookBack {
+            lookBackWriteUseCase.detected(title: title, index: index)
+        }
 
         detectedDics[title] = current
 
@@ -157,5 +182,11 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         if nextPlayer >= audioPlayers.count {
             nextPlayer = 0
         }
+    }
+
+    private func save() {
+        guard enableLookBack else { return }
+        print("save")
+        lookBackWriteUseCase.save(classPeaples: classPeaples, calendar: .current, timeZone: .current, date: Date())
     }
 }

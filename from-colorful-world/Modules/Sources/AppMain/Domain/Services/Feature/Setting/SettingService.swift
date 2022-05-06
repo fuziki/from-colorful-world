@@ -23,11 +23,13 @@ struct SettingEntity: Codable {
     // 追加するときはオプショナル型にする
     var classPeaples: Int?
     var feedbackSound: FeedbackSound?
+    var enableLookBack: Bool?
     static var `default`: SettingEntity {
-        SettingEntity(classPeaples: nil, feedbackSound: nil)
+        SettingEntity(classPeaples: nil, feedbackSound: nil, enableLookBack: nil)
     }
 }
 
+/// @mockable
 protocol SettingService {
     var currentEntity: SettingEntity { get }
     func update(entity: SettingEntity)

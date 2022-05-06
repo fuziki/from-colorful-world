@@ -17,9 +17,11 @@ class MainViewModel: ObservableObject {
     @Published public var showInfomation: Bool = false
     @Published public var scanning: Bool = false
     @Published public var showAlert: Bool = false
+    @Published public var classPeaples: Int
     public let onComplete = PassthroughSubject<Void, Never>()
 
     private let inAppMessageService: InAppMessageService
+    private let settingService: SettingService
     private let usecase: MainViewUseCase
 
     private let showBadgeSubject = CurrentValueSubject<Bool, Never>(false)
@@ -27,10 +29,13 @@ class MainViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
     init(usecase: MainViewUseCase,
+         settingService: SettingService,
          inAppMessageService: InAppMessageService) {
         print("init MainViewModel")
         self.usecase = usecase
+        self.settingService = settingService
         self.inAppMessageService = inAppMessageService
+        self.classPeaples = settingService.currentEntity.classPeaples ?? 40
 
         showBadge = showBadgeSubject.eraseToAnyPublisher()
         onComplete.sink { [weak self] _ in
