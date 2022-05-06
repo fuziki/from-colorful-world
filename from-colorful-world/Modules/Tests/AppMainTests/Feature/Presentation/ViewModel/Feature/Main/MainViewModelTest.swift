@@ -21,7 +21,7 @@ final class MainViewModelTest: XCTestCase {
             return .just(output: latestInfomationDate)
         }
         usecase.latestReadInfomationDate = nil
-        let settingService = SettingServiceMock()
+        let settingService = SettingServiceMock(currentEntity: .default)
         let viewModel = MainViewModel(usecase: usecase,
                                       settingService: settingService,
                                       inAppMessageService: InAppMessageServiceMock())
@@ -55,7 +55,7 @@ final class MainViewModelTest: XCTestCase {
             return .just(output: latestInfomationDate)
         }
         usecase.latestReadInfomationDate = latestInfomationDate.advanced(by: -3600)
-        let settingService = SettingServiceMock()
+        let settingService = SettingServiceMock(currentEntity: .default)
         let viewModel = MainViewModel(usecase: usecase,
                                       settingService: settingService,
                                       inAppMessageService: InAppMessageServiceMock())
@@ -89,7 +89,7 @@ final class MainViewModelTest: XCTestCase {
             return .just(output: latestInfomationDate)
         }
         usecase.latestReadInfomationDate = latestInfomationDate.advanced(by: 3600)
-        let settingService = SettingServiceMock()
+        let settingService = SettingServiceMock(currentEntity: .default)
         let viewModel = MainViewModel(usecase: usecase,
                                       settingService: settingService,
                                       inAppMessageService: InAppMessageServiceMock())
