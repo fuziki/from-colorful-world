@@ -4,4 +4,4 @@ OS=$(shell echo "${TARGET}" | grep -o -E "[0-9|.]+" | tail -n 1)
 
 test:
 	echo name = $(NAME), OS = $(OS)
-	xcodebuild -scheme Modules test -destination "name=${NAME},OS=${OS}"
+	xcodebuild -scheme AppMain test -destination "name=${NAME},OS=${OS}"
