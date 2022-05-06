@@ -29,6 +29,7 @@ struct SettingEntity: Codable {
     }
 }
 
+/// @mockable
 protocol SettingService {
     var currentEntity: SettingEntity { get }
     func update(entity: SettingEntity)

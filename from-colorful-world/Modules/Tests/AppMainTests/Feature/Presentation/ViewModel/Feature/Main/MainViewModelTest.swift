@@ -21,7 +21,10 @@ final class MainViewModelTest: XCTestCase {
             return .just(output: latestInfomationDate)
         }
         usecase.latestReadInfomationDate = nil
-        let viewModel = MainViewModel(usecase: usecase, inAppMessageService: InAppMessageServiceMock())
+        let settingService = SettingServiceMock()
+        let viewModel = MainViewModel(usecase: usecase,
+                                      settingService: settingService,
+                                      inAppMessageService: InAppMessageServiceMock())
 
         let scheduler = DispatchQueue.test
         let showBadgeSubject = TestEventRecoder(outputType: Bool.self, testScheduler: scheduler)
@@ -52,7 +55,10 @@ final class MainViewModelTest: XCTestCase {
             return .just(output: latestInfomationDate)
         }
         usecase.latestReadInfomationDate = latestInfomationDate.advanced(by: -3600)
-        let viewModel = MainViewModel(usecase: usecase, inAppMessageService: InAppMessageServiceMock())
+        let settingService = SettingServiceMock()
+        let viewModel = MainViewModel(usecase: usecase,
+                                      settingService: settingService,
+                                      inAppMessageService: InAppMessageServiceMock())
 
         let scheduler = DispatchQueue.test
         let showBadgeSubject = TestEventRecoder(outputType: Bool.self, testScheduler: scheduler)
@@ -83,7 +89,10 @@ final class MainViewModelTest: XCTestCase {
             return .just(output: latestInfomationDate)
         }
         usecase.latestReadInfomationDate = latestInfomationDate.advanced(by: 3600)
-        let viewModel = MainViewModel(usecase: usecase, inAppMessageService: InAppMessageServiceMock())
+        let settingService = SettingServiceMock()
+        let viewModel = MainViewModel(usecase: usecase,
+                                      settingService: settingService,
+                                      inAppMessageService: InAppMessageServiceMock())
 
         let scheduler = DispatchQueue.test
         let showBadgeSubject = TestEventRecoder(outputType: Bool.self, testScheduler: scheduler)
