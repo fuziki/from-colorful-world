@@ -6,17 +6,21 @@
 //
 
 import Combine
+import Core
 import Foundation
+import LookBack
 import QRCode
 import SwiftUI
 
 struct ScanQrCodeView: View {
     // カメラを使うので非 ObservedObject View Model だし、preview は使わない
-    private var viewModel: ScanQrCodeViewModelType = ScanQrCodeViewModel(storeServcie: DefaultScanQrCodeViewStoreServcie(),
-                                                                         settingService: DefaultSettingService())
+    private let viewModel: ScanQrCodeViewModelType
     let onComplete: PassthroughSubject<Void, Never>
     init(onComplete: PassthroughSubject<Void, Never>) {
         self.onComplete = onComplete
+        viewModel = ScanQrCodeViewModel(storeServcie: DefaultScanQrCodeViewStoreServcie(),
+                                        settingService: DefaultSettingService(),
+                                        lookBackWriteUseCase: LookBackUseCase(fileManager: DefaultFileManagerWrapper()))
     }
     var body: some View {
         ZStack {
@@ -49,6 +53,7 @@ struct ScanQrCodeView: View {
         }
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false
+            viewModel.inputs.onDisappear()
         }
     }
 }

@@ -37,6 +37,7 @@ extension FeedbackSound {
 class SettingViewModel: ObservableObject {
     @Published var classPeaples: Int = 40
     @Published var feedbackSound: FeedbackSound
+    @Published var enableLookBack: Bool
 
     private let settingService: SettingService
     private var player: AVPlayer?
@@ -46,6 +47,7 @@ class SettingViewModel: ObservableObject {
         self.settingService = settingService
         self.classPeaples = settingService.currentEntity.classPeaples ?? 40
         self.feedbackSound = settingService.currentEntity.feedbackSound ?? .pon
+        self.enableLookBack = settingService.currentEntity.enableLookBack ?? false
 
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
@@ -64,6 +66,14 @@ class SettingViewModel: ObservableObject {
             entity.feedbackSound = sound
             self.settingService.update(entity: entity)
             print("sound: \(sound)")
+        }.store(in: &cancellables)
+
+        $enableLookBack.dropFirst().sink { [weak self] (enable: Bool) in
+            print("set enableLookBack: \(enable)")
+            guard let self = self else { return }
+            var entity = self.settingService.currentEntity
+            entity.enableLookBack = enable
+            self.settingService.update(entity: entity)
         }.store(in: &cancellables)
     }
     public func increment() {

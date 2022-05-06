@@ -12,9 +12,8 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "AppMain",
-            targets: ["AppMain"])
+        .library(name: "AppMain", targets: ["AppMain"]),
+        .library(name: "LookBack", targets: ["LookBack"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -35,6 +34,7 @@ let package = Package(
                 .target(name: "AppleExtensions"),
                 .target(name: "Core"),
                 .target(name: "InAppMessage"),
+                .target(name: "LookBack"),
                 .target(name: "PortableDocumentFormat"),
                 .target(name: "QRCode"),
                 .target(name: "UIComponents"),
@@ -54,6 +54,13 @@ let package = Package(
                 .product(name: "SwiftEntryKit", package: "SwiftEntryKit"),
             ]),
         .target(
+            name: "LookBack",
+            dependencies: [
+                .target(name: "Assets"),
+                .target(name: "AppleExtensions"),
+                .target(name: "Core"),
+            ]),
+        .target(
             name: "PortableDocumentFormat",
             dependencies: [
                 .target(name: "AppleExtensions"),
@@ -69,6 +76,9 @@ let package = Package(
         .testTarget(
             name: "AppMainTests",
             dependencies: ["AppMain"],
-            exclude: ["AppMainTest.xctestplan"])
+            exclude: ["AppMainTest.xctestplan"]),
+        .testTarget(
+            name: "LookBackTest",
+            dependencies: ["LookBack"]),
     ]
 )

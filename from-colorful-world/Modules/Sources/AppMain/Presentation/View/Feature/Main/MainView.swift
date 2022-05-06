@@ -9,15 +9,18 @@ import Assets
 import Combine
 import Foundation
 import InAppMessage
+import LookBack
 import SafariServices
 import SwiftUI
 import UIComponents
 
 public struct MainView: View {
-    @ObservedObject private var viewModel = MainViewModel(usecase: DefaultMainViewUseCase(),
-                                                          inAppMessageService: DefaultInAppMessageService())
+    @ObservedObject private var viewModel: MainViewModel
 
     public init() {
+        viewModel = MainViewModel(usecase: DefaultMainViewUseCase(),
+                                  settingService: DefaultSettingService(),
+                                  inAppMessageService: DefaultInAppMessageService())
     }
 
     public var body: some View {
@@ -94,6 +97,13 @@ public struct MainView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
+
+            NavigationLink(destination: LookBackCalendarView(classPeaples: viewModel.classPeaples)) {
+                HStack {
+                    Image(systemName: "folder")
+                    Text("保存された結果を見る")
+                }
+            }
         }
     }
 
