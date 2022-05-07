@@ -59,6 +59,7 @@ let package = Package(
                 .target(name: "Assets"),
                 .target(name: "AppleExtensions"),
                 .target(name: "Core"),
+                .target(name: "UIComponents"),
             ]),
         .target(
             name: "PortableDocumentFormat",
