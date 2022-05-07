@@ -1,5 +1,5 @@
 //
-//  LookBackDayViewModel.swift
+//  DayResultViewModel.swift
 //
 //
 //  Created by fuziki on 2022/05/06.
@@ -16,7 +16,7 @@ struct LookBackAssignmentViewGridCellEntity: Hashable {
     let backgroundColor: Color
 }
 
-class LookBackDayViewModel: ObservableObject {
+class DayResultViewModel: ObservableObject {
     // MARK: - Outputs
     @Published var title: String = ""
     @Published var titleColumns: [[LookBackAssignmentViewGridCellEntity]]
