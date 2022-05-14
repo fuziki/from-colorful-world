@@ -26,6 +26,6 @@ echo "base -> ${BASE_BRANCH}"
 echo "pr-title -> ${PR_TITLE}"
 
 gh pr create \
-    -B ${BASE_BRANCH} \
-    -t ${PR_TITLE} \
-    -b ""
+    --base ${BASE_BRANCH} \
+    --title "${PR_TITLE}" \
+    --body ""
