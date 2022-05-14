@@ -1,5 +1,5 @@
 //
-//  Debug.xcconfig
+//  from-colorful-world.Release.xcconfig
 //  from-colorful-world
 //
 //  Created by fuziki on 2022/05/02.
@@ -8,4 +8,4 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-#include "./Common.xcconfig"
+#include "./from-colorful-world.Shared.xcconfig"
