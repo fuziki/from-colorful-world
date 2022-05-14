@@ -42,3 +42,8 @@ install: environment download-audio swiftgen mock license
 
 run-sev:
 	cd web-contents; npm run dev
+
+update-marketing-version:
+	sh scripts/update-marketing-version.sh \
+		${NEW_VERSION} \
+		from-colorful-world/from-colorful-world/xcconfig/from-colorful-world.Shared.xcconfig
