@@ -28,5 +28,5 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Print new version
-        run: echo New version is ${{ github.event.inputs.new_version }}
+      - name: Update Marketing Version
+        run: NEW_VERSION=${{ github.event.inputs.new_version }} make update-marketing-version
