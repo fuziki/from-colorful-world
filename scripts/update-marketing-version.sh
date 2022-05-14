@@ -19,7 +19,7 @@ git checkout -b update/version-${NEW_VERSION}
 git add ${CONFIG_FILE_PATH}
 git commit -m "update marketing version ${NEW_VERSION}"
 
-BASE_BRANCH=${GITHUB_REF##*/}
+BASE_BRANCH=${GITHUB_REF#refs/heads/}
 PR_TITLE="update marketing version ${NEW_VERSION}"
 
 echo "base -> ${BASE_BRANCH}"
