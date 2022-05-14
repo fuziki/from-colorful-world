@@ -26,9 +26,9 @@
 		5292BE5926DA544400AE895E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5292BE5C26DA544400AE895E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5292BE5E26DA544400AE895E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52E5F822281EE6B500EC8199 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
-		52E5F823281EE6EB00EC8199 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		52E5F824281EE6FC00EC8199 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		52E5F822281EE6B500EC8199 /* from-colorful-world.Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "from-colorful-world.Shared.xcconfig"; sourceTree = "<group>"; };
+		52E5F823281EE6EB00EC8199 /* from-colorful-world.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "from-colorful-world.Release.xcconfig"; sourceTree = "<group>"; };
+		52E5F824281EE6FC00EC8199 /* from-colorful-world.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "from-colorful-world.Debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +110,9 @@
 		52E5F821281EE66000EC8199 /* xcconfig */ = {
 			isa = PBXGroup;
 			children = (
-				52E5F822281EE6B500EC8199 /* Common.xcconfig */,
-				52E5F824281EE6FC00EC8199 /* Debug.xcconfig */,
-				52E5F823281EE6EB00EC8199 /* Release.xcconfig */,
+				52E5F822281EE6B500EC8199 /* from-colorful-world.Shared.xcconfig */,
+				52E5F824281EE6FC00EC8199 /* from-colorful-world.Debug.xcconfig */,
+				52E5F823281EE6EB00EC8199 /* from-colorful-world.Release.xcconfig */,
 			);
 			path = xcconfig;
 			sourceTree = "<group>";
@@ -380,7 +380,7 @@
 		};
 		5292BE6226DA544400AE895E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52E5F824281EE6FC00EC8199 /* Debug.xcconfig */;
+			baseConfigurationReference = 52E5F824281EE6FC00EC8199 /* from-colorful-world.Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -388,10 +388,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"from-colorful-world/Preview Content\"";
-				DEVELOPMENT_TEAM = NT88A3VRE2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "from-colorful-world/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -405,7 +403,7 @@
 		};
 		5292BE6326DA544400AE895E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52E5F823281EE6EB00EC8199 /* Release.xcconfig */;
+			baseConfigurationReference = 52E5F823281EE6EB00EC8199 /* from-colorful-world.Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -413,10 +411,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"from-colorful-world/Preview Content\"";
-				DEVELOPMENT_TEAM = NT88A3VRE2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "from-colorful-world/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
