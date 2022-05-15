@@ -73,6 +73,7 @@ let package = Package(
         .target(
             name: "Setting",
             dependencies: [
+                .target(name: "Assets"),
                 .target(name: "Core"),
             ]),
         .target(
