@@ -22,7 +22,7 @@ public struct SettingEntity: Codable {
     public var classPeaples: Int?
     public var feedbackSound: FeedbackSound?
     public var enableLookBack: Bool?
-    static var `default`: SettingEntity {
+    public static var `default`: SettingEntity {
         SettingEntity(classPeaples: nil, feedbackSound: nil, enableLookBack: nil)
     }
 }
