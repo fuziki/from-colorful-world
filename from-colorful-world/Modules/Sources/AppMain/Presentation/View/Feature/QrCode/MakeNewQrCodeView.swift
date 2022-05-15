@@ -7,6 +7,7 @@
 
 import Assets
 import Foundation
+import Setting
 import SwiftUI
 
 struct MakeNewQrCodeView: View {
@@ -95,7 +96,7 @@ struct MakeNewQrCodeView_Previews: PreviewProvider {
         }
     }
     static func makeView(text: String) -> some View {
-        let vm = MakeNewQrCodeViewModel(settingService: DefaultSettingService())
+        let vm = MakeNewQrCodeViewModel(settingService: DefaultSettingService.shared)
         let v = MakeNewQrCodeView(text: text, viewModel: vm)
         return v
     }

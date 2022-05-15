@@ -11,6 +11,7 @@ import Foundation
 import InAppMessage
 import LookBack
 import SafariServices
+import Setting
 import SwiftUI
 import UIComponents
 
@@ -19,7 +20,7 @@ public struct MainView: View {
 
     public init() {
         viewModel = MainViewModel(usecase: DefaultMainViewUseCase(),
-                                  settingService: DefaultSettingService(),
+                                  settingService: DefaultSettingService.shared,
                                   inAppMessageService: DefaultInAppMessageService())
     }
 
@@ -121,7 +122,7 @@ public struct MainView: View {
 
     private var qrcodeSection: some View {
         Section(header: Text("2次元コード")) {
-            let viewModel = MakeNewQrCodeViewModel(settingService: DefaultSettingService())
+            let viewModel = MakeNewQrCodeViewModel(settingService: DefaultSettingService.shared)
             NavigationLink(destination: MakeNewQrCodeView(viewModel: viewModel)) {
                 HStack {
                     Image(systemName: "qrcode")

@@ -35,8 +35,7 @@ class CurrentResultsViewModel: CurrentResultsViewModelType,
     private let currentResults: AnyPublisher<CurrentResultsEntity, Never>
 
     private var cancellables: Set<AnyCancellable> = []
-    init(currentResults: AnyPublisher<CurrentResultsEntity, Never>,
-         settingService: SettingService) {
+    init(currentResults: AnyPublisher<CurrentResultsEntity, Never>) {
         self.currentResults = currentResults
         self.rowCount = Self.defaultRowCount
         self.currentResults.sink { [weak self] (entity: CurrentResultsEntity) in

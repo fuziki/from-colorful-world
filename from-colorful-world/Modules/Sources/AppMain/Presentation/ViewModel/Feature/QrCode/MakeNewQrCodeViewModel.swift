@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import Setting
 import SwiftUI
 
 class MakeNewQrCodeViewModel: ObservableObject {

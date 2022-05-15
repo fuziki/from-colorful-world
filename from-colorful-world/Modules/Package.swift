@@ -37,6 +37,7 @@ let package = Package(
                 .target(name: "LookBack"),
                 .target(name: "PortableDocumentFormat"),
                 .target(name: "QRCode"),
+                .target(name: "Setting"),
                 .target(name: "UIComponents"),
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]),
@@ -69,6 +70,12 @@ let package = Package(
         .target(
             name: "QRCode",
             dependencies: []),
+        .target(
+            name: "Setting",
+            dependencies: [
+                .target(name: "Assets"),
+                .target(name: "Core"),
+            ]),
         .target(
             name: "UIComponents",
             dependencies: [
