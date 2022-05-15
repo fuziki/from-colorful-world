@@ -10,6 +10,7 @@ import AVFoundation
 import Combine
 import Foundation
 import InAppMessage
+import Setting
 import SwiftUI
 
 class MainViewModel: ObservableObject {
@@ -40,6 +41,10 @@ class MainViewModel: ObservableObject {
         showBadge = showBadgeSubject.eraseToAnyPublisher()
         onComplete.sink { [weak self] _ in
             self?.scanning = false
+        }.store(in: &cancellables)
+
+        self.settingService.entityPublisher.sink { [weak self] (entity: SettingEntity) in
+            self?.classPeaples = entity.classPeaples ?? 40
         }.store(in: &cancellables)
 
         setupInfomation()

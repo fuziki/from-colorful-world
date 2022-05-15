@@ -10,6 +10,7 @@ import Core
 import Foundation
 import LookBack
 import QRCode
+import Setting
 import SwiftUI
 
 struct ScanQrCodeView: View {
@@ -19,7 +20,7 @@ struct ScanQrCodeView: View {
     init(onComplete: PassthroughSubject<Void, Never>) {
         self.onComplete = onComplete
         viewModel = ScanQrCodeViewModel(storeServcie: DefaultScanQrCodeViewStoreServcie(),
-                                        settingService: DefaultSettingService(),
+                                        settingService: DefaultSettingService.shared,
                                         lookBackWriteUseCase: LookBackUseCase(fileManager: DefaultFileManagerWrapper()))
     }
     var body: some View {

@@ -9,9 +9,12 @@ import Assets
 import Foundation
 import SwiftUI
 
-struct SettingView: View {
-    @ObservedObject private var viewModel = SettingViewModel(settingService: DefaultSettingService())
-    var body: some View {
+public struct SettingView: View {
+    @ObservedObject private var viewModel: SettingViewModel
+    public init() {
+        viewModel = SettingViewModel(settingService: DefaultSettingService.shared)
+    }
+    public var body: some View {
         ZStack {
             form
             versionLabel

@@ -23,7 +23,7 @@ extension FeedbackSound {
         case .recoded: return "データを記録しました"
         }
     }
-    var url: URL {
+    public var url: URL {
         switch self {
         case .pon: return Files.Audio.Se.ponMp3.url
         case .fanfare: return Files.Audio.Se.fanfareMp3.url

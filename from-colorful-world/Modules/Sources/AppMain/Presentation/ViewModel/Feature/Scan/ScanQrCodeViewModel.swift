@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import LookBack
 import UIKit
+import Setting
 
 protocol ScanQrCodeViewModelInputs {
     var onDetected: PassthroughSubject<String, Never> { get }
@@ -74,15 +75,7 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
     private var classPeaples: Int
     private var enableLookBack: Bool
 
-    private var audioPlayers: [AVPlayer] = {
-        // TODO: Inject
-        let sound = DefaultSettingService().currentEntity.feedbackSound ?? .pon
-        return (0..<10).map { _ in
-            let url = sound.url
-            let item = AVPlayerItem(url: url)
-            return AVPlayer(playerItem: item)
-        }
-    }()
+    private let audioPlayers: [AVPlayer]
     private var nextPlayer: Int = 0
 
     private var cancellables: Set<AnyCancellable> = []
@@ -97,6 +90,12 @@ class ScanQrCodeViewModel: ScanQrCodeViewModelType,
         self.isSpeakerMute = CurrentValueSubject<Bool, Never>(storeServcie.isSpeakerMute)
         self.currentResultsSubject = CurrentValueSubject(CurrentResultsEntity(rowCount: classPeaples,
                                                                               columns: []))
+        let sound = settingService.currentEntity.feedbackSound ?? .pon
+        audioPlayers = (0..<10).map { _ in
+            let url = sound.url
+            let item = AVPlayerItem(url: url)
+            return AVPlayer(playerItem: item)
+        }
 
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
