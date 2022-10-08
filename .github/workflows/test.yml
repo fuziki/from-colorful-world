@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
   
 env:
-  DEVELOPER_DIR: /Applications/Xcode_13.3.app
+  DEVELOPER_DIR: /Applications/Xcode_14.0.1.app
   AUDIO_FILE_URI: ${{secrets.AUDIO_FILE_URI}}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
